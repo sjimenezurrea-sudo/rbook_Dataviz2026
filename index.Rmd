@@ -1,0 +1,13 @@
+---
+title: "Visualización De Datos Y Toma de Desciciones"
+author: "Santiago Jimenez Urrea y Luis Cabarcas"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: sjimenezurrea-sudo/rbook_Dataviz2026
+description: "Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo."
+---

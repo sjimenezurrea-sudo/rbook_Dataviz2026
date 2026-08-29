@@ -1,7 +1,7 @@
 #  EDA (Análisis Exploratorio De Datos)
 
 
-```{r setup, include=FALSE}
+```{r setup-method, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.align = "center")
 
 col_principal <- "#2166AC"

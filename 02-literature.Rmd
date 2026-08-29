@@ -5,11 +5,10 @@
 
 A continuación se presenta la metodología a seguir para el desarrollo del proyecto.
 
-##  Descripción del dataset
-
+##  Descripción del dataset 
 Se utilizará el dataset `screen_time_mental_health.csv`, obtenido desde Kaggle, compuesto por **4.810 registros**, sin valores faltantes y con **10 variables**.
 
-```{r setup, include=FALSE}
+```{r setup-literature, include=FALSE}
 library(knitr)
 library(kableExtra)
 ```
