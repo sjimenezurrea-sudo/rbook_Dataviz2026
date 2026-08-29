@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 ANTECENDENTES | Visualización De Datos Y Toma de Desciciones</title>
+  <meta name="description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 ANTECENDENTES | Visualización De Datos Y Toma de Desciciones" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 ANTECENDENTES | Visualización De Datos Y Toma de Desciciones" />
+  
+  <meta name="twitter:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  
+
+<meta name="author" content="Santiago Jimenez Urrea" />
+
+
+<meta name="date" content="2026-08-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="objetivo.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="antecendentes.html"><a href="antecendentes.html"><i class="fa fa-check"></i><b>2</b> ANTECENDENTES</a></li>
+<li class="chapter" data-level="3" data-path="objetivo.html"><a href="objetivo.html"><i class="fa fa-check"></i><b>3</b> OBJETIVO</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="objetivo.html"><a href="objetivo.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>3.1</b> OBJETIVOS ESPECÍFICOS</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>4</b> Metodología</a></li>
+<li class="chapter" data-level="5" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>5</b> Methods</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>5.1</b> math example</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>6</b> Applications</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>6.1</b> Example one</a></li>
+<li class="chapter" data-level="6.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>6.2</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>7</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualización De Datos Y Toma de Desciciones</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="antecendentes" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> ANTECENDENTES<a href="antecendentes.html#antecendentes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>La preocupación por cómo el tiempo frente a pantallas afecta la salud mental de los jóvenes no es nueva, pero ha cobrado una urgencia especial en los últimos años, al mismo ritmo que aumentan las tasas de depresión en esta población. Diversos estudios han intentado desentrañar esta relación, y aunque muchos encuentran asociaciones positivas, el panorama es más complejo de lo que parece a simple vista. No todo el tiempo de pantalla es igual, no todos los adolescentes reaccionan igual, y el sueño parece ser una pieza clave que muchos análisis previos han tratado de manera demasiado simplificada.</p>
+<p>Uno de los trabajos más relevantes para nuestro estudio es el de Hökby et al. (2023), quienes siguieron a 4.793 adolescentes suecos durante 12 meses, con mediciones a los 0, 3 y 12 meses. Lo que encontraron es fascinante y contraintuitivo: el tiempo de pantalla, por sí solo, no predijo la depresión de forma directa (<em>p</em> = 0.469). Sin embargo, cuando este tiempo de pantalla interfería con la capacidad de los adolescentes para enfrentar los problemas de manera activa (lo que llaman “afrontamiento centrado en el problema”), el efecto se volvía significativo (interacción tiempo × pantalla × PFE: <em>b</em> = 0.009; <em>p</em> &lt; 0.01), llegando a aumentar hasta 3.4 puntos en el BDI-II. En cambio, el afrontamiento centrado en la emoción —es decir, enfocarse en regular las emociones más que en resolver el problema— no mostró efectos relevantes. Esto sugiere que no es la pantalla en sí misma, sino lo que nos impide hacer mientras estamos frente a ella, lo que realmente termina afectándonos.</p>
+<p>Por otro lado, Lemke et al. (2023) pusieron el foco en el sueño, analizando a 8.449 adolescentes suecos de 12 a 16 años. Sus hallazgos son contundentes: el 45.6% de los adolescentes dormía menos de 8 horas en días de colegio, y entre aquellos con depresión, esta cifra se disparaba al 68.96%. La duración del sueño entre semana (OR = 0.773; <em>p</em> &lt; 0.0001), la calidad del sueño (OR = 0.327; <em>p</em> &lt; 0.0001) y tener un cronotipo tardío (OR = 1.126; <em>p</em> = 0.0017) fueron predictores claros de depresión (BDI-II &gt; 13). Es más, cada 30 minutos adicionales de sueño se asoció con un 10% menos de probabilidad de desarrollar depresión. Interesantemente, la duración del sueño en fin de semana no mostró relación significativa, lo que refuerza la idea de que la rutina y la regularidad importan más que “recuperar el sueño perdido”.</p>
+<p>Saleem et al. (2024) aportan una mirada más amplia con una revisión sistemática de 67 estudios (de 4.850 identificados) en población de 5 a 18 años. Su conclusión general es que sí existe una asociación positiva consistente entre el uso de redes sociales y los síntomas de depresión y ansiedad. Sin embargo, también señalan una alta heterogeneidad metodológica entre los estudios —unos miden tiempo, otros frecuencia, otros tipo de contenido— lo que dificulta establecer conclusiones firmes y comparables. Esta diversidad de enfoques metodológicos es precisamente una de las razones por las que nuestro estudio, al trabajar con un dataset longitudinal bien estructurado, puede aportar claridad.</p>
+<p>El trabajo más cercano a nuestro dataset es, sin duda, el de Hökby et al. (2025), quienes pusieron a prueba la llamada teoría del desplazamiento pantalla-sueño. Usando modelos de ecuaciones estructurales multigrupo en los mismos 4.810 adolescentes suecos, encontraron que el tiempo de pantalla efectivamente deterioraba el sueño a los 3 meses, con efectos que iban desde β = 0.14 hasta β = 0.30 dependiendo del dominio del sueño. Pero lo más revelador vino al separar por género: en los chicos, el efecto sobre la depresión a los 12 meses fue directo (β = 0.02; <em>p</em> &lt; 0.038), sin que el sueño mediara esa relación. En las chicas, en cambio, el efecto fue completamente distinto: la calidad del sueño explicaba el 57% del efecto, la duración el 38%, y el cronotipo el 45%. El jetlag social, por su parte, no fue significativo en ninguno de los dos grupos. Esto nos dice que hombres y mujeres no solo experimentan la depresión de manera distinta, sino que también llegan a ella por caminos diferentes.</p>
+<p>Finalmente, vale la pena mirar lo que ocurre cuando se aplican enfoques más modernos de machine learning al problema. Chen et al. (2026) compararon cinco algoritmos para predecir el riesgo de depresión en 1.226 adolescentes chinos de 13 a 25 años. El ganador fue XGBoost, con un AUC de 0.927, un rendimiento excelente. Al analizar qué variables eran más importantes según SHAP, los predictores principales fueron el uso de somníferos, la indiferencia parental y el nivel educativo. En el análisis de regresión logística, el uso de somníferos (OR = 11.87), tener padres violentos (OR = 1.69) y presentar más de un trastorno del sueño (OR = 1.89) resultaron factores de riesgo independientes. Este estudio nos muestra que el sueño —y los factores asociados a él— no solo son relevantes desde una perspectiva teórica, sino que además tienen un poder predictivo muy alto cuando se usan modelos avanzados.</p>
+<p>En conjunto, lo que todos estos estudios nos dicen es que el sueño —su calidad, su duración, el momento del día en que preferimos dormir— es una vía central y, lo más importante, modificable, a través de la cual el tiempo de pantalla puede afectar la depresión adolescente. Pero también nos muestran que hay matices importantes: el género, el tipo de afrontamiento y el contexto familiar juegan roles que no podemos ignorar. Las limitaciones metodológicas de muchos estudios previos —diseños transversales, mediciones inconsistentes del tiempo de pantalla— son precisamente el vacío que nuestro estudio, con su diseño longitudinal y su enfoque de ciencia de datos, busca ayudar a llenar.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="objetivo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+# Metodología
+
+**Santiago Jiménez y Luis Cabarcas**  
+*Universidad del Norte*
+
+A continuación se presenta la metodología a seguir para el desarrollo del proyecto.
+
+##  Descripción del dataset
+
+Se utilizará el dataset `screen_time_mental_health.csv`, obtenido desde Kaggle, compuesto por **4.810 registros**, sin valores faltantes y con **10 variables**.
+
+```{r setup, include=FALSE}
+library(knitr)
+library(kableExtra)
+```
+
+```{r}
+
+variables <- data.frame(
+  Variable = c(
+    "subject_id",
+    "sex",
+    "screen_time_index",
+    "est_leisure_screen_hours",
+    "sleep_quality_index",
+    "avg_sleep_hours",
+    "midsleep_weekend_hours",
+    "social_jetlag_hours",
+    "bdi_total",
+    "depressed"
+  ),
+  
+  Tipo = c(
+    "Identificador",
+    "Categórica binaria",
+    "Continua (1–6)",
+    "Continua",
+    "Continua",
+    "Continua",
+    "Continua",
+    "Continua",
+    "Discreta (0–63)",
+    "Binaria"
+  ),
+  
+  Descripcion = c(
+    "Identificador del participante. No se utiliza como predictor.",
+    "Sexo del participante: Boy / Girl.",
+    "Índice combinado de tiempo de pantalla.",
+    "Horas estimadas de pantalla destinadas al ocio.",
+    "Índice de calidad del sueño (SQI).",
+    "Duración promedio semanal del sueño (WASD).",
+    "Punto medio del sueño durante el fin de semana; proxy del cronotipo.",
+    "Diferencia entre los horarios de sueño de días laborales y fines de semana.",
+    "Puntaje total del inventario BDI-II.",
+    "Variable objetivo. 1 = deprimido y 0 = no deprimido."
+  )
+)
+
+kable(
+  variables,
+  format = "html",
+  caption = "Descripción de las variables del dataset",
+  escape = TRUE
+) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "responsive"),
+    full_width = FALSE
+)
+```
+
+##  Análisis Exploratorio de Datos (EDA)
+
+Se realizará un análisis exploratorio de los datos con el objetivo de comprender las características principales del dataset antes de realizar el modelado.
+
+Se calcularán **estadísticas descriptivas por variable y por género**, con el propósito de identificar las características generales de la población estudiada y posibles diferencias entre hombres y mujeres.
+
+También se analizará la **distribución de la variable objetivo `depressed`** y del puntaje total `bdi_total`, prestando especial atención a la proporción de participantes que superan el punto de corte clínico establecido para depresión.
+
+Además, se estudiarán las relaciones entre las variables relacionadas con el **tiempo de pantalla, el sueño y el puntaje BDI-II**, buscando identificar posibles asociaciones entre estos factores.
+
+Para complementar el análisis se utilizarán diferentes visualizaciones, entre ellas:
+
+- **Histogramas**, para analizar la distribución de las variables numéricas.
+- **Boxplots**, para identificar diferencias entre grupos y posibles valores atípicos.
+- **Gráficos de distribución**, para observar el comportamiento de las principales variables.
+- **Matrices de correlación**, para estudiar las relaciones entre las variables numéricas relacionadas con pantalla, sueño y `bdi_total`.
+
+Finalmente, se realizarán **pruebas de diferencia por género** con el propósito de identificar posibles diferencias estadísticamente significativas entre hombres y mujeres en las variables estudiadas.
+
+---
+
+##  Preprocesamiento
+
+Antes de realizar el entrenamiento de los modelos, se realizará una división del dataset en conjuntos de **entrenamiento y prueba**.
+
+Las variables continuas serán **estandarizadas** cuando el algoritmo utilizado lo requiera. La variable `subject_id` será excluida del proceso de modelado debido a que corresponde únicamente al identificador de cada participante y no contiene información predictiva relevante.
+
+La variable `sex`, al ser categórica binaria, será transformada a un formato adecuado para su utilización como predictor en los modelos que lo requieran.
+
+Debido al desbalance presente en la variable objetivo `depressed`, donde aproximadamente el **16,4 % de los participantes corresponde a la clase positiva**, se evaluarán estrategias para abordar este problema, como **SMOTE** o el uso de `class_weight = "balanced"`.
+
+Estas técnicas serán aplicadas **únicamente sobre el conjunto de entrenamiento**, con el objetivo de evitar filtración de información (*data leakage*) hacia el conjunto de prueba.
+
+---
+
+##  Modelado
+
+Se utilizarán diferentes algoritmos de **aprendizaje automático supervisado** para predecir la variable objetivo `depressed`.
+
+Los modelos considerados serán:
+
+- **Regresión logística**, como modelo de referencia e interpretable.
+- **Random Forest**, para capturar relaciones no lineales e interacciones entre variables.
+- **XGBoost**, como algoritmo de boosting basado en árboles de decisión.
+
+Se considerarán tres configuraciones diferentes de los modelos:
+
+1. **Modelo conjunto:** utilizará todos los participantes e incluirá `sex` como variable predictora.
+
+2. **Modelo para chicos:** se entrenará utilizando únicamente los participantes masculinos.
+
+3. **Modelo para chicas:** se entrenará utilizando únicamente las participantes femeninas.
+
+Esta estrategia permitirá comparar el desempeño de los modelos y analizar si existen diferencias en los factores asociados con la depresión según el género.
+
+Para la selección de los mejores hiperparámetros se utilizarán métodos como **GridSearchCV** o **RandomizedSearchCV**, junto con una **validación cruzada de 5 particiones (k = 5)**.
+
+La métrica principal utilizada para la optimización será **AUC-PR**, debido al desbalance presente en la variable objetivo. Esta métrica permitirá evaluar de manera más adecuada la capacidad de los modelos para identificar los casos positivos.
+
+---
+
+##  Evaluación
+
+El desempeño de los modelos será evaluado mediante diferentes **métricas de clasificación**, con especial atención al comportamiento de la clase positiva.
+
+Las métricas utilizadas serán:
+
+- **AUC-ROC**, para evaluar la capacidad general del modelo para distinguir entre las clases.
+- **Precisión**, para determinar qué proporción de las predicciones positivas corresponde realmente a participantes clasificados como positivos.
+- **Recall**, para medir la capacidad del modelo para identificar correctamente los casos positivos.
+- **F1-score**, como medida conjunta del equilibrio entre precisión y recall.
+- **Matriz de confusión**, para visualizar los aciertos y errores de clasificación.
+- **Curva Precision-Recall**, especialmente relevante debido al desbalance presente en la variable objetivo.
+
+Además, los resultados obtenidos por los diferentes modelos serán comparados con un **baseline basado en la clase mayoritaria**. Esto permitirá determinar si los modelos desarrollados proporcionan una mejora real frente a una estrategia de clasificación trivial.
+
+La comparación se realizará tanto entre los diferentes algoritmos como entre las distintas configuraciones por género.
+
+---
+
+##  Interpretabilidad
+
+La interpretabilidad permitirá identificar cuáles variables tienen mayor influencia en las predicciones realizadas por los modelos.
+
+Para los modelos **Random Forest** y **XGBoost** se utilizarán medidas de **importancia de variables**, con el objetivo de establecer cuáles predictores contribuyen en mayor medida al desempeño de los modelos.
+
+Se prestará especial atención a la variable `sleep_quality_index`, con el propósito de determinar si la **calidad del sueño** constituye uno de los principales predictores de `depressed`.
+
+También se analizará la importancia relativa de las variables relacionadas con:
+
+- Tiempo de pantalla.
+- Calidad del sueño.
+- Duración del sueño.
+- Cronotipo.
+- Jet lag social.
+- Género.
+
+Finalmente, se comparará la importancia de las variables entre:
+
+- **Modelo conjunto.**
+- **Modelo de chicos.**
+- **Modelo de chicas.**
+
+De esta manera, se buscará identificar cuáles variables presentan mayor relevancia para la predicción de depresión y si existen diferencias en los factores predictivos según el género.
+
+---
+
+## Herramientas
+
+El desarrollo del proyecto combinará el uso de **Python y R**, aprovechando las ventajas de ambos lenguajes.
+
+El modelado principal y las técnicas de aprendizaje automático serán desarrollados en **Python**, mientras que **R** será utilizado como herramienta complementaria para el análisis exploratorio, la manipulación de datos y la presentación de resultados.
+
+Entre las principales herramientas utilizadas en Python se encuentran:
+
+- **`pandas`**, para la manipulación y preparación de los datos.
+- **`scikit-learn`**, para el preprocesamiento, entrenamiento, validación y evaluación de los modelos.
+- **`xgboost`**, para la implementación del modelo XGBoost.
+- **`imbalanced-learn`**, para la aplicación de técnicas como SMOTE.
+- **`matplotlib`** y **`seaborn`**, para la generación de visualizaciones.
+
+En R se utilizarán principalmente:
+
+- **`tidyverse`**, para la manipulación y transformación de datos.
+- **`dplyr`**, para el filtrado, agrupación y resumen de información.
+- **`ggplot2`**, para la generación de visualizaciones.
+- **`knitr`**, para la generación de tablas y contenido reproducible.
+- **`kableExtra`**, para la personalización y presentación de tablas en formato HTML.
+
+El uso combinado de estas herramientas permitirá desarrollar un flujo de trabajo reproducible que abarque desde la exploración y preparación de los datos hasta el entrenamiento, evaluación e interpretación de los modelos.

@@ -1,0 +1,11 @@
+# Referencias {-}
+
+Hökby, S., Westerlund, J., Alvarsson, J., Carli, V., & Hadlaczky, G. (2023). Longitudinal Effects of Screen Time on Depressive Symptoms among Swedish Adolescents: The Moderating and Mediating Role of Coping Engagement Behavior. *International Journal of Environmental Research and Public Health*, 20(4), 3771. https://doi.org/10.3390/ijerph20043771
+
+Lemke, T., Hökby, S., Wasserman, D., Carli, V., & Hadlaczky, G. (2023). Associations between sleep habits, quality, chronotype and depression in a large cross-sectional sample of Swedish adolescents. *PLoS One*, 18(11), e0293580. https://doi.org/10.1371/journal.pone.0293580
+
+Saleem, N., Young, P., & Yousuf, S. (2024). Exploring the relationship between social media use and symptoms of depression and anxiety among children and adolescents: A systematic narrative review. *Cyberpsychology, Behavior, and Social Networking*, 27(11), 771–797.
+
+Hökby, S., Alvarsson, J., Westerlund, J., Carli, V., & Hadlaczky, G. (2025). Adolescents' screen time displaces multiple sleep pathways and elevates depressive symptoms over twelve months. *PLOS Global Public Health*, 5(4), e0004262. https://doi.org/10.1371/journal.pgph.0004262
+
+Chen, X., Yang, B., Han, L., Li, X., Jin, W., Xie, Z., Tao, M., Chen, Y., Gu, Y., Solomon, O. M., Li, L., & Wei, Y. (2026). Predicting adolescent depression: an interpretable machine learning model. *BMC Medical Informatics and Decision Making*, 26, 218. https://doi.org/10.1186/s12911-026-03482-5
