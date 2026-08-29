@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Visualización De Datos Y Toma de Desciciones</title>
+  <meta name="description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Visualización De Datos Y Toma de Desciciones" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Visualización De Datos Y Toma de Desciciones" />
+  
+  <meta name="twitter:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  
+
+<meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
+
+
+<meta name="date" content="2026-08-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="metodología.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#antecendentes"><i class="fa fa-check"></i><b>1.1</b> ANTECENDENTES</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#objetivo"><i class="fa fa-check"></i><b>1.2</b> OBJETIVO</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.3</b> OBJETIVOS ESPECÍFICOS</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>2</b> Metodología</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="metodología.html"><a href="metodología.html#descripci%C3%B3n-del-dataset"><i class="fa fa-check"></i><b>2.1</b> Descripción del dataset</a></li>
+<li class="chapter" data-level="2.2" data-path="metodología.html"><a href="metodología.html#an%C3%A1lisis-exploratorio-de-datos-eda"><i class="fa fa-check"></i><b>2.2</b> Análisis Exploratorio de Datos (EDA)</a></li>
+<li class="chapter" data-level="2.3" data-path="metodología.html"><a href="metodología.html#preprocesamiento"><i class="fa fa-check"></i><b>2.3</b> Preprocesamiento</a></li>
+<li class="chapter" data-level="2.4" data-path="metodología.html"><a href="metodología.html#modelado"><i class="fa fa-check"></i><b>2.4</b> Modelado</a></li>
+<li class="chapter" data-level="2.5" data-path="metodología.html"><a href="metodología.html#evaluaci%C3%B3n"><i class="fa fa-check"></i><b>2.5</b> Evaluación</a></li>
+<li class="chapter" data-level="2.6" data-path="metodología.html"><a href="metodología.html#interpretabilidad"><i class="fa fa-check"></i><b>2.6</b> Interpretabilidad</a></li>
+<li class="chapter" data-level="2.7" data-path="metodología.html"><a href="metodología.html#herramientas"><i class="fa fa-check"></i><b>2.7</b> Herramientas</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> EDA (Análisis Exploratorio De Datos)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto"><i class="fa fa-check"></i><b>3.1</b> Comprender el contexto</a></li>
+<li class="chapter" data-level="3.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas"><i class="fa fa-check"></i><b>3.2</b> Carga de librerías</a></li>
+<li class="chapter" data-level="3.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>3.3</b> Importación de datos</a></li>
+<li class="chapter" data-level="3.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n"><i class="fa fa-check"></i><b>3.4</b> Limpieza, tratamiento y preparación</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos"><i class="fa fa-check"></i><b>3.4.1</b> Tipos de datos</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados"><i class="fa fa-check"></i><b>3.4.2</b> Valores faltantes y duplicados</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#resumen-estad%C3%ADstico-inicial"><i class="fa fa-check"></i><b>3.4.3</b> Resumen estadístico inicial</a></li>
+<li class="chapter" data-level="3.4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr"><i class="fa fa-check"></i><b>3.4.4</b> Detección de outliers (método IQR)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado"><i class="fa fa-check"></i><b>3.5</b> Análisis descriptivo univariado</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>3.5.1</b> Distribución de variables numéricas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total"><i class="fa fa-check"></i><b>3.5.2</b> Variable objetivo: depressed / bdi_total</a></li>
+<li class="chapter" data-level="3.5.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex"><i class="fa fa-check"></i><b>3.5.3</b> Variable categórica: sex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado"><i class="fa fa-check"></i><b>3.6</b> Análisis descriptivo bivariado</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman"><i class="fa fa-check"></i><b>3.6.1</b> Matriz de correlación (Spearman)</a></li>
+<li class="chapter" data-level="3.6.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real"><i class="fa fa-check"></i><b>3.6.2</b> Selección de variables a partir de la correlación real</a></li>
+<li class="chapter" data-level="3.6.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total"><i class="fa fa-check"></i><b>3.6.3</b> Predictoras más asociadas con bdi_total</a></li>
+<li class="chapter" data-level="3.6.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo"><i class="fa fa-check"></i><b>3.6.4</b> Interacción con sexo</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>3.7</b> Documentación de hallazgos</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="en-proceso.html"><a href="en-proceso.html"><i class="fa fa-check"></i><b>4</b> En proceso</a></li>
+<li class="chapter" data-level="5" data-path="en-proceso-1.html"><a href="en-proceso-1.html"><i class="fa fa-check"></i><b>5</b> En proceso</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualización De Datos Y Toma de Desciciones</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Visualización De Datos Y Toma de Desciciones</h1>
+<p class="author"><em>Santiago Jimenez Urrea y Luis Cabarcas</em></p>
+<p class="date"><em>2026-08-28</em></p>
+</div>
+<div id="intro" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Luis Cabarcas y Santiago Jiménez</strong><br />
+<em>Universidad del Norte</em></p>
+<p>En la actualidad, prácticamente toda acción cotidiana —comunicarse, estudiar, trabajar, entretenerse o incluso relacionarse afectivamente— se canaliza a través de una pantalla. Celulares, computadores, tablets, televisores, relojes inteligentes y una creciente lista de dispositivos nos prometen la facilidad de estar permanentemente conectados con el mundo, eliminando barreras geográficas y temporales. Sin embargo, esta hiperconexión plantea una paradoja: mientras más presentes estamos en el mundo digital, más ausentes podemos estar del mundo físico, de las relaciones cara a cara y, en última instancia, de nosotros mismos.</p>
+<p>Por más que la tecnología evolucione para hacer la vida humana más fácil, seguimos siendo personas que sentimos, que nos regimos por emociones y que necesitamos contacto tangible. No somos robots. El tiempo que pasamos frente a una pantalla no es neutro: desplaza horas que podríamos dedicar a dormir, a conversar, a jugar al aire libre o simplemente a descansar la mente. Esta sustitución tiene consecuencias directas sobre nuestro estado de ánimo y, en el largo plazo, sobre nuestra salud mental.</p>
+<p>El presente estudio nace precisamente de esa inquietud: ¿realmente el tiempo de pantalla afecta nuestro desarrollo diario y nuestra salud mental? Y, si lo hace, ¿a través de qué mecanismos? Para responder estas preguntas, no basta con correlaciones del mismo día; se requiere un diseño longitudinal que permita observar cómo el uso de pantallas hoy predice nuestro bienestar meses después. Eso es exactamente lo que ofrece el dataset que analizaremos: 4.810 adolescentes suecos de entre 12 y 16 años, seguidos durante un año, con mediciones de tiempo de pantalla, sueño y depresión.</p>
+<p>A lo largo de este RBook, exploraremos con métodos de ciencia de datos si el tiempo en pantalla realmente predice la depresión adolescente, o si —como apuntan investigaciones recientes— el verdadero mecanismo explicativo se encuentra en lo que el tiempo de pantalla le roba al sueño: su calidad, su duración, nuestro ritmo biológico. Porque al final, controlar el tiempo que pasamos frente a las pantallas no es solo una cuestión de productividad, sino de salud emocional y de vida.</p>
+<div id="antecendentes" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> ANTECENDENTES<a href="intro.html#antecendentes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La preocupación por cómo el tiempo frente a pantallas afecta la salud mental de los jóvenes no es nueva, pero ha cobrado una urgencia especial en los últimos años, al mismo ritmo que aumentan las tasas de depresión en esta población. Diversos estudios han intentado desentrañar esta relación, y aunque muchos encuentran asociaciones positivas, el panorama es más complejo de lo que parece a simple vista. No todo el tiempo de pantalla es igual, no todos los adolescentes reaccionan igual, y el sueño parece ser una pieza clave que muchos análisis previos han tratado de manera demasiado simplificada.</p>
+<p>Uno de los trabajos más relevantes para nuestro estudio es el de Hökby et al. (2023), quienes siguieron a 4.793 adolescentes suecos durante 12 meses, con mediciones a los 0, 3 y 12 meses. Lo que encontraron es fascinante y contraintuitivo: el tiempo de pantalla, por sí solo, no predijo la depresión de forma directa (<em>p</em> = 0.469). Sin embargo, cuando este tiempo de pantalla interfería con la capacidad de los adolescentes para enfrentar los problemas de manera activa (lo que llaman “afrontamiento centrado en el problema”), el efecto se volvía significativo (interacción tiempo × pantalla × PFE: <em>b</em> = 0.009; <em>p</em> &lt; 0.01), llegando a aumentar hasta 3.4 puntos en el BDI-II. En cambio, el afrontamiento centrado en la emoción —es decir, enfocarse en regular las emociones más que en resolver el problema— no mostró efectos relevantes. Esto sugiere que no es la pantalla en sí misma, sino lo que nos impide hacer mientras estamos frente a ella, lo que realmente termina afectándonos.</p>
+<p>Por otro lado, Lemke et al. (2023) pusieron el foco en el sueño, analizando a 8.449 adolescentes suecos de 12 a 16 años. Sus hallazgos son contundentes: el 45.6% de los adolescentes dormía menos de 8 horas en días de colegio, y entre aquellos con depresión, esta cifra se disparaba al 68.96%. La duración del sueño entre semana (OR = 0.773; <em>p</em> &lt; 0.0001), la calidad del sueño (OR = 0.327; <em>p</em> &lt; 0.0001) y tener un cronotipo tardío (OR = 1.126; <em>p</em> = 0.0017) fueron predictores claros de depresión (BDI-II &gt; 13). Es más, cada 30 minutos adicionales de sueño se asoció con un 10% menos de probabilidad de desarrollar depresión. Interesantemente, la duración del sueño en fin de semana no mostró relación significativa, lo que refuerza la idea de que la rutina y la regularidad importan más que “recuperar el sueño perdido”.</p>
+<p>Saleem et al. (2024) aportan una mirada más amplia con una revisión sistemática de 67 estudios (de 4.850 identificados) en población de 5 a 18 años. Su conclusión general es que sí existe una asociación positiva consistente entre el uso de redes sociales y los síntomas de depresión y ansiedad. Sin embargo, también señalan una alta heterogeneidad metodológica entre los estudios —unos miden tiempo, otros frecuencia, otros tipo de contenido— lo que dificulta establecer conclusiones firmes y comparables. Esta diversidad de enfoques metodológicos es precisamente una de las razones por las que nuestro estudio, al trabajar con un dataset longitudinal bien estructurado, puede aportar claridad.</p>
+<p>El trabajo más cercano a nuestro dataset es, sin duda, el de Hökby et al. (2025), quienes pusieron a prueba la llamada teoría del desplazamiento pantalla-sueño. Usando modelos de ecuaciones estructurales multigrupo en los mismos 4.810 adolescentes suecos, encontraron que el tiempo de pantalla efectivamente deterioraba el sueño a los 3 meses, con efectos que iban desde β = 0.14 hasta β = 0.30 dependiendo del dominio del sueño. Pero lo más revelador vino al separar por género: en los chicos, el efecto sobre la depresión a los 12 meses fue directo (β = 0.02; <em>p</em> &lt; 0.038), sin que el sueño mediara esa relación. En las chicas, en cambio, el efecto fue completamente distinto: la calidad del sueño explicaba el 57% del efecto, la duración el 38%, y el cronotipo el 45%. El jetlag social, por su parte, no fue significativo en ninguno de los dos grupos. Esto nos dice que hombres y mujeres no solo experimentan la depresión de manera distinta, sino que también llegan a ella por caminos diferentes.</p>
+<p>Finalmente, vale la pena mirar lo que ocurre cuando se aplican enfoques más modernos de machine learning al problema. Chen et al. (2026) compararon cinco algoritmos para predecir el riesgo de depresión en 1.226 adolescentes chinos de 13 a 25 años. El ganador fue XGBoost, con un AUC de 0.927, un rendimiento excelente. Al analizar qué variables eran más importantes según SHAP, los predictores principales fueron el uso de somníferos, la indiferencia parental y el nivel educativo. En el análisis de regresión logística, el uso de somníferos (OR = 11.87), tener padres violentos (OR = 1.69) y presentar más de un trastorno del sueño (OR = 1.89) resultaron factores de riesgo independientes. Este estudio nos muestra que el sueño —y los factores asociados a él— no solo son relevantes desde una perspectiva teórica, sino que además tienen un poder predictivo muy alto cuando se usan modelos avanzados.</p>
+<p>En conjunto, lo que todos estos estudios nos dicen es que el sueño —su calidad, su duración, el momento del día en que preferimos dormir— es una vía central y, lo más importante, modificable, a través de la cual el tiempo de pantalla puede afectar la depresión adolescente. Pero también nos muestran que hay matices importantes: el género, el tipo de afrontamiento y el contexto familiar juegan roles que no podemos ignorar. Las limitaciones metodológicas de muchos estudios previos —diseños transversales, mediciones inconsistentes del tiempo de pantalla— son precisamente el vacío que nuestro estudio, con su diseño longitudinal y su enfoque de ciencia de datos, busca ayudar a llenar.</p>
+</div>
+<div id="objetivo" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> OBJETIVO<a href="intro.html#objetivo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este estudio se propone analizar y modelar, utilizando herramientas de análisis exploratorio de datos y aprendizaje automático, la relación que existe entre el tiempo que los adolescentes pasan frente a pantallas, los cuatro dominios del sueño que hemos mencionado (calidad, duración, cronotipo y jet lag social), y la severidad de los síntomas depresivos medidos con el BDI-II. La idea no es solo confirmar lo que otros han encontrado, sino identificar qué predictores pesan más y evaluar si un enfoque predictivo puede replicar —o incluso enriquecer— los patrones de mediación que reportó el estudio original de Hökby et al. (2025).</p>
+</div>
+<div id="objetivos-específicos" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> OBJETIVOS ESPECÍFICOS<a href="intro.html#objetivos-espec%C3%ADficos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Explorar los datos a fondo para entender cómo se distribuyen el tiempo de pantalla, los cuatro dominios del sueño (SQI, WASD, cronotipo y jet lag social), y el puntaje BDI-II. Queremos saber, por ejemplo, cuántos adolescentes superan el punto de corte clínico de depresión leve (más de 13 puntos) y si hay patrones claros que se repitan en la muestra.</p></li>
+<li><p>Analizar la relación entre el tiempo de pantalla y cada dominio del sueño por separado, porque tratar el sueño como una única variable es simplificar demasiado una realidad compleja. El estudio base ya nos mostró que cada dominio tiene un tamaño de efecto distinto, y queremos ver si eso se mantiene al aplicar nuestros propios métodos.</p></li>
+<li><p>Explorar las diferencias de género, replicando uno de los hallazgos más interesantes del estudio original: que las chicas reportan puntajes de depresión más altos, y que la mediación del sueño solo fue significativa en el subgrupo femenino. Nos preguntamos si estas diferencias se mantienen al usar modelos distintos y al incorporar más variables.</p></li>
+<li><p>Entrenar y comparar modelos de machine learning como regresión logística, random forest y XGBoost para predecir el riesgo depresivo (usando el target definido en el dataset) a partir de variables de pantalla, sueño y demográficas. También planteamos entrenar modelos separados por género, para contrastar con el enfoque multigrupo del estudio original y ver si el rendimiento predictivo mejora al hacer esta distinción.</p></li>
+<li><p>Identificar los predictores más importantes usando técnicas como importancia de variables y SHAP. Queremos responder, con datos y con modelos, si el tiempo de pantalla realmente es el protagonista, o si —como empieza a verse en la literatura— el sueño termina siendo el verdadero mediador de esta historia. Y, sobre todo, si ambos factores emergen como los más relevantes o si hay sorpresas en el camino.</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="metodología.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

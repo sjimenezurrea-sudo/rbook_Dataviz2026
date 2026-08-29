@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 EDA (Análisis Exploratorio De Datos) | Visualización De Datos Y Toma de Desciciones</title>
+  <meta name="description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 EDA (Análisis Exploratorio De Datos) | Visualización De Datos Y Toma de Desciciones" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 EDA (Análisis Exploratorio De Datos) | Visualización De Datos Y Toma de Desciciones" />
+  
+  <meta name="twitter:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  
+
+<meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
+
+
+<meta name="date" content="2026-08-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="metodología.html"/>
+<link rel="next" href="en-proceso.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#antecendentes"><i class="fa fa-check"></i><b>1.1</b> ANTECENDENTES</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#objetivo"><i class="fa fa-check"></i><b>1.2</b> OBJETIVO</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.3</b> OBJETIVOS ESPECÍFICOS</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>2</b> Metodología</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="metodología.html"><a href="metodología.html#descripci%C3%B3n-del-dataset"><i class="fa fa-check"></i><b>2.1</b> Descripción del dataset</a></li>
+<li class="chapter" data-level="2.2" data-path="metodología.html"><a href="metodología.html#an%C3%A1lisis-exploratorio-de-datos-eda"><i class="fa fa-check"></i><b>2.2</b> Análisis Exploratorio de Datos (EDA)</a></li>
+<li class="chapter" data-level="2.3" data-path="metodología.html"><a href="metodología.html#preprocesamiento"><i class="fa fa-check"></i><b>2.3</b> Preprocesamiento</a></li>
+<li class="chapter" data-level="2.4" data-path="metodología.html"><a href="metodología.html#modelado"><i class="fa fa-check"></i><b>2.4</b> Modelado</a></li>
+<li class="chapter" data-level="2.5" data-path="metodología.html"><a href="metodología.html#evaluaci%C3%B3n"><i class="fa fa-check"></i><b>2.5</b> Evaluación</a></li>
+<li class="chapter" data-level="2.6" data-path="metodología.html"><a href="metodología.html#interpretabilidad"><i class="fa fa-check"></i><b>2.6</b> Interpretabilidad</a></li>
+<li class="chapter" data-level="2.7" data-path="metodología.html"><a href="metodología.html#herramientas"><i class="fa fa-check"></i><b>2.7</b> Herramientas</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> EDA (Análisis Exploratorio De Datos)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto"><i class="fa fa-check"></i><b>3.1</b> Comprender el contexto</a></li>
+<li class="chapter" data-level="3.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas"><i class="fa fa-check"></i><b>3.2</b> Carga de librerías</a></li>
+<li class="chapter" data-level="3.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>3.3</b> Importación de datos</a></li>
+<li class="chapter" data-level="3.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n"><i class="fa fa-check"></i><b>3.4</b> Limpieza, tratamiento y preparación</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos"><i class="fa fa-check"></i><b>3.4.1</b> Tipos de datos</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados"><i class="fa fa-check"></i><b>3.4.2</b> Valores faltantes y duplicados</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr"><i class="fa fa-check"></i><b>3.4.3</b> Detección de outliers (método IQR)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado"><i class="fa fa-check"></i><b>3.5</b> Análisis descriptivo univariado</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>3.5.1</b> Distribución de variables numéricas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total"><i class="fa fa-check"></i><b>3.5.2</b> Variable objetivo: depressed / bdi_total</a></li>
+<li class="chapter" data-level="3.5.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex"><i class="fa fa-check"></i><b>3.5.3</b> Variable categórica: sex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado"><i class="fa fa-check"></i><b>3.6</b> Análisis descriptivo bivariado</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman"><i class="fa fa-check"></i><b>3.6.1</b> Matriz de correlación (Spearman)</a></li>
+<li class="chapter" data-level="3.6.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real"><i class="fa fa-check"></i><b>3.6.2</b> Selección de variables a partir de la correlación real</a></li>
+<li class="chapter" data-level="3.6.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total"><i class="fa fa-check"></i><b>3.6.3</b> Predictoras más asociadas con bdi_total</a></li>
+<li class="chapter" data-level="3.6.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo"><i class="fa fa-check"></i><b>3.6.4</b> Interacción con sexo</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>3.7</b> Documentación de hallazgos</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="en-proceso.html"><a href="en-proceso.html"><i class="fa fa-check"></i><b>4</b> En proceso</a></li>
+<li class="chapter" data-level="5" data-path="en-proceso-1.html"><a href="en-proceso-1.html"><i class="fa fa-check"></i><b>5</b> En proceso</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualización De Datos Y Toma de Desciciones</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="eda-análisis-exploratorio-de-datos" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> EDA (Análisis Exploratorio De Datos)<a href="eda-análisis-exploratorio-de-datos.html#eda-an%C3%A1lisis-exploratorio-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="comprender-el-contexto" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Comprender el contexto<a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Pregunta de investigación: <strong>¿el tiempo en pantallas y los patrones de sueño afectan la salud
+mental de los adolescentes?</strong></p>
+<p>Variable objetivo: <code>bdi_total</code> / <code>depressed</code>. Las demás variables numéricas (tiempo de
+pantalla, sueño) se tratan como predictoras. Este documento sigue los pasos del EDA:
+importar, limpiar, describir (uni y bivariado) y documentar hallazgos. La selección de qué
+relaciones profundizar en la sección bivariada se hace calculando la correlación real con
+<code>bdi_total</code>, no a partir de una lectura visual de la matriz.</p>
+</div>
+<div id="carga-de-librerías" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Carga de librerías<a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="eda-análisis-exploratorio-de-datos.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="eda-análisis-exploratorio-de-datos.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb1-3"><a href="eda-análisis-exploratorio-de-datos.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb1-4"><a href="eda-análisis-exploratorio-de-datos.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-5"><a href="eda-análisis-exploratorio-de-datos.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-6"><a href="eda-análisis-exploratorio-de-datos.html#cb1-6" tabindex="-1"></a><span class="co">#APOYO LIBRERÍA DT RECOMENDADA POR IA PARA TABLAS</span></span></code></pre></div>
+</div>
+<div id="importación-de-datos" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Importación de datos<a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="eda-análisis-exploratorio-de-datos.html#cb2-1" tabindex="-1"></a>datoshealth <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;screen_time_mental_health.csv&quot;</span>)</span>
+<span id="cb2-2"><a href="eda-análisis-exploratorio-de-datos.html#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="eda-análisis-exploratorio-de-datos.html#cb2-3" tabindex="-1"></a><span class="fu">glimpse</span>(datoshealth)</span></code></pre></div>
+<pre><code>## Rows: 4,810
+## Columns: 10
+## $ subject_id               &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14…
+## $ sex                      &lt;chr&gt; &quot;Boy&quot;, &quot;Girl&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;G…
+## $ screen_time_index        &lt;dbl&gt; 3.333, 3.333, 3.333, 4.333, 1.667, 2.333, 2.6…
+## $ est_leisure_screen_hours &lt;dbl&gt; 4.64, 4.07, 4.07, 6.07, 0.50, 2.07, 2.64, 6.7…
+## $ sleep_quality_index      &lt;dbl&gt; 2.25, 2.50, 2.00, 1.50, 2.50, 1.00, 5.25, 1.0…
+## $ avg_sleep_hours          &lt;dbl&gt; 8.36, 7.31, 8.75, 8.17, 8.88, 8.51, 7.70, 4.9…
+## $ midsleep_weekend_hours   &lt;dbl&gt; 4.58, 5.42, 5.50, 6.62, 4.12, 5.00, 5.00, 8.1…
+## $ social_jetlag_hours      &lt;dbl&gt; 1.92, 2.25, 2.62, 3.96, 1.79, 1.96, 1.62, 2.9…
+## $ bdi_total                &lt;int&gt; 6, 7, 27, 22, 3, 7, 16, 1, 10, 17, 12, 14, 4,…
+## $ depressed                &lt;int&gt; 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, …</code></pre>
+<p>Aquí podemos tener una mejor observación de los datos, podemos escoger el valor de variables que queremos observar:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="eda-análisis-exploratorio-de-datos.html#cb4-1" tabindex="-1"></a><span class="fu">datatable</span>(</span>
+<span id="cb4-2"><a href="eda-análisis-exploratorio-de-datos.html#cb4-2" tabindex="-1"></a>  <span class="fu">head</span>(datoshealth, <span class="dv">10</span>),</span>
+<span id="cb4-3"><a href="eda-análisis-exploratorio-de-datos.html#cb4-3" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(<span class="at">scrollX =</span> <span class="cn">TRUE</span>, <span class="at">pageLength =</span> <span class="dv">5</span>),</span>
+<span id="cb4-4"><a href="eda-análisis-exploratorio-de-datos.html#cb4-4" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Primeras 10 observaciones del dataset&quot;</span></span>
+<span id="cb4-5"><a href="eda-análisis-exploratorio-de-datos.html#cb4-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-3a33debd39478ac20596" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-3a33debd39478ac20596">{"x":{"filter":"none","vertical":false,"caption":"<caption>Primeras 10 observaciones del dataset<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],[1,2,3,4,5,6,7,8,9,10],["Boy","Girl","Boy","Boy","Boy","Boy","Girl","Boy","Girl","Girl"],[3.333,3.333,3.333,4.333,1.667,2.333,2.667,4,1.667,4.333],[4.64,4.07,4.07,6.07,0.5,2.07,2.64,6.79,1.5,6.07],[2.25,2.5,2,1.5,2.5,1,5.25,1,1,1.25],[8.359999999999999,7.31,8.75,8.17,8.880000000000001,8.51,7.7,4.95,8.449999999999999,5.85],[4.58,5.42,5.5,6.62,4.12,5,5,8.18,3.83,7.92],[1.92,2.25,2.62,3.96,1.79,1.96,1.62,2.93,0.92,4.54],[6,7,27,22,3,7,16,1,10,17],[0,0,1,1,0,0,1,0,0,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>subject_id<\/th>\n      <th>sex<\/th>\n      <th>screen_time_index<\/th>\n      <th>est_leisure_screen_hours<\/th>\n      <th>sleep_quality_index<\/th>\n      <th>avg_sleep_hours<\/th>\n      <th>midsleep_weekend_hours<\/th>\n      <th>social_jetlag_hours<\/th>\n      <th>bdi_total<\/th>\n      <th>depressed<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":true,"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[1,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"subject_id","targets":1},{"name":"sex","targets":2},{"name":"screen_time_index","targets":3},{"name":"est_leisure_screen_hours","targets":4},{"name":"sleep_quality_index","targets":5},{"name":"avg_sleep_hours","targets":6},{"name":"midsleep_weekend_hours","targets":7},{"name":"social_jetlag_hours","targets":8},{"name":"bdi_total","targets":9},{"name":"depressed","targets":10}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="limpieza-tratamiento-y-preparación" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Limpieza, tratamiento y preparación<a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="tipos-de-datos" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Tipos de datos<a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="eda-análisis-exploratorio-de-datos.html#cb5-1" tabindex="-1"></a>datoshealth <span class="ot">&lt;-</span> datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="eda-análisis-exploratorio-de-datos.html#cb5-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a href="eda-análisis-exploratorio-de-datos.html#cb5-3" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(sex),</span>
+<span id="cb5-4"><a href="eda-análisis-exploratorio-de-datos.html#cb5-4" tabindex="-1"></a>    <span class="at">depressed =</span> <span class="fu">factor</span>(depressed, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No deprimido&quot;</span>, <span class="st">&quot;Deprimido&quot;</span>))</span>
+<span id="cb5-5"><a href="eda-análisis-exploratorio-de-datos.html#cb5-5" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a href="eda-análisis-exploratorio-de-datos.html#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="eda-análisis-exploratorio-de-datos.html#cb5-7" tabindex="-1"></a><span class="fu">str</span>(datoshealth)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    4810 obs. of  10 variables:
+##  $ subject_id              : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ sex                     : Factor w/ 2 levels &quot;Boy&quot;,&quot;Girl&quot;: 1 2 1 1 1 1 2 1 2 2 ...
+##  $ screen_time_index       : num  3.33 3.33 3.33 4.33 1.67 ...
+##  $ est_leisure_screen_hours: num  4.64 4.07 4.07 6.07 0.5 2.07 2.64 6.79 1.5 6.07 ...
+##  $ sleep_quality_index     : num  2.25 2.5 2 1.5 2.5 1 5.25 1 1 1.25 ...
+##  $ avg_sleep_hours         : num  8.36 7.31 8.75 8.17 8.88 8.51 7.7 4.95 8.45 5.85 ...
+##  $ midsleep_weekend_hours  : num  4.58 5.42 5.5 6.62 4.12 5 5 8.18 3.83 7.92 ...
+##  $ social_jetlag_hours     : num  1.92 2.25 2.62 3.96 1.79 1.96 1.62 2.93 0.92 4.54 ...
+##  $ bdi_total               : int  6 7 27 22 3 7 16 1 10 17 ...
+##  $ depressed               : Factor w/ 2 levels &quot;No deprimido&quot;,..: 1 1 2 2 1 1 2 1 1 2 ...</code></pre>
+</div>
+<div id="valores-faltantes-y-duplicados" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Valores faltantes y duplicados<a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="eda-análisis-exploratorio-de-datos.html#cb7-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb7-2"><a href="eda-análisis-exploratorio-de-datos.html#cb7-2" tabindex="-1"></a>  <span class="at">variable =</span> <span class="fu">names</span>(datoshealth),</span>
+<span id="cb7-3"><a href="eda-análisis-exploratorio-de-datos.html#cb7-3" tabindex="-1"></a>  <span class="at">na =</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(datoshealth))</span>
+<span id="cb7-4"><a href="eda-análisis-exploratorio-de-datos.html#cb7-4" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="eda-análisis-exploratorio-de-datos.html#cb7-5" tabindex="-1"></a>  <span class="fu">filter</span>(na <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="eda-análisis-exploratorio-de-datos.html#cb7-6" tabindex="-1"></a>  <span class="fu">datatable</span>(<span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&quot;t&quot;</span>), <span class="at">caption =</span> <span class="st">&quot;Variables con datos faltantes&quot;</span>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f5919d73f085c3477d1b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f5919d73f085c3477d1b">{"x":{"filter":"none","vertical":false,"caption":"<caption>Variables con datos faltantes<\/caption>","data":[[],[],[]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>na<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"na","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="eda-análisis-exploratorio-de-datos.html#cb8-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(datoshealth<span class="sc">$</span>subject_id))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Observamos que nuestro dataset es muy completo dandonos a entender que está listo para el procesamiento, de esta forma confirmamos que nuestro análisis será mas acertado cuando evaluemos nuestros datos.
+### Resumen estadístico inicial</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="eda-análisis-exploratorio-de-datos.html#cb10-1" tabindex="-1"></a>tabla_num <span class="ot">&lt;-</span> datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="eda-análisis-exploratorio-de-datos.html#cb10-2" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb10-3"><a href="eda-análisis-exploratorio-de-datos.html#cb10-3" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb10-4"><a href="eda-análisis-exploratorio-de-datos.html#cb10-4" tabindex="-1"></a>      <span class="fu">where</span>(is.numeric) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">any_of</span>(<span class="st">&quot;subject_id&quot;</span>),</span>
+<span id="cb10-5"><a href="eda-análisis-exploratorio-de-datos.html#cb10-5" tabindex="-1"></a>      <span class="fu">list</span>(</span>
+<span id="cb10-6"><a href="eda-análisis-exploratorio-de-datos.html#cb10-6" tabindex="-1"></a>        <span class="at">N       =</span> <span class="sc">~</span><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(.x)),</span>
+<span id="cb10-7"><a href="eda-análisis-exploratorio-de-datos.html#cb10-7" tabindex="-1"></a>        <span class="at">Media   =</span> <span class="sc">~</span><span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-8"><a href="eda-análisis-exploratorio-de-datos.html#cb10-8" tabindex="-1"></a>        <span class="at">Mediana =</span> <span class="sc">~</span><span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-9"><a href="eda-análisis-exploratorio-de-datos.html#cb10-9" tabindex="-1"></a>        <span class="at">SD      =</span> <span class="sc">~</span><span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-10"><a href="eda-análisis-exploratorio-de-datos.html#cb10-10" tabindex="-1"></a>        <span class="at">Min     =</span> <span class="sc">~</span><span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-11"><a href="eda-análisis-exploratorio-de-datos.html#cb10-11" tabindex="-1"></a>        <span class="at">Q1      =</span> <span class="sc">~</span><span class="fu">quantile</span>(.x, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-12"><a href="eda-análisis-exploratorio-de-datos.html#cb10-12" tabindex="-1"></a>        <span class="at">Q3      =</span> <span class="sc">~</span><span class="fu">quantile</span>(.x, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-13"><a href="eda-análisis-exploratorio-de-datos.html#cb10-13" tabindex="-1"></a>        <span class="at">Max     =</span> <span class="sc">~</span><span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-14"><a href="eda-análisis-exploratorio-de-datos.html#cb10-14" tabindex="-1"></a>      )</span>
+<span id="cb10-15"><a href="eda-análisis-exploratorio-de-datos.html#cb10-15" tabindex="-1"></a>    )</span>
+<span id="cb10-16"><a href="eda-análisis-exploratorio-de-datos.html#cb10-16" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-17"><a href="eda-análisis-exploratorio-de-datos.html#cb10-17" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-18"><a href="eda-análisis-exploratorio-de-datos.html#cb10-18" tabindex="-1"></a>    <span class="fu">everything</span>(),</span>
+<span id="cb10-19"><a href="eda-análisis-exploratorio-de-datos.html#cb10-19" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;.value&quot;</span>),</span>
+<span id="cb10-20"><a href="eda-análisis-exploratorio-de-datos.html#cb10-20" tabindex="-1"></a>    <span class="at">names_pattern =</span> <span class="st">&quot;(.+)_(N|Media|Mediana|SD|Min|Q1|Q3|Max)$&quot;</span></span>
+<span id="cb10-21"><a href="eda-análisis-exploratorio-de-datos.html#cb10-21" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-22"><a href="eda-análisis-exploratorio-de-datos.html#cb10-22" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span><span class="fu">round</span>(.x, <span class="dv">2</span>)))</span>
+<span id="cb10-23"><a href="eda-análisis-exploratorio-de-datos.html#cb10-23" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="eda-análisis-exploratorio-de-datos.html#cb10-24" tabindex="-1"></a><span class="fu">datatable</span>(tabla_num, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&quot;t&quot;</span>), <span class="at">caption =</span> <span class="st">&quot;Resumen estadístico de variables numéricas&quot;</span>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-edfee8b013ea9ab8d83a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-edfee8b013ea9ab8d83a">{"x":{"filter":"none","vertical":false,"caption":"<caption>Resumen estadístico de variables numéricas<\/caption>","data":[["1","2","3","4","5","6","7"],["screen_time_index","est_leisure_screen_hours","sleep_quality_index","avg_sleep_hours","midsleep_weekend_hours","social_jetlag_hours","bdi_total"],[4810,4810,4810,4810,4810,4810,4810],[3.22,3.96,1.9,7.69,5.57,2.4,7.27],[3,3.5,1.75,7.87,5.42,2.29,5],[1.03,2.39,0.85,1.27,1.42,1.14,7.7],[1,0.5,1,1.36,1.67,-3.03,0],[2.33,2.07,1.25,7.05,4.54,1.58,2],[4,5.5,2.25,8.539999999999999,6.5,3.12,10],[6,10,6,12.21,10.5,6.96,51]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>N<\/th>\n      <th>Media<\/th>\n      <th>Mediana<\/th>\n      <th>SD<\/th>\n      <th>Min<\/th>\n      <th>Q1<\/th>\n      <th>Q3<\/th>\n      <th>Max<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"N","targets":2},{"name":"Media","targets":3},{"name":"Mediana","targets":4},{"name":"SD","targets":5},{"name":"Min","targets":6},{"name":"Q1","targets":7},{"name":"Q3","targets":8},{"name":"Max","targets":9}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>En la siguiente tabla se presenta un resumen descriptivo de las principales variables numéricas del conjunto de datos, incluyendo su media y el intervalo correspondiente al 50 % central de las observaciones.</p>
+<ul>
+<li><code>screen_time_index</code>: presenta una media de 3,22 horas estimadas de uso de pantallas. El 50 % central de los individuos presenta valores entre 2,33 y 4,00 horas, lo que indica una concentración de las observaciones dentro de este intervalo.</li>
+<li><code>est_leisure_screen_hours</code>: presenta una media de 3,96 horas estimadas de uso de pantallas durante el tiempo libre. El 50 % central de los individuos se encuentra entre 2,07 y 5,50 horas de uso.</li>
+<li><code>sleep_quality_index</code>: presenta una media de 1,90 puntos en el índice de calidad del sueño. El 50 % central de los individuos presenta valores entre 1,25 y 2,25 puntos. Al tratarse de un índice, estos valores representan una puntuación de calidad del sueño y no horas de sueño.</li>
+<li><code>avg_sleep_hours</code>: presenta una media de 7,69 horas de sueño promedio. El 50 % central de los individuos registra entre 7,05 y 8,54 horas de sueño, mostrando que la mayor concentración de observaciones se encuentra alrededor de este intervalo.</li>
+<li><code>midsleep_weekend_hours</code>: presenta una media de 5,57 horas correspondientes al punto medio del periodo de sueño durante los fines de semana. El 50 % central de los individuos presenta valores entre 4,54 y 6,50 horas.</li>
+<li><code>social_jetlag_hours</code>: presenta una media de 2,40 horas de desfase entre los horarios de sueño de los días habituales y los fines de semana. El 50 % central de los individuos presenta un desfase entre 1,58 y 3,12 horas.</li>
+<li><code>bdi_total</code>: presenta una media de 7,27 puntos en la escala de síntomas depresivos. El 50 % central de los individuos obtiene puntuaciones entre 2 y 10 puntos. Es importante señalar que esta variable representa una puntuación de síntomas depresivos y no una medida directa de “horas” o de diagnóstico de depresión.</li>
+</ul>
+</div>
+<div id="detección-de-outliers-método-iqr" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Detección de outliers (método IQR)<a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En esta tabla podemos ver el número de outliers de cada variable y cual es el porcentaje usando IQR, este indicador permite evaluar qué tan frecuente es la presencia de valores extremos en cada variable.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="eda-análisis-exploratorio-de-datos.html#cb11-1" tabindex="-1"></a>outliers_iqr <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb11-2"><a href="eda-análisis-exploratorio-de-datos.html#cb11-2" tabindex="-1"></a>  q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-3"><a href="eda-análisis-exploratorio-de-datos.html#cb11-3" tabindex="-1"></a>  q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(x, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-4"><a href="eda-análisis-exploratorio-de-datos.html#cb11-4" tabindex="-1"></a>  iqr <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span>
+<span id="cb11-5"><a href="eda-análisis-exploratorio-de-datos.html#cb11-5" tabindex="-1"></a>  <span class="fu">sum</span>(x <span class="sc">&lt;</span> (q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr) <span class="sc">|</span> x <span class="sc">&gt;</span> (q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-6"><a href="eda-análisis-exploratorio-de-datos.html#cb11-6" tabindex="-1"></a>}</span>
+<span id="cb11-7"><a href="eda-análisis-exploratorio-de-datos.html#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="eda-análisis-exploratorio-de-datos.html#cb11-8" tabindex="-1"></a>tabla_outliers <span class="ot">&lt;-</span> datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="eda-análisis-exploratorio-de-datos.html#cb11-9" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">any_of</span>(<span class="st">&quot;subject_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="eda-análisis-exploratorio-de-datos.html#cb11-10" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), outliers_iqr)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-11"><a href="eda-análisis-exploratorio-de-datos.html#cb11-11" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;N_outliers&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-12"><a href="eda-análisis-exploratorio-de-datos.html#cb11-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Pct_outliers =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> N_outliers <span class="sc">/</span> <span class="fu">nrow</span>(datoshealth), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-13"><a href="eda-análisis-exploratorio-de-datos.html#cb11-13" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(N_outliers))</span>
+<span id="cb11-14"><a href="eda-análisis-exploratorio-de-datos.html#cb11-14" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="eda-análisis-exploratorio-de-datos.html#cb11-15" tabindex="-1"></a><span class="fu">datatable</span>(tabla_outliers, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&quot;t&quot;</span>), <span class="at">caption =</span> <span class="st">&quot;Outliers por variable (regla 1.5*IQR)&quot;</span>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-248d6282db71bf369c26" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-248d6282db71bf369c26">{"x":{"filter":"none","vertical":false,"caption":"<caption>Outliers por variable (regla 1.5*IQR)<\/caption>","data":[["1","2","3","4","5","6","7"],["bdi_total","sleep_quality_index","avg_sleep_hours","social_jetlag_hours","midsleep_weekend_hours","screen_time_index","est_leisure_screen_hours"],[257,175,164,54,37,0,0],[5.34,3.64,3.41,1.12,0.77,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>N_outliers<\/th>\n      <th>Pct_outliers<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"N_outliers","targets":2},{"name":"Pct_outliers","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="eda-análisis-exploratorio-de-datos.html#cb12-1" tabindex="-1"></a>datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="eda-análisis-exploratorio-de-datos.html#cb12-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">any_of</span>(<span class="st">&quot;subject_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="eda-análisis-exploratorio-de-datos.html#cb12-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Valor&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="eda-análisis-exploratorio-de-datos.html#cb12-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Variable, <span class="at">y =</span> Valor)) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="eda-análisis-exploratorio-de-datos.html#cb12-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> col_principal, <span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">outlier.color =</span> col_secundario) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="eda-análisis-exploratorio-de-datos.html#cb12-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="eda-análisis-exploratorio-de-datos.html#cb12-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-8"><a href="eda-análisis-exploratorio-de-datos.html#cb12-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="eda-análisis-exploratorio-de-datos.html#cb12-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Valores atípicos por variable&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/outliers-boxplot-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p>A partir de los diagramas de caja se observa la presencia de valores atípicos principalmente en las variables relacionadas con el sueño y la salud mental. <code>bdi_total</code> presenta una cantidad considerable de observaciones extremas hacia valores altos, mientras que <code>avg_sleep_hours</code>, <code>sleep_quality_index</code>, <code>midsleep_weekend_hours</code> y <code>social_jetlag_hours</code> también presentan algunos valores alejados del comportamiento central de los datos. Por otro lado, <code>screen_time_index</code> y <code>est_leisure_screen_hours</code> muestran una menor presencia de valores atípicos. Estos valores extremos no necesariamente representan errores en los datos, sino que pueden corresponder a individuos con comportamientos o características diferentes al resto de la muestra, por lo que deben ser evaluados antes de decidir si serán eliminados o conservados en análisis posteriores.</p>
+</div>
+</div>
+<div id="análisis-descriptivo-univariado" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Análisis descriptivo univariado<a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="distribución-de-variables-numéricas" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Distribución de variables numéricas<a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="eda-análisis-exploratorio-de-datos.html#cb13-1" tabindex="-1"></a>datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="eda-análisis-exploratorio-de-datos.html#cb13-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">any_of</span>(<span class="st">&quot;subject_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="eda-análisis-exploratorio-de-datos.html#cb13-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Valor&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="eda-análisis-exploratorio-de-datos.html#cb13-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Valor)) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="eda-análisis-exploratorio-de-datos.html#cb13-5" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> col_principal, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="eda-análisis-exploratorio-de-datos.html#cb13-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="eda-análisis-exploratorio-de-datos.html#cb13-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-8"><a href="eda-análisis-exploratorio-de-datos.html#cb13-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de variables numéricas&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/histogramas-1.png" alt="" width="768" style="display: block; margin: auto;" /></p>
+<p>El análisis exploratorio de las variables numéricas revela que los hábitos de sueño (<code>avg_sleep_hours</code>,<code>midsleep_weekend_hours</code>) y el <code>social_jetlag_hours</code> siguen una distribución aproximadamente normal, concentrando a la mayoría de la población en valores promedios centrales.</p>
+<p>En contraste, las métricas de salud mental y calidad de sueño (<code>bdi_total</code> y <code>sleep_quality_index</code>) presentan un marcado sesgo a la derecha, lo que indica que la gran mayoría de la muestra reporta niveles bajos de severidad, con solo un pequeño porcentaje de casos atípicos con puntuaciones elevadas. Esto concuerda con la variable depressed, donde la proporción de individuos diagnosticados (1) es significativamente menor en comparación con el grupo de control (0). Finalmente, el tiempo frente a pantalla evidencia comportamientos agrupados en intervalos específicos que convendría profundizar mediante análisis de correlación.</p>
+</div>
+<div id="variable-objetivo-depressed-bdi_total" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Variable objetivo: depressed / bdi_total<a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="eda-análisis-exploratorio-de-datos.html#cb14-1" tabindex="-1"></a>datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="eda-análisis-exploratorio-de-datos.html#cb14-2" tabindex="-1"></a>  <span class="fu">count</span>(depressed) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="eda-análisis-exploratorio-de-datos.html#cb14-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proporcion =</span> scales<span class="sc">::</span><span class="fu">percent</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n))) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="eda-análisis-exploratorio-de-datos.html#cb14-4" tabindex="-1"></a>  <span class="fu">datatable</span>(<span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&quot;t&quot;</span>), <span class="at">caption =</span> <span class="st">&quot;Balance de clase de &#39;depressed&#39;&quot;</span>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-320d41f4d4a4923b0214" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-320d41f4d4a4923b0214">{"x":{"filter":"none","vertical":false,"caption":"<caption>Balance de clase de 'depressed'<\/caption>","data":[["1","2"],["No deprimido","Deprimido"],[4023,787],["84%","16%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>depressed<\/th>\n      <th>n<\/th>\n      <th>Proporcion<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"depressed","targets":1},{"name":"n","targets":2},{"name":"Proporcion","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="eda-análisis-exploratorio-de-datos.html#cb15-1" tabindex="-1"></a><span class="fu">ggplot</span>(datoshealth, <span class="fu">aes</span>(<span class="at">x =</span> bdi_total)) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="eda-análisis-exploratorio-de-datos.html#cb15-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> col_principal, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="eda-análisis-exploratorio-de-datos.html#cb15-3" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(datoshealth<span class="sc">$</span>bdi_total), <span class="at">color =</span> col_secundario,</span>
+<span id="cb15-4"><a href="eda-análisis-exploratorio-de-datos.html#cb15-4" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb15-5"><a href="eda-análisis-exploratorio-de-datos.html#cb15-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-6"><a href="eda-análisis-exploratorio-de-datos.html#cb15-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución de bdi_total (línea = mediana)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Puntaje BDI total&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/target-2.png" alt="" width="672" style="display: block; margin: auto;" />
+El análisis del puntaje total del BDI evidencia una distribución con asimetría positiva, donde la mediana se sitúa aproximadamente en 7.27 puntos. Esto refleja que al menos la mitad de la muestra presenta niveles mínimos o nulos de sintomatología depresiva. No obstante, la cola hacia la derecha muestra la presencia de un segmento minoritario de la población con puntuaciones elevadas (mayores a 20 puntos), lo cual justifica analizar a este subgrupo de forma independiente mediante pruebas no paramétricas debido a la falta de normalidad en la variable.</p>
+</div>
+<div id="variable-categórica-sex" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Variable categórica: sex<a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="eda-análisis-exploratorio-de-datos.html#cb16-1" tabindex="-1"></a>datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="eda-análisis-exploratorio-de-datos.html#cb16-2" tabindex="-1"></a>  <span class="fu">count</span>(sex) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="eda-análisis-exploratorio-de-datos.html#cb16-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Proporcion =</span> scales<span class="sc">::</span><span class="fu">percent</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="eda-análisis-exploratorio-de-datos.html#cb16-4" tabindex="-1"></a>  <span class="fu">datatable</span>(<span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&quot;t&quot;</span>), <span class="at">caption =</span> <span class="st">&quot;Frecuencia de la variable sex&quot;</span>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-811e958204b216c0e4d6" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-811e958204b216c0e4d6">{"x":{"filter":"none","vertical":false,"caption":"<caption>Frecuencia de la variable sex<\/caption>","data":[["1","2"],["Boy","Girl"],[2446,2364],["50.9%","49.1%"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sex<\/th>\n      <th>n<\/th>\n      <th>Proporcion<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"sex","targets":1},{"name":"n","targets":2},{"name":"Proporcion","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="eda-análisis-exploratorio-de-datos.html#cb17-1" tabindex="-1"></a><span class="fu">ggplot</span>(datoshealth, <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="eda-análisis-exploratorio-de-datos.html#cb17-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a href="eda-análisis-exploratorio-de-datos.html#cb17-3" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> paleta_cat) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="eda-análisis-exploratorio-de-datos.html#cb17-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-5"><a href="eda-análisis-exploratorio-de-datos.html#cb17-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="eda-análisis-exploratorio-de-datos.html#cb17-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Distribución por sexo&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/categoricas-2.png" alt="" width="576" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="análisis-descriptivo-bivariado" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Análisis descriptivo bivariado<a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="matriz-de-correlación-spearman" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Matriz de correlación (Spearman)<a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="eda-análisis-exploratorio-de-datos.html#cb18-1" tabindex="-1"></a>predictoras <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;screen_time_index&quot;</span>, <span class="st">&quot;est_leisure_screen_hours&quot;</span>,</span>
+<span id="cb18-2"><a href="eda-análisis-exploratorio-de-datos.html#cb18-2" tabindex="-1"></a>                  <span class="st">&quot;sleep_quality_index&quot;</span>, <span class="st">&quot;avg_sleep_hours&quot;</span>,</span>
+<span id="cb18-3"><a href="eda-análisis-exploratorio-de-datos.html#cb18-3" tabindex="-1"></a>                  <span class="st">&quot;midsleep_weekend_hours&quot;</span>, <span class="st">&quot;social_jetlag_hours&quot;</span>)</span>
+<span id="cb18-4"><a href="eda-análisis-exploratorio-de-datos.html#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="eda-análisis-exploratorio-de-datos.html#cb18-5" tabindex="-1"></a>datos_num <span class="ot">&lt;-</span> datoshealth <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">all_of</span>(predictoras), bdi_total)</span>
+<span id="cb18-6"><a href="eda-análisis-exploratorio-de-datos.html#cb18-6" tabindex="-1"></a>mat_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_num, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb18-7"><a href="eda-análisis-exploratorio-de-datos.html#cb18-7" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="eda-análisis-exploratorio-de-datos.html#cb18-8" tabindex="-1"></a><span class="fu">ggcorrplot</span>(</span>
+<span id="cb18-9"><a href="eda-análisis-exploratorio-de-datos.html#cb18-9" tabindex="-1"></a>  mat_cor,</span>
+<span id="cb18-10"><a href="eda-análisis-exploratorio-de-datos.html#cb18-10" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">&quot;lower&quot;</span>,</span>
+<span id="cb18-11"><a href="eda-análisis-exploratorio-de-datos.html#cb18-11" tabindex="-1"></a>  <span class="at">lab =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-12"><a href="eda-análisis-exploratorio-de-datos.html#cb18-12" tabindex="-1"></a>  <span class="at">lab_size =</span> <span class="dv">3</span>,</span>
+<span id="cb18-13"><a href="eda-análisis-exploratorio-de-datos.html#cb18-13" tabindex="-1"></a>  <span class="at">colors =</span> <span class="fu">c</span>(col_secundario, <span class="st">&quot;white&quot;</span>, col_principal),</span>
+<span id="cb18-14"><a href="eda-análisis-exploratorio-de-datos.html#cb18-14" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Matriz de correlación de Spearman&quot;</span></span>
+<span id="cb18-15"><a href="eda-análisis-exploratorio-de-datos.html#cb18-15" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/correlacion-1.png" alt="" width="672" style="display: block; margin: auto;" />
+El análisis de correlación de Spearman revela dos asociaciones lineales de gran magnitud: una fuerte redundancia entre las métricas de uso de pantalla (screen_time_index y est_leisure_screen_hours, <span class="math inline">\(r = 0.95\)</span>) y una relación directa entre el horario medio de sueño en fines de semana y el jetlag social (<span class="math inline">\(r = 0.84\)</span>).En cuanto a la salud mental (bdi_total), esta presenta su correlación más significativa con la calidad del sueño (sleep_quality_index, <span class="math inline">\(r = 0.39\)</span>) y una relación inversa con la duración promedio del sueño (avg_sleep_hours, <span class="math inline">\(r = -0.28\)</span>). Estos hallazgos sugieren que el deterioro en la calidad y duración del descanso está asociado a mayores niveles de sintomatología depresiva en la muestra.</p>
+</div>
+<div id="selección-de-variables-a-partir-de-la-correlación-real" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Selección de variables a partir de la correlación real<a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="eda-análisis-exploratorio-de-datos.html#cb19-1" tabindex="-1"></a><span class="co"># correlación de cada predictora con la variable objetivo, ordenada</span></span>
+<span id="cb19-2"><a href="eda-análisis-exploratorio-de-datos.html#cb19-2" tabindex="-1"></a>cor_con_bdi <span class="ot">&lt;-</span> mat_cor[predictoras, <span class="st">&quot;bdi_total&quot;</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="eda-análisis-exploratorio-de-datos.html#cb19-3" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="eda-análisis-exploratorio-de-datos.html#cb19-4" tabindex="-1"></a>  <span class="fu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb19-5"><a href="eda-análisis-exploratorio-de-datos.html#cb19-5" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="eda-análisis-exploratorio-de-datos.html#cb19-6" tabindex="-1"></a><span class="fu">datatable</span>(</span>
+<span id="cb19-7"><a href="eda-análisis-exploratorio-de-datos.html#cb19-7" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Variable =</span> <span class="fu">names</span>(cor_con_bdi), <span class="at">Correlacion_con_bdi =</span> cor_con_bdi),</span>
+<span id="cb19-8"><a href="eda-análisis-exploratorio-de-datos.html#cb19-8" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&quot;t&quot;</span>),</span>
+<span id="cb19-9"><a href="eda-análisis-exploratorio-de-datos.html#cb19-9" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Correlación de cada predictora con bdi_total (Spearman)&quot;</span></span>
+<span id="cb19-10"><a href="eda-análisis-exploratorio-de-datos.html#cb19-10" tabindex="-1"></a>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-e8ac8ca3a76e8162e5dc" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e8ac8ca3a76e8162e5dc">{"x":{"filter":"none","vertical":false,"caption":"<caption>Correlación de cada predictora con bdi_total (Spearman)<\/caption>","data":[["1","2","3","4","5","6"],["sleep_quality_index","midsleep_weekend_hours","screen_time_index","est_leisure_screen_hours","social_jetlag_hours","avg_sleep_hours"],[0.393,0.165,0.145,0.12,0.08599999999999999,-0.279]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Correlacion_con_bdi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Correlacion_con_bdi","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="eda-análisis-exploratorio-de-datos.html#cb20-1" tabindex="-1"></a>top3_predictoras <span class="ot">&lt;-</span> <span class="fu">names</span>(cor_con_bdi)[<span class="fu">order</span>(<span class="sc">-</span><span class="fu">abs</span>(cor_con_bdi))][<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb20-2"><a href="eda-análisis-exploratorio-de-datos.html#cb20-2" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="eda-análisis-exploratorio-de-datos.html#cb20-3" tabindex="-1"></a><span class="co"># pares de predictoras redundantes entre sí (|r| &gt; 0.8): no deben usarse juntas en un modelo</span></span>
+<span id="cb20-4"><a href="eda-análisis-exploratorio-de-datos.html#cb20-4" tabindex="-1"></a>mat_pred <span class="ot">&lt;-</span> mat_cor[predictoras, predictoras]</span>
+<span id="cb20-5"><a href="eda-análisis-exploratorio-de-datos.html#cb20-5" tabindex="-1"></a>mat_pred[<span class="fu">upper.tri</span>(mat_pred, <span class="at">diag =</span> <span class="cn">TRUE</span>)] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb20-6"><a href="eda-análisis-exploratorio-de-datos.html#cb20-6" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="eda-análisis-exploratorio-de-datos.html#cb20-7" tabindex="-1"></a>pares_redundantes <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.table</span>(mat_pred)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="eda-análisis-exploratorio-de-datos.html#cb20-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Freq), <span class="fu">abs</span>(Freq) <span class="sc">&gt;</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="eda-análisis-exploratorio-de-datos.html#cb20-9" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Variable_1 =</span> Var1, <span class="at">Variable_2 =</span> Var2, <span class="at">Correlacion =</span> Freq)</span>
+<span id="cb20-10"><a href="eda-análisis-exploratorio-de-datos.html#cb20-10" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="eda-análisis-exploratorio-de-datos.html#cb20-11" tabindex="-1"></a><span class="fu">datatable</span>(pares_redundantes, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">&quot;t&quot;</span>), <span class="at">caption =</span> <span class="st">&quot;Pares de predictoras redundantes (|r| &gt; 0.8)&quot;</span>)</span></code></pre></div>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-85e7c96e575bfe3458eb" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-85e7c96e575bfe3458eb">{"x":{"filter":"none","vertical":false,"caption":"<caption>Pares de predictoras redundantes (|r| &gt; 0.8)<\/caption>","data":[["1","2"],["est_leisure_screen_hours","social_jetlag_hours"],["screen_time_index","midsleep_weekend_hours"],[0.9466850851883003,0.8410339365902019]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable_1<\/th>\n      <th>Variable_2<\/th>\n      <th>Correlacion<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable_1","targets":1},{"name":"Variable_2","targets":2},{"name":"Correlacion","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>El análisis de correlación expone dos pares de variables con un grado crítico de colinealidad: las métricas de pantalla (est_leisure_screen_hours y screen_time_index, <span class="math inline">\(r \approx 0.95\)</span>) y los indicadores de sueño de fin de semana (social_jetlag_hours y midsleep_weekend_hours, <span class="math inline">\(r \approx 0.84\)</span>).De cara a la construcción de un modelo predictivo para la variable objetivo bdi_total, la presencia de esta multicolinealidad atenta contra la estabilidad e interpretabilidad de los coeficientes de regresión. Por lo tanto, se concluye la necesidad de realizar una selección previa de variables (feature selection) eliminando un componente de cada par colineal antes del ajuste del modelo final.</p>
+</div>
+<div id="predictoras-más-asociadas-con-bdi_total" class="section level3 hasAnchor" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Predictoras más asociadas con bdi_total<a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="eda-análisis-exploratorio-de-datos.html#cb21-1" tabindex="-1"></a>datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="eda-análisis-exploratorio-de-datos.html#cb21-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(top3_predictoras), bdi_total) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="eda-análisis-exploratorio-de-datos.html#cb21-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">all_of</span>(top3_predictoras), <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Valor&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="eda-análisis-exploratorio-de-datos.html#cb21-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Valor, <span class="at">y =</span> bdi_total)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="eda-análisis-exploratorio-de-datos.html#cb21-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> col_principal, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="eda-análisis-exploratorio-de-datos.html#cb21-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> col_secundario, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="eda-análisis-exploratorio-de-datos.html#cb21-7" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variable, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="eda-análisis-exploratorio-de-datos.html#cb21-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-9"><a href="eda-análisis-exploratorio-de-datos.html#cb21-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Predictoras más asociadas con bdi_total (según Spearman)&quot;</span>,</span>
+<span id="cb21-10"><a href="eda-análisis-exploratorio-de-datos.html#cb21-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Puntaje BDI total&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/scatter-bivariado-1.png" alt="" width="864" style="display: block; margin: auto;" />
+El análisis de dispersión y tendencias suavizadas confirma que las tres variables presentan una relación clara con el nivel de depresión (bdi_total). La calidad del sueño (sleep_quality_index) muestra un impacto ascendente constante en el rango de 1 a 4 puntos, mientras que la duración habitual del sueño (avg_sleep_hours) evidencia un comportamiento inversamente proporcional, donde dormir menos de 7 horas se asocia con un incremento pronunciado en el BDI.</p>
+<p>Por su parte, la hora media de sueño los fines de semana (midsleep_weekend_hours) sugiere que los horarios de descanso muy tardíos se relacionan con mayor sintomatología. Vale destacar que los cambios de tendencia observados en los extremos superiores de las tres variables se acompañan de un ensanchamiento significativo en los intervalos de confianza, lo cual refleja una baja densidad de observaciones en esos rangos y no necesariamente una inversión en la tendencia real.</p>
+</div>
+<div id="interacción-con-sexo" class="section level3 hasAnchor" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Interacción con sexo<a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="eda-análisis-exploratorio-de-datos.html#cb22-1" tabindex="-1"></a>colores_diagnostico <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;0&quot;</span> <span class="ot">=</span> <span class="st">&quot;#483d8b&quot;</span>, <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;#5f9ea0&quot;</span>)</span>
+<span id="cb22-2"><a href="eda-análisis-exploratorio-de-datos.html#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="eda-análisis-exploratorio-de-datos.html#cb22-3" tabindex="-1"></a>tabla_sexo <span class="ot">&lt;-</span> datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="eda-análisis-exploratorio-de-datos.html#cb22-4" tabindex="-1"></a>  <span class="fu">count</span>(sex, depressed) <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="eda-análisis-exploratorio-de-datos.html#cb22-5" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="eda-análisis-exploratorio-de-datos.html#cb22-6" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-7"><a href="eda-análisis-exploratorio-de-datos.html#cb22-7" tabindex="-1"></a>    <span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n),</span>
+<span id="cb22-8"><a href="eda-análisis-exploratorio-de-datos.html#cb22-8" tabindex="-1"></a>    <span class="at">label_text =</span> <span class="fu">paste0</span>(<span class="fu">percent</span>(prop, <span class="at">accuracy =</span> <span class="fl">0.1</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">(&quot;</span>, <span class="fu">comma</span>(n), <span class="st">&quot;)&quot;</span>)</span>
+<span id="cb22-9"><a href="eda-análisis-exploratorio-de-datos.html#cb22-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-10"><a href="eda-análisis-exploratorio-de-datos.html#cb22-10" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb22-11"><a href="eda-análisis-exploratorio-de-datos.html#cb22-11" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="eda-análisis-exploratorio-de-datos.html#cb22-12" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(tabla_sexo, <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> n, <span class="at">fill =</span> <span class="fu">factor</span>(depressed))) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="eda-análisis-exploratorio-de-datos.html#cb22-13" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.85</span>), <span class="at">width =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="eda-análisis-exploratorio-de-datos.html#cb22-14" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb22-15"><a href="eda-análisis-exploratorio-de-datos.html#cb22-15" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> label_text),</span>
+<span id="cb22-16"><a href="eda-análisis-exploratorio-de-datos.html#cb22-16" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.85</span>),</span>
+<span id="cb22-17"><a href="eda-análisis-exploratorio-de-datos.html#cb22-17" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.3</span>,</span>
+<span id="cb22-18"><a href="eda-análisis-exploratorio-de-datos.html#cb22-18" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb22-19"><a href="eda-análisis-exploratorio-de-datos.html#cb22-19" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb22-20"><a href="eda-análisis-exploratorio-de-datos.html#cb22-20" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span></span>
+<span id="cb22-21"><a href="eda-análisis-exploratorio-de-datos.html#cb22-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-22"><a href="eda-análisis-exploratorio-de-datos.html#cb22-22" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb22-23"><a href="eda-análisis-exploratorio-de-datos.html#cb22-23" tabindex="-1"></a>    <span class="at">values =</span> colores_diagnostico,</span>
+<span id="cb22-24"><a href="eda-análisis-exploratorio-de-datos.html#cb22-24" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No Deprimido (0)&quot;</span>, <span class="st">&quot;Deprimido (1)&quot;</span>),</span>
+<span id="cb22-25"><a href="eda-análisis-exploratorio-de-datos.html#cb22-25" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;Diagnóstico&quot;</span></span>
+<span id="cb22-26"><a href="eda-análisis-exploratorio-de-datos.html#cb22-26" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-27"><a href="eda-análisis-exploratorio-de-datos.html#cb22-27" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb22-28"><a href="eda-análisis-exploratorio-de-datos.html#cb22-28" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb22-29"><a href="eda-análisis-exploratorio-de-datos.html#cb22-29" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-30"><a href="eda-análisis-exploratorio-de-datos.html#cb22-30" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Prevalencia de Depresión por Género&quot;</span>,</span>
+<span id="cb22-31"><a href="eda-análisis-exploratorio-de-datos.html#cb22-31" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Género&quot;</span>,</span>
+<span id="cb22-32"><a href="eda-análisis-exploratorio-de-datos.html#cb22-32" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Cantidad de Adolescentes&quot;</span></span>
+<span id="cb22-33"><a href="eda-análisis-exploratorio-de-datos.html#cb22-33" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-34"><a href="eda-análisis-exploratorio-de-datos.html#cb22-34" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb22-35"><a href="eda-análisis-exploratorio-de-datos.html#cb22-35" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb22-36"><a href="eda-análisis-exploratorio-de-datos.html#cb22-36" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#333333&quot;</span>),</span>
+<span id="cb22-37"><a href="eda-análisis-exploratorio-de-datos.html#cb22-37" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.85</span>),</span>
+<span id="cb22-38"><a href="eda-análisis-exploratorio-de-datos.html#cb22-38" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb22-39"><a href="eda-análisis-exploratorio-de-datos.html#cb22-39" tabindex="-1"></a>  )</span>
+<span id="cb22-40"><a href="eda-análisis-exploratorio-de-datos.html#cb22-40" tabindex="-1"></a></span>
+<span id="cb22-41"><a href="eda-análisis-exploratorio-de-datos.html#cb22-41" tabindex="-1"></a></span>
+<span id="cb22-42"><a href="eda-análisis-exploratorio-de-datos.html#cb22-42" tabindex="-1"></a>medianas <span class="ot">&lt;-</span> datoshealth <span class="sc">%&gt;%</span></span>
+<span id="cb22-43"><a href="eda-análisis-exploratorio-de-datos.html#cb22-43" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
+<span id="cb22-44"><a href="eda-análisis-exploratorio-de-datos.html#cb22-44" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mediana =</span> <span class="fu">median</span>(bdi_total, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb22-45"><a href="eda-análisis-exploratorio-de-datos.html#cb22-45" tabindex="-1"></a></span>
+<span id="cb22-46"><a href="eda-análisis-exploratorio-de-datos.html#cb22-46" tabindex="-1"></a>colores_sexo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Boy&quot;</span> <span class="ot">=</span> <span class="st">&quot;#6a658d&quot;</span>, <span class="st">&quot;Girl&quot;</span> <span class="ot">=</span> <span class="st">&quot;#5f9ea0&quot;</span>)</span>
+<span id="cb22-47"><a href="eda-análisis-exploratorio-de-datos.html#cb22-47" tabindex="-1"></a></span>
+<span id="cb22-48"><a href="eda-análisis-exploratorio-de-datos.html#cb22-48" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(datoshealth, <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> bdi_total, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb22-49"><a href="eda-análisis-exploratorio-de-datos.html#cb22-49" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">outlier.size =</span> <span class="dv">1</span>, <span class="at">outlier.alpha =</span> <span class="fl">0.6</span>, <span class="at">color =</span> <span class="st">&quot;#333333&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-50"><a href="eda-análisis-exploratorio-de-datos.html#cb22-50" tabindex="-1"></a>  <span class="co"># Línea roja discontinua de Corte Clínico</span></span>
+<span id="cb22-51"><a href="eda-análisis-exploratorio-de-datos.html#cb22-51" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">14</span>, <span class="at">color =</span> <span class="st">&quot;#e74c3c&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb22-52"><a href="eda-análisis-exploratorio-de-datos.html#cb22-52" tabindex="-1"></a>  <span class="co"># Cajas de texto con la Mediana</span></span>
+<span id="cb22-53"><a href="eda-análisis-exploratorio-de-datos.html#cb22-53" tabindex="-1"></a>  <span class="fu">geom_label</span>(</span>
+<span id="cb22-54"><a href="eda-análisis-exploratorio-de-datos.html#cb22-54" tabindex="-1"></a>    <span class="at">data =</span> medianas,</span>
+<span id="cb22-55"><a href="eda-análisis-exploratorio-de-datos.html#cb22-55" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> mediana, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">&quot;Mediana: &quot;</span>, <span class="fu">sprintf</span>(<span class="st">&quot;%.1f&quot;</span>, mediana))),</span>
+<span id="cb22-56"><a href="eda-análisis-exploratorio-de-datos.html#cb22-56" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb22-57"><a href="eda-análisis-exploratorio-de-datos.html#cb22-57" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb22-58"><a href="eda-análisis-exploratorio-de-datos.html#cb22-58" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>,</span>
+<span id="cb22-59"><a href="eda-análisis-exploratorio-de-datos.html#cb22-59" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">3.2</span>,</span>
+<span id="cb22-60"><a href="eda-análisis-exploratorio-de-datos.html#cb22-60" tabindex="-1"></a>    <span class="at">label.padding =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb22-61"><a href="eda-análisis-exploratorio-de-datos.html#cb22-61" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.85</span></span>
+<span id="cb22-62"><a href="eda-análisis-exploratorio-de-datos.html#cb22-62" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-63"><a href="eda-análisis-exploratorio-de-datos.html#cb22-63" tabindex="-1"></a>  <span class="co"># Anotación manual para la leyenda de la línea de corte</span></span>
+<span id="cb22-64"><a href="eda-análisis-exploratorio-de-datos.html#cb22-64" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb22-65"><a href="eda-análisis-exploratorio-de-datos.html#cb22-65" tabindex="-1"></a>    <span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="fl">2.4</span>, <span class="at">y =</span> <span class="dv">50</span>, </span>
+<span id="cb22-66"><a href="eda-análisis-exploratorio-de-datos.html#cb22-66" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">&quot;--- Corte Clínico (BDI-II ≥ 14)&quot;</span>, </span>
+<span id="cb22-67"><a href="eda-análisis-exploratorio-de-datos.html#cb22-67" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;#e74c3c&quot;</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">&quot;plain&quot;</span></span>
+<span id="cb22-68"><a href="eda-análisis-exploratorio-de-datos.html#cb22-68" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-69"><a href="eda-análisis-exploratorio-de-datos.html#cb22-69" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> colores_sexo) <span class="sc">+</span></span>
+<span id="cb22-70"><a href="eda-análisis-exploratorio-de-datos.html#cb22-70" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb22-71"><a href="eda-análisis-exploratorio-de-datos.html#cb22-71" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-72"><a href="eda-análisis-exploratorio-de-datos.html#cb22-72" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribución del Puntaje BDI-II por Género&quot;</span>,</span>
+<span id="cb22-73"><a href="eda-análisis-exploratorio-de-datos.html#cb22-73" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Género&quot;</span>,</span>
+<span id="cb22-74"><a href="eda-análisis-exploratorio-de-datos.html#cb22-74" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Puntaje Total BDI-II (0-63)&quot;</span></span>
+<span id="cb22-75"><a href="eda-análisis-exploratorio-de-datos.html#cb22-75" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-76"><a href="eda-análisis-exploratorio-de-datos.html#cb22-76" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb22-77"><a href="eda-análisis-exploratorio-de-datos.html#cb22-77" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb22-78"><a href="eda-análisis-exploratorio-de-datos.html#cb22-78" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span></span>
+<span id="cb22-79"><a href="eda-análisis-exploratorio-de-datos.html#cb22-79" tabindex="-1"></a>  )</span>
+<span id="cb22-80"><a href="eda-análisis-exploratorio-de-datos.html#cb22-80" tabindex="-1"></a></span>
+<span id="cb22-81"><a href="eda-análisis-exploratorio-de-datos.html#cb22-81" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/interaccion-sexo-1.png" alt="" width="864" style="display: block; margin: auto;" />
+El análisis bivariado expone una brecha de género estadísticamente relevante en la salud mental de la muestra. En términos categóricos, las adolescentes presentan una prevalencia de depresión casi tres veces superior a la de sus pares masculinos (24.4% frente a 8.6%).Esta tendencia se ratifica al evaluar la variable en su escala continua: la mediana del puntaje BDI-II en chicas (7.0 puntos) duplica la de los chicos (3.0 puntos), mostrando una mayor dispersión hacia puntuaciones elevadas que sobrepasan el corte clínico (<span class="math inline">\(\ge 14\)</span>). Estos resultados sugieren que el género es un factor determinante a considerar dentro del modelo predictivo para bdi_total.</p>
+</div>
+</div>
+<div id="documentación-de-hallazgos" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Documentación de hallazgos<a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>Predictora con mayor correlación con bdi_total: sleep_quality_index (r = 0.393 )</p></li>
+<li><p>Las top 3 predictoras analizadas en 6.3 fueron: sleep_quality_index, avg_sleep_hours, midsleep_weekend_hours</p></li>
+<li><p>El dataset no tiene duplicados por <code>subject_id</code>; los faltantes son mínimos o nulos.</p></li>
+<li><p>La selección de predictoras para el análisis bivariado (sección 6.3) se hizo a partir de
+la correlación de Spearman real con <code>bdi_total</code>, no de una lectura visual de la matriz.</p></li>
+<li><p>Los pares de predictoras marcados como redundantes (tabla 6.2) no deberían usarse juntos
+más adelante en un modelo, por colinealidad.</p></li>
+<li><p>Los outliers de variables de sueño y de <code>bdi_total</code> no se eliminan: son los casos
+clínicamente más relevantes, no errores.</p></li>
+<li><p>El sexo se asocia con <code>depressed</code>/<code>bdi_total</code>: hay diferencia visible en proporción de
+depresión y en la mediana de <code>bdi_total</code> entre grupos.</p></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="metodología.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="en-proceso.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/03-method.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

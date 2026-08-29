@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Metodología | Visualización De Datos Y Toma de Desciciones</title>
+  <meta name="description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Metodología | Visualización De Datos Y Toma de Desciciones" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Metodología | Visualización De Datos Y Toma de Desciciones" />
+  
+  <meta name="twitter:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  
+
+<meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
+
+
+<meta name="date" content="2026-08-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="eda-análisis-exploratorio-de-datos.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#antecendentes"><i class="fa fa-check"></i><b>1.1</b> ANTECENDENTES</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#objetivo"><i class="fa fa-check"></i><b>1.2</b> OBJETIVO</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.3</b> OBJETIVOS ESPECÍFICOS</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>2</b> Metodología</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="metodología.html"><a href="metodología.html#descripci%C3%B3n-del-dataset"><i class="fa fa-check"></i><b>2.1</b> Descripción del dataset</a></li>
+<li class="chapter" data-level="2.2" data-path="metodología.html"><a href="metodología.html#an%C3%A1lisis-exploratorio-de-datos-eda"><i class="fa fa-check"></i><b>2.2</b> Análisis Exploratorio de Datos (EDA)</a></li>
+<li class="chapter" data-level="2.3" data-path="metodología.html"><a href="metodología.html#preprocesamiento"><i class="fa fa-check"></i><b>2.3</b> Preprocesamiento</a></li>
+<li class="chapter" data-level="2.4" data-path="metodología.html"><a href="metodología.html#modelado"><i class="fa fa-check"></i><b>2.4</b> Modelado</a></li>
+<li class="chapter" data-level="2.5" data-path="metodología.html"><a href="metodología.html#evaluaci%C3%B3n"><i class="fa fa-check"></i><b>2.5</b> Evaluación</a></li>
+<li class="chapter" data-level="2.6" data-path="metodología.html"><a href="metodología.html#interpretabilidad"><i class="fa fa-check"></i><b>2.6</b> Interpretabilidad</a></li>
+<li class="chapter" data-level="2.7" data-path="metodología.html"><a href="metodología.html#herramientas"><i class="fa fa-check"></i><b>2.7</b> Herramientas</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> EDA (Análisis Exploratorio De Datos)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto"><i class="fa fa-check"></i><b>3.1</b> Comprender el contexto</a></li>
+<li class="chapter" data-level="3.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas"><i class="fa fa-check"></i><b>3.2</b> Carga de librerías</a></li>
+<li class="chapter" data-level="3.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>3.3</b> Importación de datos</a></li>
+<li class="chapter" data-level="3.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n"><i class="fa fa-check"></i><b>3.4</b> Limpieza, tratamiento y preparación</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos"><i class="fa fa-check"></i><b>3.4.1</b> Tipos de datos</a></li>
+<li class="chapter" data-level="3.4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados"><i class="fa fa-check"></i><b>3.4.2</b> Valores faltantes y duplicados</a></li>
+<li class="chapter" data-level="3.4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#resumen-estad%C3%ADstico-inicial"><i class="fa fa-check"></i><b>3.4.3</b> Resumen estadístico inicial</a></li>
+<li class="chapter" data-level="3.4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr"><i class="fa fa-check"></i><b>3.4.4</b> Detección de outliers (método IQR)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado"><i class="fa fa-check"></i><b>3.5</b> Análisis descriptivo univariado</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>3.5.1</b> Distribución de variables numéricas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total"><i class="fa fa-check"></i><b>3.5.2</b> Variable objetivo: depressed / bdi_total</a></li>
+<li class="chapter" data-level="3.5.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex"><i class="fa fa-check"></i><b>3.5.3</b> Variable categórica: sex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado"><i class="fa fa-check"></i><b>3.6</b> Análisis descriptivo bivariado</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman"><i class="fa fa-check"></i><b>3.6.1</b> Matriz de correlación (Spearman)</a></li>
+<li class="chapter" data-level="3.6.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real"><i class="fa fa-check"></i><b>3.6.2</b> Selección de variables a partir de la correlación real</a></li>
+<li class="chapter" data-level="3.6.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total"><i class="fa fa-check"></i><b>3.6.3</b> Predictoras más asociadas con bdi_total</a></li>
+<li class="chapter" data-level="3.6.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo"><i class="fa fa-check"></i><b>3.6.4</b> Interacción con sexo</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>3.7</b> Documentación de hallazgos</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="en-proceso.html"><a href="en-proceso.html"><i class="fa fa-check"></i><b>4</b> En proceso</a></li>
+<li class="chapter" data-level="5" data-path="en-proceso-1.html"><a href="en-proceso-1.html"><i class="fa fa-check"></i><b>5</b> En proceso</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualización De Datos Y Toma de Desciciones</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="metodología" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Metodología<a href="metodología.html#metodolog%C3%ADa" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Santiago Jiménez y Luis Cabarcas</strong><br />
+<em>Universidad del Norte</em></p>
+<p>A continuación se presenta la metodología a seguir para el desarrollo del proyecto.</p>
+<div id="descripción-del-dataset" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Descripción del dataset<a href="metodología.html#descripci%C3%B3n-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se utilizará el dataset <code>screen_time_mental_health.csv</code>, obtenido desde Kaggle, compuesto por <strong>4.810 registros</strong>, sin valores faltantes y con <strong>10 variables</strong>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="metodología.html#cb1-1" tabindex="-1"></a>variables <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="metodología.html#cb1-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
+<span id="cb1-3"><a href="metodología.html#cb1-3" tabindex="-1"></a>    <span class="st">&quot;subject_id&quot;</span>,</span>
+<span id="cb1-4"><a href="metodología.html#cb1-4" tabindex="-1"></a>    <span class="st">&quot;sex&quot;</span>,</span>
+<span id="cb1-5"><a href="metodología.html#cb1-5" tabindex="-1"></a>    <span class="st">&quot;screen_time_index&quot;</span>,</span>
+<span id="cb1-6"><a href="metodología.html#cb1-6" tabindex="-1"></a>    <span class="st">&quot;est_leisure_screen_hours&quot;</span>,</span>
+<span id="cb1-7"><a href="metodología.html#cb1-7" tabindex="-1"></a>    <span class="st">&quot;sleep_quality_index&quot;</span>,</span>
+<span id="cb1-8"><a href="metodología.html#cb1-8" tabindex="-1"></a>    <span class="st">&quot;avg_sleep_hours&quot;</span>,</span>
+<span id="cb1-9"><a href="metodología.html#cb1-9" tabindex="-1"></a>    <span class="st">&quot;midsleep_weekend_hours&quot;</span>,</span>
+<span id="cb1-10"><a href="metodología.html#cb1-10" tabindex="-1"></a>    <span class="st">&quot;social_jetlag_hours&quot;</span>,</span>
+<span id="cb1-11"><a href="metodología.html#cb1-11" tabindex="-1"></a>    <span class="st">&quot;bdi_total&quot;</span>,</span>
+<span id="cb1-12"><a href="metodología.html#cb1-12" tabindex="-1"></a>    <span class="st">&quot;depressed&quot;</span></span>
+<span id="cb1-13"><a href="metodología.html#cb1-13" tabindex="-1"></a>  ),</span>
+<span id="cb1-14"><a href="metodología.html#cb1-14" tabindex="-1"></a>  </span>
+<span id="cb1-15"><a href="metodología.html#cb1-15" tabindex="-1"></a>  <span class="at">Tipo =</span> <span class="fu">c</span>(</span>
+<span id="cb1-16"><a href="metodología.html#cb1-16" tabindex="-1"></a>    <span class="st">&quot;Identificador&quot;</span>,</span>
+<span id="cb1-17"><a href="metodología.html#cb1-17" tabindex="-1"></a>    <span class="st">&quot;Categórica binaria&quot;</span>,</span>
+<span id="cb1-18"><a href="metodología.html#cb1-18" tabindex="-1"></a>    <span class="st">&quot;Continua (1–6)&quot;</span>,</span>
+<span id="cb1-19"><a href="metodología.html#cb1-19" tabindex="-1"></a>    <span class="st">&quot;Continua&quot;</span>,</span>
+<span id="cb1-20"><a href="metodología.html#cb1-20" tabindex="-1"></a>    <span class="st">&quot;Continua&quot;</span>,</span>
+<span id="cb1-21"><a href="metodología.html#cb1-21" tabindex="-1"></a>    <span class="st">&quot;Continua&quot;</span>,</span>
+<span id="cb1-22"><a href="metodología.html#cb1-22" tabindex="-1"></a>    <span class="st">&quot;Continua&quot;</span>,</span>
+<span id="cb1-23"><a href="metodología.html#cb1-23" tabindex="-1"></a>    <span class="st">&quot;Continua&quot;</span>,</span>
+<span id="cb1-24"><a href="metodología.html#cb1-24" tabindex="-1"></a>    <span class="st">&quot;Discreta (0–63)&quot;</span>,</span>
+<span id="cb1-25"><a href="metodología.html#cb1-25" tabindex="-1"></a>    <span class="st">&quot;Binaria&quot;</span></span>
+<span id="cb1-26"><a href="metodología.html#cb1-26" tabindex="-1"></a>  ),</span>
+<span id="cb1-27"><a href="metodología.html#cb1-27" tabindex="-1"></a>  </span>
+<span id="cb1-28"><a href="metodología.html#cb1-28" tabindex="-1"></a>  <span class="at">Descripcion =</span> <span class="fu">c</span>(</span>
+<span id="cb1-29"><a href="metodología.html#cb1-29" tabindex="-1"></a>    <span class="st">&quot;Identificador del participante. No se utiliza como predictor.&quot;</span>,</span>
+<span id="cb1-30"><a href="metodología.html#cb1-30" tabindex="-1"></a>    <span class="st">&quot;Sexo del participante: Boy / Girl.&quot;</span>,</span>
+<span id="cb1-31"><a href="metodología.html#cb1-31" tabindex="-1"></a>    <span class="st">&quot;Índice combinado de tiempo de pantalla.&quot;</span>,</span>
+<span id="cb1-32"><a href="metodología.html#cb1-32" tabindex="-1"></a>    <span class="st">&quot;Horas estimadas de pantalla destinadas al ocio.&quot;</span>,</span>
+<span id="cb1-33"><a href="metodología.html#cb1-33" tabindex="-1"></a>    <span class="st">&quot;Índice de calidad del sueño (SQI).&quot;</span>,</span>
+<span id="cb1-34"><a href="metodología.html#cb1-34" tabindex="-1"></a>    <span class="st">&quot;Duración promedio semanal del sueño (WASD).&quot;</span>,</span>
+<span id="cb1-35"><a href="metodología.html#cb1-35" tabindex="-1"></a>    <span class="st">&quot;Punto medio del sueño durante el fin de semana; proxy del cronotipo.&quot;</span>,</span>
+<span id="cb1-36"><a href="metodología.html#cb1-36" tabindex="-1"></a>    <span class="st">&quot;Diferencia entre los horarios de sueño de días laborales y fines de semana.&quot;</span>,</span>
+<span id="cb1-37"><a href="metodología.html#cb1-37" tabindex="-1"></a>    <span class="st">&quot;Puntaje total del inventario BDI-II.&quot;</span>,</span>
+<span id="cb1-38"><a href="metodología.html#cb1-38" tabindex="-1"></a>    <span class="st">&quot;Variable objetivo. 1 = deprimido y 0 = no deprimido.&quot;</span></span>
+<span id="cb1-39"><a href="metodología.html#cb1-39" tabindex="-1"></a>  )</span>
+<span id="cb1-40"><a href="metodología.html#cb1-40" tabindex="-1"></a>)</span>
+<span id="cb1-41"><a href="metodología.html#cb1-41" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="metodología.html#cb1-42" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb1-43"><a href="metodología.html#cb1-43" tabindex="-1"></a>  variables,</span>
+<span id="cb1-44"><a href="metodología.html#cb1-44" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">&quot;html&quot;</span>,</span>
+<span id="cb1-45"><a href="metodología.html#cb1-45" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Descripción de las variables del dataset&quot;</span>,</span>
+<span id="cb1-46"><a href="metodología.html#cb1-46" tabindex="-1"></a>  <span class="at">escape =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-47"><a href="metodología.html#cb1-47" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-48"><a href="metodología.html#cb1-48" tabindex="-1"></a>  <span class="fu">kable_styling</span>(</span>
+<span id="cb1-49"><a href="metodología.html#cb1-49" tabindex="-1"></a>    <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">&quot;striped&quot;</span>, <span class="st">&quot;hover&quot;</span>, <span class="st">&quot;responsive&quot;</span>),</span>
+<span id="cb1-50"><a href="metodología.html#cb1-50" tabindex="-1"></a>    <span class="at">full_width =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-51"><a href="metodología.html#cb1-51" tabindex="-1"></a>)</span></code></pre></div>
+<table class="table table-striped table-hover table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-1">Table 2.1: </span>Descripción de las variables del dataset
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:left;">
+Tipo
+</th>
+<th style="text-align:left;">
+Descripcion
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+subject_id
+</td>
+<td style="text-align:left;">
+Identificador
+</td>
+<td style="text-align:left;">
+Identificador del participante. No se utiliza como predictor.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sex
+</td>
+<td style="text-align:left;">
+Categórica binaria
+</td>
+<td style="text-align:left;">
+Sexo del participante: Boy / Girl.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+screen_time_index
+</td>
+<td style="text-align:left;">
+Continua (1–6)
+</td>
+<td style="text-align:left;">
+Índice combinado de tiempo de pantalla.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+est_leisure_screen_hours
+</td>
+<td style="text-align:left;">
+Continua
+</td>
+<td style="text-align:left;">
+Horas estimadas de pantalla destinadas al ocio.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sleep_quality_index
+</td>
+<td style="text-align:left;">
+Continua
+</td>
+<td style="text-align:left;">
+Índice de calidad del sueño (SQI).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg_sleep_hours
+</td>
+<td style="text-align:left;">
+Continua
+</td>
+<td style="text-align:left;">
+Duración promedio semanal del sueño (WASD).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+midsleep_weekend_hours
+</td>
+<td style="text-align:left;">
+Continua
+</td>
+<td style="text-align:left;">
+Punto medio del sueño durante el fin de semana; proxy del cronotipo.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+social_jetlag_hours
+</td>
+<td style="text-align:left;">
+Continua
+</td>
+<td style="text-align:left;">
+Diferencia entre los horarios de sueño de días laborales y fines de semana.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bdi_total
+</td>
+<td style="text-align:left;">
+Discreta (0–63)
+</td>
+<td style="text-align:left;">
+Puntaje total del inventario BDI-II.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+depressed
+</td>
+<td style="text-align:left;">
+Binaria
+</td>
+<td style="text-align:left;">
+Variable objetivo. 1 = deprimido y 0 = no deprimido.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="análisis-exploratorio-de-datos-eda" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Análisis Exploratorio de Datos (EDA)<a href="metodología.html#an%C3%A1lisis-exploratorio-de-datos-eda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se realizará un análisis exploratorio de los datos con el objetivo de comprender las características principales del dataset antes de realizar el modelado.</p>
+<p>Se calcularán <strong>estadísticas descriptivas por variable y por género</strong>, con el propósito de identificar las características generales de la población estudiada y posibles diferencias entre hombres y mujeres.</p>
+<p>También se analizará la <strong>distribución de la variable objetivo <code>depressed</code></strong> y del puntaje total <code>bdi_total</code>, prestando especial atención a la proporción de participantes que superan el punto de corte clínico establecido para depresión.</p>
+<p>Además, se estudiarán las relaciones entre las variables relacionadas con el <strong>tiempo de pantalla, el sueño y el puntaje BDI-II</strong>, buscando identificar posibles asociaciones entre estos factores.</p>
+<p>Para complementar el análisis se utilizarán diferentes visualizaciones, entre ellas:</p>
+<ul>
+<li><strong>Histogramas</strong>, para analizar la distribución de las variables numéricas.</li>
+<li><strong>Boxplots</strong>, para identificar diferencias entre grupos y posibles valores atípicos.</li>
+<li><strong>Gráficos de distribución</strong>, para observar el comportamiento de las principales variables.</li>
+<li><strong>Matrices de correlación</strong>, para estudiar las relaciones entre las variables numéricas relacionadas con pantalla, sueño y <code>bdi_total</code>.</li>
+</ul>
+<p>Finalmente, se realizarán <strong>pruebas de diferencia por género</strong> con el propósito de identificar posibles diferencias estadísticamente significativas entre hombres y mujeres en las variables estudiadas.</p>
+<hr />
+</div>
+<div id="preprocesamiento" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Preprocesamiento<a href="metodología.html#preprocesamiento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de realizar el entrenamiento de los modelos, se realizará una división del dataset en conjuntos de <strong>entrenamiento y prueba</strong>.</p>
+<p>Las variables continuas serán <strong>estandarizadas</strong> cuando el algoritmo utilizado lo requiera. La variable <code>subject_id</code> será excluida del proceso de modelado debido a que corresponde únicamente al identificador de cada participante y no contiene información predictiva relevante.</p>
+<p>La variable <code>sex</code>, al ser categórica binaria, será transformada a un formato adecuado para su utilización como predictor en los modelos que lo requieran.</p>
+<p>Debido al desbalance presente en la variable objetivo <code>depressed</code>, donde aproximadamente el <strong>16,4 % de los participantes corresponde a la clase positiva</strong>, se evaluarán estrategias para abordar este problema, como <strong>SMOTE</strong> o el uso de <code>class_weight = "balanced"</code>.</p>
+<p>Estas técnicas serán aplicadas <strong>únicamente sobre el conjunto de entrenamiento</strong>, con el objetivo de evitar filtración de información (<em>data leakage</em>) hacia el conjunto de prueba.</p>
+<hr />
+</div>
+<div id="modelado" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Modelado<a href="metodología.html#modelado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se utilizarán diferentes algoritmos de <strong>aprendizaje automático supervisado</strong> para predecir la variable objetivo <code>depressed</code>.</p>
+<p>Los modelos considerados serán:</p>
+<ul>
+<li><strong>Regresión logística</strong>, como modelo de referencia e interpretable.</li>
+<li><strong>Random Forest</strong>, para capturar relaciones no lineales e interacciones entre variables.</li>
+<li><strong>XGBoost</strong>, como algoritmo de boosting basado en árboles de decisión.</li>
+</ul>
+<p>Se considerarán tres configuraciones diferentes de los modelos:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Modelo conjunto:</strong> utilizará todos los participantes e incluirá <code>sex</code> como variable predictora.</p></li>
+<li><p><strong>Modelo para chicos:</strong> se entrenará utilizando únicamente los participantes masculinos.</p></li>
+<li><p><strong>Modelo para chicas:</strong> se entrenará utilizando únicamente las participantes femeninas.</p></li>
+</ol>
+<p>Esta estrategia permitirá comparar el desempeño de los modelos y analizar si existen diferencias en los factores asociados con la depresión según el género.</p>
+<p>Para la selección de los mejores hiperparámetros se utilizarán métodos como <strong>GridSearchCV</strong> o <strong>RandomizedSearchCV</strong>, junto con una <strong>validación cruzada de 5 particiones (k = 5)</strong>.</p>
+<p>La métrica principal utilizada para la optimización será <strong>AUC-PR</strong>, debido al desbalance presente en la variable objetivo. Esta métrica permitirá evaluar de manera más adecuada la capacidad de los modelos para identificar los casos positivos.</p>
+<hr />
+</div>
+<div id="evaluación" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Evaluación<a href="metodología.html#evaluaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El desempeño de los modelos será evaluado mediante diferentes <strong>métricas de clasificación</strong>, con especial atención al comportamiento de la clase positiva.</p>
+<p>Las métricas utilizadas serán:</p>
+<ul>
+<li><strong>AUC-ROC</strong>, para evaluar la capacidad general del modelo para distinguir entre las clases.</li>
+<li><strong>Precisión</strong>, para determinar qué proporción de las predicciones positivas corresponde realmente a participantes clasificados como positivos.</li>
+<li><strong>Recall</strong>, para medir la capacidad del modelo para identificar correctamente los casos positivos.</li>
+<li><strong>F1-score</strong>, como medida conjunta del equilibrio entre precisión y recall.</li>
+<li><strong>Matriz de confusión</strong>, para visualizar los aciertos y errores de clasificación.</li>
+<li><strong>Curva Precision-Recall</strong>, especialmente relevante debido al desbalance presente en la variable objetivo.</li>
+</ul>
+<p>Además, los resultados obtenidos por los diferentes modelos serán comparados con un <strong>baseline basado en la clase mayoritaria</strong>. Esto permitirá determinar si los modelos desarrollados proporcionan una mejora real frente a una estrategia de clasificación trivial.</p>
+<p>La comparación se realizará tanto entre los diferentes algoritmos como entre las distintas configuraciones por género.</p>
+<hr />
+</div>
+<div id="interpretabilidad" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Interpretabilidad<a href="metodología.html#interpretabilidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La interpretabilidad permitirá identificar cuáles variables tienen mayor influencia en las predicciones realizadas por los modelos.</p>
+<p>Para los modelos <strong>Random Forest</strong> y <strong>XGBoost</strong> se utilizarán medidas de <strong>importancia de variables</strong>, con el objetivo de establecer cuáles predictores contribuyen en mayor medida al desempeño de los modelos.</p>
+<p>Se prestará especial atención a la variable <code>sleep_quality_index</code>, con el propósito de determinar si la <strong>calidad del sueño</strong> constituye uno de los principales predictores de <code>depressed</code>.</p>
+<p>También se analizará la importancia relativa de las variables relacionadas con:</p>
+<ul>
+<li>Tiempo de pantalla.</li>
+<li>Calidad del sueño.</li>
+<li>Duración del sueño.</li>
+<li>Cronotipo.</li>
+<li>Jet lag social.</li>
+<li>Género.</li>
+</ul>
+<p>Finalmente, se comparará la importancia de las variables entre:</p>
+<ul>
+<li><strong>Modelo conjunto.</strong></li>
+<li><strong>Modelo de chicos.</strong></li>
+<li><strong>Modelo de chicas.</strong></li>
+</ul>
+<p>De esta manera, se buscará identificar cuáles variables presentan mayor relevancia para la predicción de depresión y si existen diferencias en los factores predictivos según el género.</p>
+<hr />
+</div>
+<div id="herramientas" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Herramientas<a href="metodología.html#herramientas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El desarrollo del proyecto combinará el uso de <strong>Python y R</strong>, aprovechando las ventajas de ambos lenguajes.</p>
+<p>El modelado principal y las técnicas de aprendizaje automático serán desarrollados en <strong>Python</strong>, mientras que <strong>R</strong> será utilizado como herramienta complementaria para el análisis exploratorio, la manipulación de datos y la presentación de resultados.</p>
+<p>Entre las principales herramientas utilizadas en Python se encuentran:</p>
+<ul>
+<li><strong><code>pandas</code></strong>, para la manipulación y preparación de los datos.</li>
+<li><strong><code>scikit-learn</code></strong>, para el preprocesamiento, entrenamiento, validación y evaluación de los modelos.</li>
+<li><strong><code>xgboost</code></strong>, para la implementación del modelo XGBoost.</li>
+<li><strong><code>imbalanced-learn</code></strong>, para la aplicación de técnicas como SMOTE.</li>
+<li><strong><code>matplotlib</code></strong> y <strong><code>seaborn</code></strong>, para la generación de visualizaciones.</li>
+</ul>
+<p>En R se utilizarán principalmente:</p>
+<ul>
+<li><strong><code>tidyverse</code></strong>, para la manipulación y transformación de datos.</li>
+<li><strong><code>dplyr</code></strong>, para el filtrado, agrupación y resumen de información.</li>
+<li><strong><code>ggplot2</code></strong>, para la generación de visualizaciones.</li>
+<li><strong><code>knitr</code></strong>, para la generación de tablas y contenido reproducible.</li>
+<li><strong><code>kableExtra</code></strong>, para la personalización y presentación de tablas en formato HTML.</li>
+</ul>
+<p>El uso combinado de estas herramientas permitirá desarrollar un flujo de trabajo reproducible que abarque desde la exploración y preparación de los datos hasta el entrenamiento, evaluación e interpretación de los modelos.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="eda-análisis-exploratorio-de-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/02-literature.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>
