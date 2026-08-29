@@ -11,3 +11,7 @@ link-citations: yes
 github-repo: sjimenezurrea-sudo/rbook_Dataviz2026
 description: "Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo."
 ---
+
+# Prefacio {-}
+
+Este libro presenta el análisis de visualización de datos y toma de decisiones desarrollado por Santiago Jimenez Urrea y Luis Cabarcas.
