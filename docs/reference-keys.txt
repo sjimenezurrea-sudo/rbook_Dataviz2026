@@ -4,6 +4,7 @@ antecendentes
 objetivo
 objetivos-específicos
 metodología
+descripción-del-dataset
 análisis-exploratorio-de-datos-eda
 preprocesamiento
 modelado
