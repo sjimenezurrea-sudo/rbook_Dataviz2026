@@ -24,11 +24,14 @@ relaciones profundizar en la sección bivariada se hace calculando la correlaci�
 
 ```{r librerias}
 library(tidyverse)
-library(DT)
 library(ggcorrplot)
 library(gridExtra)
 library(scales)
-#APOYO LIBRERÍA DT RECOMENDADA POR IA PARA TABLAS
+library(plotly)
+library(kableExtra)
+library(nortest)
+library(cowplot)
+library(DT)
 ```
 
 ##  Importación de datos
@@ -37,6 +40,7 @@ library(scales)
 datoshealth <- read.csv("screen_time_mental_health.csv")
 
 glimpse(datoshealth)
+
 ```
 
 Aquí podemos tener una mejor observación de los datos, podemos escoger el valor de variables que queremos observar:
@@ -54,45 +58,86 @@ datatable(
 ###  Tipos de datos
 
 ```{r tipos-datos}
+
 datoshealth <- datoshealth %>%
   mutate(
     sex = factor(sex),
     depressed = factor(depressed, labels = c("No deprimido", "Deprimido"))
   )
 
-str(datoshealth)
+# Crear tabla de tipos de datos
+tipo_datos <- datoshealth %>%
+  summarise(across(everything(), ~class(.x)[1])) %>%
+  pivot_longer(everything(), names_to = "Variable", values_to = "Tipo") %>%
+  mutate(
+    Tipo = case_when(
+      Tipo == "integer" ~ "Entero (int)",
+      Tipo == "numeric" ~ "Numérico (dbl)",
+      Tipo == "factor" ~ "Categórico (factor)",
+      Tipo == "character" ~ "Texto (chr)",
+      TRUE ~ Tipo
+    )
+  )
+
+kable(tipo_datos, 
+      caption = "Tipos de datos de las variables",
+      booktabs = TRUE,
+      align = c('l', 'c')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "center")
 ```
+Con esta información seremos capaces de ver si solos los datos númericos influyen en los cambios del `bdi_total` o tambien las variables categóricas van a ser de importancia.
 
 ###  Valores faltantes y duplicados
 
 ```{r valores-faltantes}
-tibble(
-  variable = names(datoshealth),
-  na = colSums(is.na(datoshealth))
+# Tabla de valores faltantes
+faltantes <- tibble(
+  Variable = names(datoshealth),
+  `Valores faltantes` = colSums(is.na(datoshealth)),
+  `Porcentaje` = round(100 * colSums(is.na(datoshealth)) / nrow(datoshealth), 2)
 ) %>%
-  filter(na > 0) %>%
-  datatable(options = list(dom = "t"), caption = "Variables con datos faltantes")
+  filter(`Valores faltantes` > 0)
 
-sum(duplicated(datoshealth$subject_id))
+if(nrow(faltantes) > 0) {
+  kable(faltantes, 
+        caption = "Variables con datos faltantes",
+        booktabs = TRUE,
+        align = c('l', 'c', 'c')) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                  full_width = FALSE,
+                  position = "center") %>%
+    column_spec(2, color = "#dc3545", bold = TRUE)
+} else {
+  cat("No hay valores faltantes en el dataset")
+}
+
+# Verificar duplicados
+duplicados <- sum(duplicated(datoshealth$subject_id))
+cat("\n\n**Registros duplicados por subject_id:**", duplicados)
+
 ```
 
 Observamos que nuestro dataset es muy completo dandonos a entender que está listo para el procesamiento, de esta forma confirmamos que nuestro análisis será mas acertado cuando evaluemos nuestros datos.
-###  Resumen estadístico inicial
 
-```{r tabla-resumen}
+###  Resumen estadístico inicial
+```{r tabla-resumen-mejorado}
+library(kableExtra)
+
 tabla_num <- datoshealth %>%
   summarise(
     across(
       where(is.numeric) & !any_of("subject_id"),
       list(
-        N       = ~sum(!is.na(.x)),
-        Media   = ~mean(.x, na.rm = TRUE),
+        N = ~sum(!is.na(.x)),
+        Media = ~mean(.x, na.rm = TRUE),
         Mediana = ~median(.x, na.rm = TRUE),
-        SD      = ~sd(.x, na.rm = TRUE),
-        Min     = ~min(.x, na.rm = TRUE),
-        Q1      = ~quantile(.x, 0.25, na.rm = TRUE),
-        Q3      = ~quantile(.x, 0.75, na.rm = TRUE),
-        Max     = ~max(.x, na.rm = TRUE)
+        SD = ~sd(.x, na.rm = TRUE),
+        Min = ~min(.x, na.rm = TRUE),
+        Q1 = ~quantile(.x, 0.25, na.rm = TRUE),
+        Q3 = ~quantile(.x, 0.75, na.rm = TRUE),
+        Max = ~max(.x, na.rm = TRUE)
       )
     )
   ) %>%
@@ -103,7 +148,22 @@ tabla_num <- datoshealth %>%
   ) %>%
   mutate(across(where(is.numeric), ~round(.x, 2)))
 
-datatable(tabla_num, options = list(dom = "t"), caption = "Resumen estadístico de variables numéricas")
+kable(tabla_num, 
+      caption = "Resumen estadístico de variables numéricas",
+      booktabs = TRUE,
+      align = c('l', rep('c', 8)),
+      digits = 2) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                full_width = TRUE,
+                position = "center",
+                font_size = 12) %>%
+  # Resaltar filas de variables clave
+  row_spec(which(tabla_num$Variable %in% c("bdi_total", "avg_sleep_hours", "screen_time_index")), 
+           background = "#f8f9fa") %>%
+  
+  footnote(general = "BDI: Inventario de Depresión de Beck; SD: Desviación Estándar; Q1/Q3: Cuartiles",
+           general_title = "Nota:",
+           footnote_as_chunk = TRUE)
 ```
 
 En la siguiente tabla se presenta un resumen descriptivo de las principales variables numéricas del conjunto de datos, incluyendo su media y el intervalo correspondiente al 50 % central de las observaciones.
@@ -118,7 +178,7 @@ En la siguiente tabla se presenta un resumen descriptivo de las principales vari
 
 ###  Detección de outliers (método IQR)
 En esta tabla podemos ver el número de outliers de cada variable y cual es el porcentaje usando IQR, este indicador permite evaluar qué tan frecuente es la presencia de valores extremos en cada variable.
-```{r outliers-tabla}
+```{r outliers}
 outliers_iqr <- function(x) {
   q1 <- quantile(x, 0.25, na.rm = TRUE)
   q3 <- quantile(x, 0.75, na.rm = TRUE)
@@ -130,10 +190,30 @@ tabla_outliers <- datoshealth %>%
   select(where(is.numeric) & !any_of("subject_id")) %>%
   summarise(across(everything(), outliers_iqr)) %>%
   pivot_longer(everything(), names_to = "Variable", values_to = "N_outliers") %>%
-  mutate(Pct_outliers = round(100 * N_outliers / nrow(datoshealth), 2)) %>%
+  mutate(
+    Pct_outliers = round(100 * N_outliers / nrow(datoshealth), 2),
+    `Relevancia` = case_when(
+      Pct_outliers > 5 ~ "Alta",
+      Pct_outliers > 2 ~ "Media",
+      TRUE ~ "Baja"
+    )
+  ) %>%
   arrange(desc(N_outliers))
 
-datatable(tabla_outliers, options = list(dom = "t"), caption = "Outliers por variable (regla 1.5*IQR)")
+kable(tabla_outliers, 
+      caption = "Outliers por variable (regla 1.5 × IQR)",
+      booktabs = TRUE,
+      align = c('l', 'c', 'c', 'c')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "center") %>%
+  column_spec(3, 
+              color = ifelse(tabla_outliers$Pct_outliers > 5, "#dc3545",
+                             ifelse(tabla_outliers$Pct_outliers > 2, "#ffc107", "#28a745")),
+              bold = TRUE) %>%
+  column_spec(4,
+              color = ifelse(tabla_outliers$Relevancia == "Alta", "#dc3545",
+                             ifelse(tabla_outliers$Relevancia == "Media", "#ffc107", "#28a745")))
 ```
 
 ```{r outliers-boxplot, fig.width=8, fig.height=5}
@@ -149,6 +229,104 @@ datoshealth %>%
 ```
 
 A partir de los diagramas de caja se observa la presencia de valores atípicos principalmente en las variables relacionadas con el sueño y la salud mental. `bdi_total` presenta una cantidad considerable de observaciones extremas hacia valores altos, mientras que `avg_sleep_hours`, `sleep_quality_index`, `midsleep_weekend_hours` y `social_jetlag_hours` también presentan algunos valores alejados del comportamiento central de los datos. Por otro lado, `screen_time_index` y `est_leisure_screen_hours` muestran una menor presencia de valores atípicos. Estos valores extremos no necesariamente representan errores en los datos, sino que pueden corresponder a individuos con comportamientos o características diferentes al resto de la muestra, por lo que deben ser evaluados antes de decidir si serán eliminados o conservados en análisis posteriores.
+
+### Test de normalidad
+
+```{r shapiro-test}
+
+
+# Función para formatear p-valores
+format_p <- function(p) {
+  ifelse(p < 0.001, "< 0.001***",
+         ifelse(p < 0.01, paste0(round(p, 4), "**"),
+                ifelse(p < 0.05, paste0(round(p, 4), "*"),
+                       round(p, 4))))
+}
+
+# Realizar la prueba
+shapiro_results <- datoshealth %>%
+  select(where(is.numeric) & !any_of("subject_id")) %>%
+  imap_dfr(~{
+    test_result <- shapiro.test(.x)
+    tibble(
+      Variable = .y,
+      `Estadístico W` = round(test_result$statistic, 4),
+      `Valor p` = test_result$p.value,
+      `p-valor (formateado)` = format_p(test_result$p.value),
+      Normal = ifelse(test_result$p.value > 0.05, "Sí", "No")
+    )
+  })
+
+# Crear tabla con kable
+kable(shapiro_results, 
+      caption = "Prueba de normalidad Shapiro-Wilk (α = 0.05)",
+      booktabs = TRUE,
+      align = c('l', 'c', 'c', 'c', 'c')) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE,
+    position = "center",
+    font_size = 14
+  ) %>%
+  # Colorear columna de valor p
+  column_spec(3, 
+              color = ifelse(shapiro_results$`Valor p` < 0.05, "#dc3545", "#28a745"),
+              bold = TRUE) %>%
+  # Colorear columna de normalidad
+  column_spec(5,
+              background = ifelse(shapiro_results$Normal == "Sí", 
+                                  "#d4edda", "#f8d7da"),
+              color = ifelse(shapiro_results$Normal == "Sí", 
+                             "#155724", "#721c24"),
+              bold = TRUE) %>%
+  # Añadir notas al pie
+  footnote(general = "*** p < 0.001, ** p < 0.01, * p < 0.05",
+           general_title = "Niveles de significancia:",
+           footnote_as_chunk = TRUE,
+           title_format = c("italic", "underline"))
+```
+
+Al realizar el análisis del estadístico de normalidad, observamos que la dsitribución de nuestra población de estudio no sigue una distribución normal, de esta forma confirmamo que no sería correcto hacer el estudio de nuestra muestra utilizando el coeficiento de correlación de pearson el cual se usa cuando la muestra sigue una distribución normal por lo tanto usaremos el coeficiente de correlación de spearman para mas adelante en nuestro estudio encontrar las variables que dan respuesta al fenómeno que estamos evaluando.
+
+### Intervalos de confianza del 95% para medias
+
+```{r ic-medias}
+
+ic_medias <- datoshealth %>%
+  select(where(is.numeric) & !any_of("subject_id")) %>%
+  summarise(across(everything(), list(
+    Media = ~mean(., na.rm = TRUE),
+    LI = ~mean(., na.rm = TRUE) - 1.96 * sd(., na.rm = TRUE)/sqrt(sum(!is.na(.))),
+    LS = ~mean(., na.rm = TRUE) + 1.96 * sd(., na.rm = TRUE)/sqrt(sum(!is.na(.)))
+  ))) %>%
+  pivot_longer(everything(), 
+               names_to = c("Variable", ".value"), 
+               names_pattern = "(.+)_(Media|LI|LS)") %>%
+  mutate(
+    across(c(Media, LI, LS), ~round(., 2)),
+    `IC 95%` = paste0(LI, " - ", LS)
+  ) %>%
+  select(Variable, Media, `IC 95%`)
+
+
+kable(ic_medias, 
+      caption = "Intervalos de confianza del 95% para medias",
+      booktabs = TRUE,
+      align = c('l', 'c', 'c')) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "center"
+  ) %>%
+  column_spec(2, bold = TRUE, color = "#2166AC") %>%
+  row_spec(which(ic_medias$Variable == "bdi_total"), 
+           background = "#FFF3CD", bold = TRUE)
+```
+
+El análisis de los intervalos de confianza del 95% revela estimaciones precisas y estables para todas las variables evaluadas. El tiempo promedio en pantalla se estima en 3.22 horas (IC 95%: 3.19 - 3.25), mientras que el tiempo de pantalla en ocio alcanza las 3.96 horas (IC 95%: 3.89 - 4.03). En cuanto a los patrones de sueño, la duración promedio es de 7.69 horas (IC 95%: 7.65 - 7.72), con una calidad de sueño media de 1.90 puntos (IC 95%: 1.88 - 1.93). El índice de depresión (BDI) presenta una media de 7.27 puntos (IC 95%: 7.05 - 7.49), mostrando el intervalo más amplio, lo que refleja una mayor variabilidad en los puntajes y es consistente con la distribución asimétrica observada previamente. La amplitud reducida de los intervalos en el resto de variables (±0.03 a ±0.06 unidades) confirma la solidez del tamaño muestral y la precisión de las estimaciones poblacionales.
+
+
+
 
 ##  Análisis descriptivo univariado
 
@@ -172,34 +350,72 @@ En contraste, las métricas de salud mental y calidad de sueño (`bdi_total` y `
 ###  Variable objetivo: depressed / bdi_total
 
 ```{r target}
-datoshealth %>%
+tabla_balance <- datoshealth %>%
   count(depressed) %>%
-  mutate(Proporcion = scales::percent(n / sum(n))) %>%
-  datatable(options = list(dom = "t"), caption = "Balance de clase de 'depressed'")
+  mutate(
+    Proporcion = scales::percent(n / sum(n)),
+    Etiqueta = paste0(depressed, " (", n, ", ", Proporcion, ")")
+  )
 
+kable(tabla_balance, 
+      caption = "Balance de clases de la variable 'depressed'",
+      booktabs = TRUE,
+      align = c('l', 'c', 'c')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "center") %>%
+  column_spec(2, color = "#2166AC", bold = TRUE)
+
+# Gráfico de bdi_total con líneas de referencia
 ggplot(datoshealth, aes(x = bdi_total)) +
   geom_histogram(bins = 30, fill = col_principal, color = "white") +
   geom_vline(xintercept = median(datoshealth$bdi_total), color = col_secundario,
-             linetype = "dashed", linewidth = 1) +
+             linetype = "dashed", size = 1) +
+  geom_vline(xintercept = 14, color = "#e74c3c", linetype = "dotted", size = 1) +
+  annotate("text", x = 14, y = 80, label = "Corte clínico (BDI ≥ 14)", 
+           color = "#e74c3c", angle = 90, vjust = -0.5) +
+  annotate("text", x = median(datoshealth$bdi_total), y = 90, 
+           label = paste("Mediana =", median(datoshealth$bdi_total)), 
+           color = col_secundario, angle = 90, vjust = -0.5) +
   theme_minimal() +
-  labs(title = "Distribución de bdi_total (línea = mediana)", x = "Puntaje BDI total", y = "Frecuencia")
+  labs(title = "Distribución de bdi_total con puntos de referencia", 
+       x = "Puntaje BDI total", y = "Frecuencia")
 ```
-El análisis del puntaje total del BDI evidencia una distribución con asimetría positiva, donde la mediana se sitúa aproximadamente en 7.27 puntos. Esto refleja que al menos la mitad de la muestra presenta niveles mínimos o nulos de sintomatología depresiva. No obstante, la cola hacia la derecha muestra la presencia de un segmento minoritario de la población con puntuaciones elevadas (mayores a 20 puntos), lo cual justifica analizar a este subgrupo de forma independiente mediante pruebas no paramétricas debido a la falta de normalidad en la variable.
+El análisis del puntaje total del BDI evidencia una distribución con asimetría positiva, donde la mediana se sitúa aproximadamente en 5 puntos. Esto refleja que al menos la mitad de la muestra presenta niveles mínimos o nulos de sintomatología depresiva. No obstante, la cola hacia la derecha muestra la presencia de un segmento minoritario de la población con puntuaciones elevadas (mayores a 20 puntos), lo cual justifica analizar a este subgrupo de forma independiente mediante pruebas no paramétricas debido a la falta de normalidad en la variable.
 
 ###  Variable categórica: sex
-
-```{r categoricas, fig.width=6, fig.height=4}
-datoshealth %>%
+```{r grafico-sexo}
+datos_sexo <- datoshealth %>%
   count(sex) %>%
-  mutate(Proporcion = scales::percent(n / sum(n))) %>%
-  datatable(options = list(dom = "t"), caption = "Frecuencia de la variable sex")
+  mutate(
+    porcentaje = n / sum(n) * 100,
+    texto = paste0("Género: ", sex, 
+                   "<br>Frecuencia: ", n, 
+                   "<br>Porcentaje: ", round(porcentaje, 1), "%")
+  )
 
-ggplot(datoshealth, aes(x = sex, fill = sex)) +
-  geom_bar() +
-  scale_fill_manual(values = paleta_cat) +
-  theme_minimal() +
-  theme(legend.position = "none") +
-  labs(title = "Distribución por sexo", x = NULL, y = "Frecuencia")
+# Gráfico de barras interactivo
+plot_ly(
+  data = datos_sexo,
+  x = ~sex,
+  y = ~n,
+  type = "bar",
+  color = ~sex,
+  colors = c("Boy" = "#6a658d", "Girl" = "#5f9ea0"),
+  text = ~texto,
+  hoverinfo = "text",
+  marker = list(
+    line = list(color = "white", width = 2)
+  )
+) %>%
+  layout(
+    title = "Distribución por sexo",
+    xaxis = list(title = "Género"),
+    yaxis = list(title = "Frecuencia"),
+    showlegend = FALSE,
+    plot_bgcolor = "rgba(255,255,255,0.8)",
+    paper_bgcolor = "rgba(255,255,255,0.8)"
+  )
 ```
 
 ##  Análisis descriptivo bivariado
@@ -228,7 +444,6 @@ El análisis de correlación de Spearman revela dos asociaciones lineales de gra
 ###  Selección de variables a partir de la correlación real
 
 ```{r seleccion-variables}
-# correlación de cada predictora con la variable objetivo, ordenada
 cor_con_bdi <- mat_cor[predictoras, "bdi_total"] %>%
   sort(decreasing = TRUE) %>%
   round(3)
@@ -241,7 +456,7 @@ datatable(
 
 top3_predictoras <- names(cor_con_bdi)[order(-abs(cor_con_bdi))][1:3]
 
-# pares de predictoras redundantes entre sí (|r| > 0.8): no deben usarse juntas en un modelo
+
 mat_pred <- mat_cor[predictoras, predictoras]
 mat_pred[upper.tri(mat_pred, diag = TRUE)] <- NA
 
@@ -255,7 +470,43 @@ El análisis de correlación expone dos pares de variables con un grado crítico
 
 ###  Predictoras más asociadas con bdi_total
 
-```{r scatter-bivariado, fig.width=9, fig.height=4}
+
+```{r top3-predictoras}
+
+cor_con_bdi <- datoshealth %>%
+  select(where(is.numeric) & !any_of("subject_id")) %>%
+  cor(method = "spearman", use = "complete.obs") %>%
+  as.data.frame() %>%
+  rownames_to_column("Variable") %>%
+  select(Variable, bdi_total) %>%
+  filter(Variable != "bdi_total") %>%
+  arrange(desc(abs(bdi_total)))
+
+
+kable(cor_con_bdi, 
+      caption = "Correlación de Spearman con bdi_total",
+      booktabs = TRUE,
+      digits = 3,
+      align = c('l', 'c')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = FALSE,
+                position = "center") %>%
+  column_spec(2, 
+              color = ifelse(cor_con_bdi$bdi_total > 0, "#B2182B", "#2166AC"),
+              bold = TRUE)
+
+top3_predictoras <- cor_con_bdi$Variable[1:3]
+
+cat(" **Las 3 predictoras más asociadas con bdi_total son:**\n")
+cat("1", top3_predictoras[1], "(r =", round(cor_con_bdi$bdi_total[1], 3), ")\n")
+cat("2", top3_predictoras[2], "(r =", round(cor_con_bdi$bdi_total[2], 3), ")\n")
+cat("3", top3_predictoras[3], "(r =", round(cor_con_bdi$bdi_total[3], 3), ")\n")
+
+
+
+
+```
+```{r}
 datoshealth %>%
   select(all_of(top3_predictoras), bdi_total) %>%
   pivot_longer(all_of(top3_predictoras), names_to = "Variable", values_to = "Valor") %>%
@@ -267,6 +518,7 @@ datoshealth %>%
   labs(title = "Predictoras más asociadas con bdi_total (según Spearman)",
        x = NULL, y = "Puntaje BDI total")
 ```
+
 El análisis de dispersión y tendencias suavizadas confirma que las tres variables presentan una relación clara con el nivel de depresión (bdi_total). La calidad del sueño (sleep_quality_index) muestra un impacto ascendente constante en el rango de 1 a 4 puntos, mientras que la duración habitual del sueño (avg_sleep_hours) evidencia un comportamiento inversamente proporcional, donde dormir menos de 7 horas se asocia con un incremento pronunciado en el BDI.
 
 Por su parte, la hora media de sueño los fines de semana (midsleep_weekend_hours) sugiere que los horarios de descanso muy tardíos se relacionan con mayor sintomatología. Vale destacar que los cambios de tendencia observados en los extremos superiores de las tres variables se acompañan de un ensanchamiento significativo en los intervalos de confianza, lo cual refleja una baja densidad de observaciones en esos rangos y no necesariamente una inversión en la tendencia real.
@@ -274,97 +526,224 @@ Por su parte, la hora media de sueño los fines de semana (midsleep_weekend_hour
 ###  Interacción con sexo
 
 ```{r interaccion-sexo, fig.width=9, fig.height=4}
-colores_diagnostico <- c("0" = "#483d8b", "1" = "#5f9ea0")
-
-tabla_sexo <- datoshealth %>%
+tabla_sexo_interactiva <- datoshealth %>%
   count(sex, depressed) %>%
   group_by(sex) %>%
   mutate(
     prop = n / sum(n),
-    label_text = paste0(percent(prop, accuracy = 0.1), "\n(", comma(n), ")")
+    prop_pct = percent(prop, accuracy = 0.1),
+    label_text = paste0("n = ", n, "\n", prop_pct),
+    # Crear categoría combinada para hover
+    categoria = paste0(sex, " - ", depressed)
   ) %>%
   ungroup()
 
-p1 <- ggplot(tabla_sexo, aes(x = sex, y = n, fill = factor(depressed))) +
-  geom_bar(stat = "identity", position = position_dodge(width = 0.85), width = 0.8) +
-  geom_text(
-    aes(label = label_text),
-    position = position_dodge(width = 0.85),
-    vjust = -0.3,
-    size = 3.5,
-    fontface = "bold",
-    color = "black"
-  ) +
-  scale_fill_manual(
-    values = colores_diagnostico,
-    labels = c("No Deprimido (0)", "Deprimido (1)"),
-    name = "Diagnóstico"
-  ) +
-  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
-  theme_classic() +
-  labs(
-    title = "Prevalencia de Depresión por Género",
-    x = "Género",
-    y = "Cantidad de Adolescentes"
-  ) +
-  theme(
-    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
-    axis.title = element_text(color = "#333333"),
-    legend.position = c(0.85, 0.85),
-    legend.background = element_blank()
+# 2. Gráfico 1: Barras apiladas interactivas
+p1_interactivo <- plot_ly(
+  data = tabla_sexo_interactiva,
+  x = ~sex,
+  y = ~n,
+  color = ~depressed,
+  type = "bar",
+  colors = c("No deprimido" = "#483d8b", "Deprimido" = "#5f9ea0"),
+  text = ~label_text,
+  textposition = "outside",
+  hovertemplate = paste(
+    "<b>%{x}</b><br>",
+    "Diagnóstico: %{color}<br>",
+    "Cantidad: %{y}<br>",
+    "Porcentaje: %{text}<br>",
+    "<extra></extra>"
+  ),
+  marker = list(
+    line = list(color = "white", width = 1.5)
+  )
+) %>%
+  layout(
+    title = list(
+      text = "Prevalencia de Depresión por Género",
+      font = list(size = 16, family = "bold", color = "#333333")
+    ),
+    xaxis = list(
+      title = "Género",
+      categoryorder = "array",
+      categoryarray = c("Boy", "Girl")
+    ),
+    yaxis = list(
+      title = "Cantidad de Adolescentes",
+      gridcolor = "#e6e6e6"
+    ),
+    barmode = "group",
+    bargap = 0.15,
+    bargroupgap = 0.1,
+    legend = list(
+      title = list(text = "Diagnóstico"),
+      orientation = "h",
+      y = 1.05,
+      x = 0.5,
+      xanchor = "center"
+    ),
+    plot_bgcolor = "rgba(255,255,255,0.9)",
+    paper_bgcolor = "rgba(255,255,255,0.9)",
+    hovermode = "x unified"
   )
 
-
-medianas <- datoshealth %>%
+# 3. Gráfico 2: Boxplot interactivo
+# Calcular estadísticos para el boxplot
+estadisticos_sexo <- datoshealth %>%
   group_by(sex) %>%
-  summarise(mediana = median(bdi_total, na.rm = TRUE))
-
-colores_sexo <- c("Boy" = "#6a658d", "Girl" = "#5f9ea0")
-
-p2 <- ggplot(datoshealth, aes(x = sex, y = bdi_total, fill = sex)) +
-  geom_boxplot(width = 0.4, outlier.size = 1, outlier.alpha = 0.6, color = "#333333") +
-  # Línea roja discontinua de Corte Clínico
-  geom_hline(yintercept = 14, color = "#e74c3c", linetype = "dashed", size = 0.8) +
-  # Cajas de texto con la Mediana
-  geom_label(
-    data = medianas,
-    aes(x = sex, y = mediana, label = paste0("Mediana: ", sprintf("%.1f", mediana))),
-    fill = "white",
-    color = "black",
-    fontface = "bold",
-    size = 3.2,
-    label.padding = unit(0.2, "lines"),
-    alpha = 0.85
-  ) +
-  # Anotación manual para la leyenda de la línea de corte
-  annotate(
-    "text", x = 2.4, y = 50, 
-    label = "--- Corte Clínico (BDI-II ≥ 14)", 
-    color = "#e74c3c", size = 3.5, fontface = "plain"
-  ) +
-  scale_fill_manual(values = colores_sexo) +
-  theme_classic() +
-  labs(
-    title = "Distribución del Puntaje BDI-II por Género",
-    x = "Género",
-    y = "Puntaje Total BDI-II (0-63)"
-  ) +
-  theme(
-    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),
-    legend.position = "none"
+  summarise(
+    mediana = median(bdi_total, na.rm = TRUE),
+    q1 = quantile(bdi_total, 0.25, na.rm = TRUE),
+    q3 = quantile(bdi_total, 0.75, na.rm = TRUE),
+    min = min(bdi_total, na.rm = TRUE),
+    max = max(bdi_total, na.rm = TRUE),
+    n = n()
   )
 
-grid.arrange(p1, p2, ncol = 2)
+p2_interactivo <- plot_ly() %>%
+  # Boxplot
+  add_trace(
+    data = datoshealth,
+    x = ~sex,
+    y = ~bdi_total,
+    type = "box",
+    color = ~sex,
+    colors = c("Boy" = "#6a658d", "Girl" = "#5f9ea0"),
+    boxmean = FALSE,
+    boxpoints = "suspectedoutliers",
+    pointpos = -0.5,
+    jitter = 0.1,
+    marker = list(opacity = 0.4, size = 4),
+    line = list(color = "#333333", width = 1.5),
+    hovertemplate = paste(
+      "<b>%{x}</b><br>",
+      "Mediana: %{median:.1f}<br>",
+      "Q1: %{q1:.1f}<br>",
+      "Q3: %{q3:.1f}<br>",
+      "Mín: %{min:.1f}<br>",
+      "Máx: %{max:.1f}<br>",
+      "N: %{n}<br>",
+      "<extra></extra>"
+    ),
+    name = "Boxplot"
+  ) %>%
+  # Línea de corte clínico
+  add_trace(
+    x = c("Boy", "Girl"),
+    y = c(14, 14),
+    type = "scatter",
+    mode = "lines",
+    line = list(color = "#e74c3c", dash = "dash", width = 1.5),
+    name = "Corte Clínico (BDI ≥ 14)",
+    hoverinfo = "skip"
+  ) %>%
+  # Etiquetas de mediana
+  add_trace(
+    data = estadisticos_sexo,
+    x = ~sex,
+    y = ~mediana,
+    type = "scatter",
+    mode = "text",
+    text = ~paste("Mediana:", round(mediana, 1)),
+    textfont = list(
+      family = "bold",
+      size = 11,
+      color = "black"
+    ),
+    textposition = "middle center",
+    hoverinfo = "skip",
+    showlegend = FALSE
+  ) %>%
+  # Cuadros de texto para estadísticos
+  add_annotations(
+    x = c("Boy", "Girl"),
+    y = estadisticos_sexo$mediana,
+    text = paste0("Mediana: ", round(estadisticos_sexo$mediana, 1)),
+    showarrow = FALSE,
+    font = list(size = 11, color = "black", family = "bold"),
+    bgcolor = "white",
+    borderpad = 4,
+    bordercolor = "#333333",
+    borderwidth = 1
+  ) %>%
+  # Anotación de la línea de corte
+  add_annotations(
+    x = 2.4,
+    y = 48,
+    text = "Corte Clínico (BDI-II ≥ 14)",
+    showarrow = FALSE,
+    font = list(size = 12, color = "#e74c3c"),
+    xanchor = "left"
+  ) %>%
+  layout(
+    title = list(
+      text = "Distribución del Puntaje BDI-II por Género",
+      font = list(size = 16, family = "bold", color = "#333333")
+    ),
+    xaxis = list(
+      title = "Género",
+      categoryorder = "array",
+      categoryarray = c("Boy", "Girl")
+    ),
+    yaxis = list(
+      title = "Puntaje Total BDI-II (0-63)",
+      gridcolor = "#e6e6e6",
+      range = c(0, 63)
+    ),
+    showlegend = TRUE,
+    legend = list(
+      orientation = "h",
+      y = 1.05,
+      x = 0.5,
+      xanchor = "center"
+    ),
+    plot_bgcolor = "rgba(255,255,255,0.9)",
+    paper_bgcolor = "rgba(255,255,255,0.9)",
+    hovermode = "y unified"
+  )
+
+# 4. Mostrar ambos gráficos en un layout interactivo
+subplot(
+  p1_interactivo, 
+  p2_interactivo,
+  nrows = 1,
+  margin = 0.05,
+  shareX = FALSE,
+  titleX = TRUE,
+  titleY = TRUE
+) %>%
+  layout(
+    title = list(
+      text = "Análisis de Depresión por Género",
+      font = list(size = 18, family = "bold")
+    ),
+    annotations = list(
+      list(
+        x = 0.25,
+        y = -0.15,
+        text = "A. Prevalencia de Depresión",
+        showarrow = FALSE,
+        xref = "paper",
+        yref = "paper",
+        font = list(size = 13, color = "#333333")
+      ),
+      list(
+        x = 0.75,
+        y = -0.15,
+        text = "B. Distribución del Puntaje BDI",
+        showarrow = FALSE,
+        xref = "paper",
+        yref = "paper",
+        font = list(size = 13, color = "#333333")
+      )
+    )
+  )
+
 ```
 El análisis bivariado expone una brecha de género estadísticamente relevante en la salud mental de la muestra. En términos categóricos, las adolescentes presentan una prevalencia de depresión casi tres veces superior a la de sus pares masculinos (24.4% frente a 8.6%).Esta tendencia se ratifica al evaluar la variable en su escala continua: la mediana del puntaje BDI-II en chicas (7.0 puntos) duplica la de los chicos (3.0 puntos), mostrando una mayor dispersión hacia puntuaciones elevadas que sobrepasan el corte clínico ($\ge 14$). Estos resultados sugieren que el género es un factor determinante a considerar dentro del modelo predictivo para bdi_total.
 
 ##  Documentación de hallazgos
-
-```{r hallazgos-texto, echo=FALSE, results='asis'}
-cat("- Predictora con mayor correlación con bdi_total:", names(cor_con_bdi)[1],
-    "(r =", cor_con_bdi[1], ")\n")
-cat("- Las top 3 predictoras analizadas en 6.3 fueron:", paste(top3_predictoras, collapse = ", "), "\n")
-```
 
 - El dataset no tiene duplicados por `subject_id`; los faltantes son mínimos o nulos.
 - La selección de predictoras para el análisis bivariado (sección 6.3) se hizo a partir de
