@@ -40,3 +40,5 @@ Este estudio se propone analizar y modelar, utilizando herramientas de análisis
 - Entrenar y comparar modelos de machine learning como regresión logística, random forest y XGBoost para predecir el riesgo depresivo (usando el target definido en el dataset) a partir de variables de pantalla, sueño y demográficas. También planteamos entrenar modelos separados por género, para contrastar con el enfoque multigrupo del estudio original y ver si el rendimiento predictivo mejora al hacer esta distinción.
 
 - Identificar los predictores más importantes usando técnicas como importancia de variables y SHAP. Queremos responder, con datos y con modelos, si el tiempo de pantalla realmente es el protagonista, o si —como empieza a verse en la literatura— el sueño termina siendo el verdadero mediador de esta historia. Y, sobre todo, si ambos factores emergen como los más relevantes o si hay sorpresas en el camino.
+
+C:\Users\User\OneDrive\Documentos\DataViz_2026\rbook_dataviz

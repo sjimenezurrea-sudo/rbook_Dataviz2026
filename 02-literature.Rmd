@@ -177,17 +177,7 @@ De esta manera, se buscará identificar cuáles variables presentan mayor releva
 
 ## Herramientas
 
-El desarrollo del proyecto combinará el uso de **Python y R**, aprovechando las ventajas de ambos lenguajes.
-
-El modelado principal y las técnicas de aprendizaje automático serán desarrollados en **Python**, mientras que **R** será utilizado como herramienta complementaria para el análisis exploratorio, la manipulación de datos y la presentación de resultados.
-
-Entre las principales herramientas utilizadas en Python se encuentran:
-
-- **`pandas`**, para la manipulación y preparación de los datos.
-- **`scikit-learn`**, para el preprocesamiento, entrenamiento, validación y evaluación de los modelos.
-- **`xgboost`**, para la implementación del modelo XGBoost.
-- **`imbalanced-learn`**, para la aplicación de técnicas como SMOTE.
-- **`matplotlib`** y **`seaborn`**, para la generación de visualizaciones.
+El objetivo de usar las herramientas en R es lograr la manipulación de los datos para obtener resultados estadístcas mejor desarrollados
 
 En R se utilizarán principalmente:
 

@@ -216,7 +216,10 @@ kable(tabla_outliers,
                              ifelse(tabla_outliers$Relevancia == "Media", "#ffc107", "#28a745")))
 ```
 
+En la tabla vemos los datos correspondientes a outliers de cada variable, la varibale bdi_total es la que mas outliers presenta con 257 datos y 5.34% lo que nos indica una relevancia alta en cambbio observamos que las variables screen_time_index y est_leisure_screen_hours no tienen outliers lo cual causaría una distinción al observar mas detalladamente los estadísticos de cada variables.
+
 ```{r outliers-boxplot, fig.width=8, fig.height=5}
+
 datoshealth %>%
   select(where(is.numeric) & !any_of("subject_id")) %>%
   pivot_longer(everything(), names_to = "Variable", values_to = "Valor") %>%
@@ -417,6 +420,7 @@ plot_ly(
     paper_bgcolor = "rgba(255,255,255,0.8)"
   )
 ```
+Podemos observar del gráfico que en la poblcación hay mas cantidad de hombres que mujeres, en este caso los hombres son el 50.9% de la muestra (n=2446), en cambio las mujeres corresponden al 49.1% de la muestra (n=2364).
 
 ##  Análisis descriptivo bivariado
 
