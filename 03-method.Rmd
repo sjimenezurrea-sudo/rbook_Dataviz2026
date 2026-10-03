@@ -216,7 +216,7 @@ kable(tabla_outliers,
                              ifelse(tabla_outliers$Relevancia == "Media", "#ffc107", "#28a745")))
 ```
 
-En la tabla vemos los datos correspondientes a outliers de cada variable, la varibale bdi_total es la que mas outliers presenta con 257 datos y 5.34% lo que nos indica una relevancia alta en cambbio observamos que las variables screen_time_index y est_leisure_screen_hours no tienen outliers lo cual causaría una distinción al observar mas detalladamente los estadísticos de cada variables.
+En la tabla vemos los datos correspondientes a outliers de cada variable, la varibale `bdi_total` es la que mas outliers presenta con 257 datos y 5.34% lo que nos indica una relevancia alta en cambio observamos que las variables `screen_time_index` y `est_leisure_screen_hours` no tienen outliers lo cual causaría una distinción al observar mas detalladamente los estadísticos de cada variables.
 
 ```{r outliers-boxplot, fig.width=8, fig.height=5}
 

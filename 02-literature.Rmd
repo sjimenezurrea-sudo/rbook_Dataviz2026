@@ -177,7 +177,7 @@ De esta manera, se buscará identificar cuáles variables presentan mayor releva
 
 ## Herramientas
 
-El objetivo de usar las herramientas en R es lograr la manipulación de los datos para obtener resultados estadístcas mejor desarrollados
+El objetivo de usar las herramientas en R es tener una buena manipulación de los datos para obtener resultados estadístcas mejor desarrollados.
 
 En R se utilizarán principalmente:
 
