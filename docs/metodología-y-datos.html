@@ -455,7 +455,6 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 <li><strong>Matrices de correlación</strong>, para estudiar las relaciones entre las variables numéricas relacionadas con pantalla, sueño y <code>bdi_total</code>.</li>
 </ul>
 <p>Finalmente, se realizarán <strong>pruebas de diferencia por género</strong> con el propósito de identificar posibles diferencias estadísticamente significativas entre hombres y mujeres en las variables estudiadas.</p>
-<hr />
 </div>
 <div id="preprocesamiento" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Preprocesamiento<a href="metodología-y-datos.html#preprocesamiento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -464,7 +463,6 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 <p>La variable <code>sex</code>, al ser categórica binaria, será transformada a un formato adecuado para su utilización como predictor en los modelos que lo requieran.</p>
 <p>Debido al desbalance presente en la variable objetivo <code>depressed</code>, donde aproximadamente el <strong>16,4 % de los participantes corresponde a la clase positiva</strong>, se evaluarán estrategias para abordar este problema, como <strong>SMOTE</strong> o el uso de <code>class_weight = "balanced"</code>.</p>
 <p>Estas técnicas serán aplicadas <strong>únicamente sobre el conjunto de entrenamiento</strong>, con el objetivo de evitar filtración de información (<em>data leakage</em>) hacia el conjunto de prueba.</p>
-<hr />
 </div>
 <div id="modelado" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Modelado<a href="metodología-y-datos.html#modelado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -484,7 +482,6 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 <p>Esta estrategia permitirá comparar el desempeño de los modelos y analizar si existen diferencias en los factores asociados con la depresión según el género.</p>
 <p>Para la selección de los mejores hiperparámetros se utilizarán métodos como <strong>GridSearchCV</strong> o <strong>RandomizedSearchCV</strong>, junto con una <strong>validación cruzada de 5 particiones (k = 5)</strong>.</p>
 <p>La métrica principal utilizada para la optimización será <strong>AUC-PR</strong>, debido al desbalance presente en la variable objetivo. Esta métrica permitirá evaluar de manera más adecuada la capacidad de los modelos para identificar los casos positivos.</p>
-<hr />
 </div>
 <div id="evaluación" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Evaluación<a href="metodología-y-datos.html#evaluaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -500,7 +497,6 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 </ul>
 <p>Además, los resultados obtenidos por los diferentes modelos serán comparados con un <strong>baseline basado en la clase mayoritaria</strong>. Esto permitirá determinar si los modelos desarrollados proporcionan una mejora real frente a una estrategia de clasificación trivial.</p>
 <p>La comparación se realizará tanto entre los diferentes algoritmos como entre las distintas configuraciones por género.</p>
-<hr />
 </div>
 <div id="interpretabilidad" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Interpretabilidad<a href="metodología-y-datos.html#interpretabilidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -523,7 +519,6 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 <li><strong>Modelo de chicas.</strong></li>
 </ul>
 <p>De esta manera, se buscará identificar cuáles variables presentan mayor relevancia para la predicción de depresión y si existen diferencias en los factores predictivos según el género.</p>
-<hr />
 </div>
 <div id="herramientas" class="section level2 hasAnchor" number="2.8">
 <h2><span class="header-section-number">2.8</span> Herramientas<a href="metodología-y-datos.html#herramientas" class="anchor-section" aria-label="Anchor link to header"></a></h2>

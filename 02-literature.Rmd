@@ -97,7 +97,7 @@ Para complementar el análisis se utilizarán diferentes visualizaciones, entre 
 
 Finalmente, se realizarán **pruebas de diferencia por género** con el propósito de identificar posibles diferencias estadísticamente significativas entre hombres y mujeres en las variables estudiadas.
 
----
+
 
 ##  Preprocesamiento
 
@@ -111,7 +111,6 @@ Debido al desbalance presente en la variable objetivo `depressed`, donde aproxim
 
 Estas técnicas serán aplicadas **únicamente sobre el conjunto de entrenamiento**, con el objetivo de evitar filtración de información (*data leakage*) hacia el conjunto de prueba.
 
----
 
 ##  Modelado
 
@@ -137,7 +136,6 @@ Para la selección de los mejores hiperparámetros se utilizarán métodos como 
 
 La métrica principal utilizada para la optimización será **AUC-PR**, debido al desbalance presente en la variable objetivo. Esta métrica permitirá evaluar de manera más adecuada la capacidad de los modelos para identificar los casos positivos.
 
----
 
 ##  Evaluación
 
@@ -156,7 +154,6 @@ Además, los resultados obtenidos por los diferentes modelos serán comparados c
 
 La comparación se realizará tanto entre los diferentes algoritmos como entre las distintas configuraciones por género.
 
----
 
 ##  Interpretabilidad
 
@@ -182,8 +179,6 @@ Finalmente, se comparará la importancia de las variables entre:
 - **Modelo de chicas.**
 
 De esta manera, se buscará identificar cuáles variables presentan mayor relevancia para la predicción de depresión y si existen diferencias en los factores predictivos según el género.
-
----
 
 ## Herramientas
 

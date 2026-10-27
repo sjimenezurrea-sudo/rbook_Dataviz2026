@@ -1,7 +1,6 @@
 # Marco Teórico y Base Estadística
 
-**Santiago Jiménez y Luis Cabarcas**  
-*Universidad del Norte*
+
 
 En esta sección se describen los procedimientos estadísticos y las técnicas de aprendizaje automático implementadas en el proyecto para analizar la relación entre el tiempo de pantalla, los patrones de sueño y la depresión en adolescentes. Se detallan las fórmulas matemáticas y las funciones específicas del lenguaje **R** que se utilizarán para cada procedimiento. En adelante, \(x_1, \dots, x_n\) denota los valores observados de una variable en \(n\) adolescentes.
 
@@ -31,7 +30,7 @@ Dado que en salud mental los valores extremos (puntuaciones muy altas en el BDI-
 
 * **Implementación en R:** Se utilizará `geom_boxplot()` de `ggplot2` para visualizar los atípicos y la función `boxplot.stats()` para extraer los valores exactos que caen fuera de los límites.
 
----
+
 
 ##  Medidas de asociación y correlación
 
@@ -52,7 +51,6 @@ Para interpretar la magnitud se usan los umbrales de Cohen: \(|\rho| < 0.1\) (de
 
 * **Implementación en R:** Se utilizarán `cor(method = "pearson")` y `cor(method = "spearman")`. Para visualizar las matrices se usará la librería `ggcorrplot`.
 
----
 
 ##  Pruebas de hipótesis y decisión mediante valor p
 
@@ -81,7 +79,6 @@ El tamaño del efecto es la correlación biserial de rangos: \(r = 1 - \frac{2U_
 
 * **Implementación en R:** Se usará la función base `wilcox.test()` y el paquete `rstatix` (función `wilcox_effsize()`) para obtener los tamaños del efecto.
 
----
 
 ##  Modelado con Aprendizaje Automático (Machine Learning)
 
@@ -107,7 +104,7 @@ Algoritmo de *boosting* que construye árboles de decisión de forma secuencial,
 
 * **Implementación en R:** Se utilizará el paquete `tidymodels`. La Regresión Logística se ajustará con `logistic_reg()`, Random Forest con `rand_forest()` (motor `ranger`), y XGBoost con `boost_tree()` (motor `xgboost`). Los hiperparámetros se optimizarán con validación cruzada de 5 particiones (`vfold_cv`).
 
----
+
 
 ##  Evaluación de los modelos
 
@@ -126,7 +123,7 @@ Cruza la clase real con la predicha: Verdaderos Positivos (\(VP\)), Falsos Posit
 
 * **Implementación en R:** Se utilizará el paquete `yardstick` para calcular `accuracy()`, `precision()`, `recall()`, `f_meas()`, `roc_auc()` y `pr_auc()`.
 
----
+
 
 ## Interpretabilidad del modelo (SHAP)
 
