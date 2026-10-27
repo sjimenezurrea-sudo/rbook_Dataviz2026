@@ -177,8 +177,6 @@
             <section class="normal" id="section-">
 <div id="marco-teórico-y-base-estadística" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Capítulo  3</span> Marco Teórico y Base Estadística<a href="marco-teórico-y-base-estadística.html#marco-te%C3%B3rico-y-base-estad%C3%ADstica" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Santiago Jiménez y Luis Cabarcas</strong><br />
-<em>Universidad del Norte</em></p>
 <p>En esta sección se describen los procedimientos estadísticos y las técnicas de aprendizaje automático implementadas en el proyecto para analizar la relación entre el tiempo de pantalla, los patrones de sueño y la depresión en adolescentes. Se detallan las fórmulas matemáticas y las funciones específicas del lenguaje <strong>R</strong> que se utilizarán para cada procedimiento. En adelante, <span class="math inline">\(x_1, \dots, x_n\)</span> denota los valores observados de una variable en <span class="math inline">\(n\)</span> adolescentes.</p>
 <div id="estadística-descriptiva-y-detección-de-valores-atípicos" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Estadística descriptiva y detección de valores atípicos<a href="marco-teórico-y-base-estadística.html#estad%C3%ADstica-descriptiva-y-detecci%C3%B3n-de-valores-at%C3%ADpicos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -208,7 +206,6 @@ Dado que en salud mental los valores extremos (puntuaciones muy altas en el BDI-
 <ul>
 <li><strong>Implementación en R:</strong> Se utilizará <code>geom_boxplot()</code> de <code>ggplot2</code> para visualizar los atípicos y la función <code>boxplot.stats()</code> para extraer los valores exactos que caen fuera de los límites.</li>
 </ul>
-<hr />
 </div>
 </div>
 <div id="medidas-de-asociación-y-correlación" class="section level2 hasAnchor" number="3.2">
@@ -231,7 +228,6 @@ donde <span class="math inline">\(d_i\)</span> es la diferencia entre los rangos
 <ul>
 <li><strong>Implementación en R:</strong> Se utilizarán <code>cor(method = "pearson")</code> y <code>cor(method = "spearman")</code>. Para visualizar las matrices se usará la librería <code>ggcorrplot</code>.</li>
 </ul>
-<hr />
 </div>
 </div>
 <div id="pruebas-de-hipótesis-y-decisión-mediante-valor-p" class="section level2 hasAnchor" number="3.3">
@@ -265,7 +261,6 @@ El tamaño del efecto es la correlación biserial de rangos: <span class="math i
 <ul>
 <li><strong>Implementación en R:</strong> Se usará la función base <code>wilcox.test()</code> y el paquete <code>rstatix</code> (función <code>wilcox_effsize()</code>) para obtener los tamaños del efecto.</li>
 </ul>
-<hr />
 </div>
 </div>
 <div id="modelado-con-aprendizaje-automático-machine-learning" class="section level2 hasAnchor" number="3.4">
@@ -296,7 +291,6 @@ Se usará como modelo de referencia (<em>baseline</em>) interpretable.</p>
 <ul>
 <li><strong>Implementación en R:</strong> Se utilizará el paquete <code>tidymodels</code>. La Regresión Logística se ajustará con <code>logistic_reg()</code>, Random Forest con <code>rand_forest()</code> (motor <code>ranger</code>), y XGBoost con <code>boost_tree()</code> (motor <code>xgboost</code>). Los hiperparámetros se optimizarán con validación cruzada de 5 particiones (<code>vfold_cv</code>).</li>
 </ul>
-<hr />
 </div>
 </div>
 <div id="evaluación-de-los-modelos" class="section level2 hasAnchor" number="3.5">
@@ -317,7 +311,6 @@ Se usará como modelo de referencia (<em>baseline</em>) interpretable.</p>
 <li><p><strong>AUC-PR (Precisión Promedio):</strong> Más informativa que ROC cuando la clase positiva es minoritaria. Para un clasificador aleatorio, la AP es igual a la prevalencia.</p></li>
 <li><p><strong>Implementación en R:</strong> Se utilizará el paquete <code>yardstick</code> para calcular <code>accuracy()</code>, <code>precision()</code>, <code>recall()</code>, <code>f_meas()</code>, <code>roc_auc()</code> y <code>pr_auc()</code>.</p></li>
 </ul>
-<hr />
 </div>
 </div>
 <div id="interpretabilidad-del-modelo-shap" class="section level2 hasAnchor" number="3.6">
