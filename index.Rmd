@@ -1,5 +1,5 @@
 ---
-title: "Visualización De Datos Y Toma de Desciciones"
+title: "El uso excesivo del celular afecta en la salud mental de los jovenes?"
 author: "Santiago Jimenez Urrea y Luis Cabarcas"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site

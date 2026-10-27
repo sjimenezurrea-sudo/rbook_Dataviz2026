@@ -1,11 +1,23 @@
-# Metodología
+# Metodología y Datos
 
-**Santiago Jiménez y Luis Cabarcas**  
-*Universidad del Norte*
 
 A continuación se presenta la metodología a seguir para el desarrollo del proyecto.
 
-##  Descripción del dataset 
+## Marco Teórico
+
+Para abordar el análisis de la relación entre el tiempo de pantalla, el sueño y la depresión, se emplearán diversas técnicas estadísticas y de aprendizaje automático. A continuación, se describen brevemente los fundamentos de las herramientas utilizadas:
+
+**Regresión Logística:** Es un modelo estadístico utilizado para predecir la probabilidad de una variable dependiente categórica (en este caso, `depressed`). Es altamente interpretable, ya que los coeficientes indican la dirección y magnitud de la relación entre cada predictor y la probabilidad de ocurrencia del evento.
+
+**Random Forest:** Es un algoritmo de aprendizaje supervisado basado en un conjunto de árboles de decisión. Cada árbol se entrena con una muestra aleatoria de los datos y un subconjunto aleatorio de las variables, y la predicción final se obtiene por votación. Es robusto frente a valores atípicos y captura relaciones no lineales e interacciones entre variables.
+
+**XGBoost (Extreme Gradient Boosting):** Es un algoritmo de *boosting* que construye árboles de decisión de forma secuencial, donde cada árbol nuevo intenta corregir los errores del anterior. Es conocido por su alta precisión y eficiencia, siendo uno de los algoritmos más utilizados en competencias de ciencia de datos y aplicaciones predictivas.
+
+**SHAP (SHapley Additive exPlanations):** Es una técnica de interpretabilidad de modelos que se basa en la teoría de juegos. Permite calcular la contribución de cada variable a la predicción individual de un modelo, ofreciendo una visión clara de qué variables son más importantes y cómo afectan la predicción (por ejemplo, si aumentan o disminuyen el riesgo de depresión).
+
+**SMOTE (Synthetic Minority Over-sampling Technique):** Es una técnica para abordar el desbalance de clases. Genera nuevas instancias sintéticas de la clase minoritaria (en este caso, los participantes deprimidos) a partir de las instancias existentes, evitando el sobreajuste que puede ocurrir con un simple duplicado de datos.
+
+## Descripción del dataset 
 Se utilizará el dataset `screen_time_mental_health.csv`, obtenido desde Kaggle, compuesto por **4.810 registros**, sin valores faltantes y con **10 variables**.
 
 ```{r setup-literature, include=FALSE}
@@ -14,7 +26,6 @@ library(kableExtra)
 ```
 
 ```{r}
-
 variables <- data.frame(
   Variable = c(
     "subject_id",
@@ -65,9 +76,8 @@ kable(
   kable_styling(
     bootstrap_options = c("striped", "hover", "responsive"),
     full_width = FALSE
-)
+  )
 ```
-
 ##  Análisis Exploratorio de Datos (EDA)
 
 Se realizará un análisis exploratorio de los datos con el objetivo de comprender las características principales del dataset antes de realizar el modelado.

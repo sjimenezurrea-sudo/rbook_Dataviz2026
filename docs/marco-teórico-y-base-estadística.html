@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Marco Teórico y Base Estadística | El uso excesivo del celular afecta en la salud mental de los jovenes?</title>
+  <meta name="description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Marco Teórico y Base Estadística | El uso excesivo del celular afecta en la salud mental de los jovenes?" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="github-repo" content="sjimenezurrea-sudo/rbook_Dataviz2026" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Marco Teórico y Base Estadística | El uso excesivo del celular afecta en la salud mental de los jovenes?" />
+  
+  <meta name="twitter:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  
+
+<meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
+
+
+<meta name="date" content="2026-10-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="metodología-y-datos.html"/>
+<link rel="next" href="eda-análisis-exploratorio-de-datos.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#antecedentes"><i class="fa fa-check"></i><b>1.1</b> Antecedentes</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.2</b> Objetivo</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.3</b> Objetivos específicos</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html"><i class="fa fa-check"></i><b>2</b> Metodología y Datos</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#marco-te%C3%B3rico"><i class="fa fa-check"></i><b>2.1</b> Marco Teórico</a></li>
+<li class="chapter" data-level="2.2" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#descripci%C3%B3n-del-dataset"><i class="fa fa-check"></i><b>2.2</b> Descripción del dataset</a></li>
+<li class="chapter" data-level="2.3" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#an%C3%A1lisis-exploratorio-de-datos-eda"><i class="fa fa-check"></i><b>2.3</b> Análisis Exploratorio de Datos (EDA)</a></li>
+<li class="chapter" data-level="2.4" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#preprocesamiento"><i class="fa fa-check"></i><b>2.4</b> Preprocesamiento</a></li>
+<li class="chapter" data-level="2.5" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#modelado"><i class="fa fa-check"></i><b>2.5</b> Modelado</a></li>
+<li class="chapter" data-level="2.6" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#evaluaci%C3%B3n"><i class="fa fa-check"></i><b>2.6</b> Evaluación</a></li>
+<li class="chapter" data-level="2.7" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#interpretabilidad"><i class="fa fa-check"></i><b>2.7</b> Interpretabilidad</a></li>
+<li class="chapter" data-level="2.8" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#herramientas"><i class="fa fa-check"></i><b>2.8</b> Herramientas</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html"><i class="fa fa-check"></i><b>3</b> Marco Teórico y Base Estadística</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#estad%C3%ADstica-descriptiva-y-detecci%C3%B3n-de-valores-at%C3%ADpicos"><i class="fa fa-check"></i><b>3.1</b> Estadística descriptiva y detección de valores atípicos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#medidas-de-tendencia-central-y-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.1.1</b> Medidas de tendencia central y dispersión</a></li>
+<li class="chapter" data-level="3.1.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#detecci%C3%B3n-de-valores-at%C3%ADpicos-outliers"><i class="fa fa-check"></i><b>3.1.2</b> 1.2. Detección de valores atípicos (Outliers)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#medidas-de-asociaci%C3%B3n-y-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2</b> Medidas de asociación y correlación</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-pearson"><i class="fa fa-check"></i><b>3.2.1</b> Coeficiente de correlación de Pearson</a></li>
+<li class="chapter" data-level="3.2.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-spearman"><i class="fa fa-check"></i><b>3.2.2</b> Coeficiente de correlación de Spearman</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#pruebas-de-hip%C3%B3tesis-y-decisi%C3%B3n-mediante-valor-p"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis y decisión mediante valor p</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#l%C3%B3gica-de-la-prueba-y-regla-de-decisi%C3%B3n"><i class="fa fa-check"></i><b>3.3.1</b> Lógica de la prueba y regla de decisión</a></li>
+<li class="chapter" data-level="3.3.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#prueba-chi-cuadrado-de-independencia"><i class="fa fa-check"></i><b>3.3.2</b> Prueba Chi-cuadrado de independencia</a></li>
+<li class="chapter" data-level="3.3.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#prueba-u-de-mann-whitney"><i class="fa fa-check"></i><b>3.3.3</b> Prueba U de Mann-Whitney</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#modelado-con-aprendizaje-autom%C3%A1tico-machine-learning"><i class="fa fa-check"></i><b>3.4</b> Modelado con Aprendizaje Automático (Machine Learning)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#tratamiento-del-desbalance-smote"><i class="fa fa-check"></i><b>3.4.1</b> Tratamiento del desbalance: SMOTE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#regresi%C3%B3n-log%C3%ADstica"><i class="fa fa-check"></i><b>3.4.2</b> Regresión Logística</a></li>
+<li class="chapter" data-level="3.4.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#random-forest"><i class="fa fa-check"></i><b>3.4.3</b> Random Forest</a></li>
+<li class="chapter" data-level="3.4.4" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#xgboost-extreme-gradient-boosting"><i class="fa fa-check"></i><b>3.4.4</b> XGBoost (Extreme Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#evaluaci%C3%B3n-de-los-modelos"><i class="fa fa-check"></i><b>3.5</b> Evaluación de los modelos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#matriz-de-confusi%C3%B3n-y-m%C3%A9tricas-b%C3%A1sicas"><i class="fa fa-check"></i><b>3.5.1</b> Matriz de confusión y métricas básicas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#curvas-roc-y-precision-recall"><i class="fa fa-check"></i><b>3.5.2</b> Curvas ROC y Precision-Recall</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#interpretabilidad-del-modelo-shap"><i class="fa fa-check"></i><b>3.6</b> Interpretabilidad del modelo (SHAP)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>4</b> EDA (Análisis Exploratorio De Datos)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto"><i class="fa fa-check"></i><b>4.1</b> Comprender el contexto</a></li>
+<li class="chapter" data-level="4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas"><i class="fa fa-check"></i><b>4.2</b> Carga de librerías</a></li>
+<li class="chapter" data-level="4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>4.3</b> Importación de datos</a></li>
+<li class="chapter" data-level="4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n"><i class="fa fa-check"></i><b>4.4</b> Limpieza, tratamiento y preparación</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos"><i class="fa fa-check"></i><b>4.4.1</b> Tipos de datos</a></li>
+<li class="chapter" data-level="4.4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados"><i class="fa fa-check"></i><b>4.4.2</b> Valores faltantes y duplicados</a></li>
+<li class="chapter" data-level="4.4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#resumen-estad%C3%ADstico-inicial"><i class="fa fa-check"></i><b>4.4.3</b> Resumen estadístico inicial</a></li>
+<li class="chapter" data-level="4.4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr"><i class="fa fa-check"></i><b>4.4.4</b> Detección de outliers (método IQR)</a></li>
+<li class="chapter" data-level="4.4.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#test-de-normalidad"><i class="fa fa-check"></i><b>4.4.5</b> Test de normalidad</a></li>
+<li class="chapter" data-level="4.4.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#intervalos-de-confianza-del-95-para-medias"><i class="fa fa-check"></i><b>4.4.6</b> Intervalos de confianza del 95% para medias</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado"><i class="fa fa-check"></i><b>4.5</b> Análisis descriptivo univariado</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>4.5.1</b> Distribución de variables numéricas</a></li>
+<li class="chapter" data-level="4.5.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total"><i class="fa fa-check"></i><b>4.5.2</b> Variable objetivo: depressed / bdi_total</a></li>
+<li class="chapter" data-level="4.5.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex"><i class="fa fa-check"></i><b>4.5.3</b> Variable categórica: sex</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado"><i class="fa fa-check"></i><b>4.6</b> Análisis descriptivo bivariado</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman"><i class="fa fa-check"></i><b>4.6.1</b> Matriz de correlación (Spearman)</a></li>
+<li class="chapter" data-level="4.6.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real"><i class="fa fa-check"></i><b>4.6.2</b> Selección de variables a partir de la correlación real</a></li>
+<li class="chapter" data-level="4.6.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total"><i class="fa fa-check"></i><b>4.6.3</b> Predictoras más asociadas con bdi_total</a></li>
+<li class="chapter" data-level="4.6.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo"><i class="fa fa-check"></i><b>4.6.4</b> Interacción con sexo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>4.7</b> Documentación de hallazgos</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="en-proceso.html"><a href="en-proceso.html"><i class="fa fa-check"></i><b>5</b> En proceso</a></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="./">Analisis exploratorio de datos</a></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">El uso excesivo del celular afecta en la salud mental de los jovenes?</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="marco-teórico-y-base-estadística" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo  3</span> Marco Teórico y Base Estadística<a href="marco-teórico-y-base-estadística.html#marco-te%C3%B3rico-y-base-estad%C3%ADstica" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Santiago Jiménez y Luis Cabarcas</strong><br />
+<em>Universidad del Norte</em></p>
+<p>En esta sección se describen los procedimientos estadísticos y las técnicas de aprendizaje automático implementadas en el proyecto para analizar la relación entre el tiempo de pantalla, los patrones de sueño y la depresión en adolescentes. Se detallan las fórmulas matemáticas y las funciones específicas del lenguaje <strong>R</strong> que se utilizarán para cada procedimiento. En adelante, <span class="math inline">\(x_1, \dots, x_n\)</span> denota los valores observados de una variable en <span class="math inline">\(n\)</span> adolescentes.</p>
+<div id="estadística-descriptiva-y-detección-de-valores-atípicos" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Estadística descriptiva y detección de valores atípicos<a href="marco-teórico-y-base-estadística.html#estad%C3%ADstica-descriptiva-y-detecci%C3%B3n-de-valores-at%C3%ADpicos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="medidas-de-tendencia-central-y-dispersión" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Medidas de tendencia central y dispersión<a href="marco-teórico-y-base-estadística.html#medidas-de-tendencia-central-y-dispersi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La media muestral resume el centro de la distribución:
+<span class="math display">\[
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]</span>
+La mediana es el valor que deja la mitad de las observaciones ordenadas a cada lado. Es menos sensible que la media a valores extremos, por lo que se reporta junto a ella en variables asimétricas como <code>bdi_total</code>.</p>
+<p>La varianza muestral y la desviación estándar miden la dispersión alrededor de la media; se divide entre <span class="math inline">\(n-1\)</span> para obtener un estimador insesgado:
+<span class="math display">\[
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2, \quad s = \sqrt{s^2}
+\]</span>
+El rango intercuartílico (IQR) mide la dispersión de la mitad central de los datos: <span class="math inline">\(IQR = Q_3 - Q_1\)</span>.</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se utilizarán las funciones base <code>mean()</code>, <code>median()</code>, <code>sd()</code>, <code>var()</code> y <code>quantile()</code>, además de herramientas de <code>dplyr</code> como <code>summarise()</code> para agrupar por género.</li>
+</ul>
+</div>
+<div id="detección-de-valores-atípicos-outliers" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> 1.2. Detección de valores atípicos (Outliers)<a href="marco-teórico-y-base-estadística.html#detecci%C3%B3n-de-valores-at%C3%ADpicos-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se aplica la regla de Tukey: una observación se considera atípica cuando queda fuera de los límites:
+<span class="math display">\[
+L_{inf} = Q_1 - 1.5 \cdot IQR, \quad L_{sup} = Q_3 + 1.5 \cdot IQR
+\]</span>
+Dado que en salud mental los valores extremos (puntuaciones muy altas en el BDI-II) suelen ser los casos clínicamente más relevantes, no se eliminarán automáticamente, sino que se documentarán.</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se utilizará <code>geom_boxplot()</code> de <code>ggplot2</code> para visualizar los atípicos y la función <code>boxplot.stats()</code> para extraer los valores exactos que caen fuera de los límites.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="medidas-de-asociación-y-correlación" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Medidas de asociación y correlación<a href="marco-teórico-y-base-estadística.html#medidas-de-asociaci%C3%B3n-y-correlaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="coeficiente-de-correlación-de-pearson" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Coeficiente de correlación de Pearson<a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-pearson" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Mide la fuerza de la asociación lineal entre dos variables continuas:
+<span class="math display">\[
+r_{xy} = \frac{\sum_{i} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i} (x_i - \bar{x})^2} \sqrt{\sum_{i} (y_i - \bar{y})^2}}
+\]</span></p>
+</div>
+<div id="coeficiente-de-correlación-de-spearman" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Coeficiente de correlación de Spearman<a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-spearman" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Dado que las variables del estudio no siguen una distribución normal (verificado mediante pruebas de normalidad), se utiliza el coeficiente de Spearman. Este es el coeficiente de Pearson aplicado a los rangos de las observaciones (con rango promedio en caso de empates). Mide asociación monótona y es robusto ante valores atípicos:
+<span class="math display">\[
+\rho = 1 - \frac{6 \sum_{i} d_i^2}{n(n^2 - 1)}
+\]</span>
+donde <span class="math inline">\(d_i\)</span> es la diferencia entre los rangos de <span class="math inline">\(x_i\)</span> y <span class="math inline">\(y_i\)</span>. Su significancia se contrasta con <span class="math inline">\(H_0: \rho = 0\)</span> mediante <span class="math inline">\(t = \rho \sqrt{\frac{n-2}{1-\rho^2}} \sim t_{n-2}\)</span>.</p>
+<p>Para interpretar la magnitud se usan los umbrales de Cohen: <span class="math inline">\(|\rho| &lt; 0.1\)</span> (despreciable), <span class="math inline">\(0.1 - 0.3\)</span> (pequeña), <span class="math inline">\(0.3 - 0.5\)</span> (moderada) y <span class="math inline">\(\ge 0.5\)</span> (grande). Dos predictores con <span class="math inline">\(|\rho| \ge 0.7\)</span> se consideran redundantes (multicolinealidad).</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se utilizarán <code>cor(method = "pearson")</code> y <code>cor(method = "spearman")</code>. Para visualizar las matrices se usará la librería <code>ggcorrplot</code>.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="pruebas-de-hipótesis-y-decisión-mediante-valor-p" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Pruebas de hipótesis y decisión mediante valor p<a href="marco-teórico-y-base-estadística.html#pruebas-de-hip%C3%B3tesis-y-decisi%C3%B3n-mediante-valor-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="lógica-de-la-prueba-y-regla-de-decisión" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Lógica de la prueba y regla de decisión<a href="marco-teórico-y-base-estadística.html#l%C3%B3gica-de-la-prueba-y-regla-de-decisi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Toda prueba plantea una hipótesis nula <span class="math inline">\(H_0\)</span> (no hay diferencia o asociación) y una alternativa <span class="math inline">\(H_1\)</span>. El valor p es la probabilidad de obtener un estadístico al menos tan extremo como el observado si <span class="math inline">\(H_0\)</span> fuera cierta:
+<span class="math display">\[
+p = P(|T| \ge |t_{obs}| \mid H_0)
+\]</span>
+La regla de decisión fija <span class="math inline">\(\alpha = 0.05\)</span>: si <span class="math inline">\(p &lt; \alpha\)</span>, se rechaza <span class="math inline">\(H_0\)</span> y se considera significativo. Con <span class="math inline">\(n = 4.810\)</span>, diferencias muy pequeñas resultan significativas, por lo que cada prueba se acompaña de un tamaño del efecto.</p>
+</div>
+<div id="prueba-chi-cuadrado-de-independencia" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Prueba Chi-cuadrado de independencia<a href="marco-teórico-y-base-estadística.html#prueba-chi-cuadrado-de-independencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Contrasta si dos variables categóricas son independientes (por ejemplo, <code>sex</code> y <code>depressed</code>). A partir de la tabla de contingencia, el estadístico es:
+<span class="math display">\[
+\chi^2 = \sum_{i} \sum_{j} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+\]</span>
+donde <span class="math inline">\(E_{ij} = \frac{(\text{total fila } i)(\text{total columna } j)}{n}\)</span>. El tamaño del efecto es la V de Cramér: <span class="math inline">\(V = \sqrt{\frac{\chi^2}{n \min(f-1, c-1)}}\)</span>.</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se usará la función <code>chisq.test()</code>. Para calcular la V de Cramér y los odds ratios se usará el paquete <code>epitools</code> o <code>vcd</code>.</li>
+</ul>
+</div>
+<div id="prueba-u-de-mann-whitney" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Prueba U de Mann-Whitney<a href="marco-teórico-y-base-estadística.html#prueba-u-de-mann-whitney" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Compara la distribución de una variable numérica entre dos grupos independientes sin suponer normalidad (ej. comparar <code>bdi_total</code> entre chicos y chicas). Se ordenan las observaciones, se suma el rango <span class="math inline">\(R_1\)</span> del primer grupo y se calcula:
+<span class="math display">\[
+U_1 = R_1 - \frac{n_1(n_1+1)}{2}, \quad U_2 = n_1 n_2 - U_1
+\]</span>
+El tamaño del efecto es la correlación biserial de rangos: <span class="math inline">\(r = 1 - \frac{2U_1}{n_1 n_2}\)</span>.</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se usará la función base <code>wilcox.test()</code> y el paquete <code>rstatix</code> (función <code>wilcox_effsize()</code>) para obtener los tamaños del efecto.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="modelado-con-aprendizaje-automático-machine-learning" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Modelado con Aprendizaje Automático (Machine Learning)<a href="marco-teórico-y-base-estadística.html#modelado-con-aprendizaje-autom%C3%A1tico-machine-learning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Debido a que la variable objetivo <code>depressed</code> presenta un desbalance (aprox. 16.4% de casos positivos), se implementarán estrategias específicas para evitar sesgos en los modelos.</p>
+<div id="tratamiento-del-desbalance-smote" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Tratamiento del desbalance: SMOTE<a href="marco-teórico-y-base-estadística.html#tratamiento-del-desbalance-smote" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se utilizará <strong>SMOTE</strong> (Synthetic Minority Over-sampling Technique) para generar instancias sintéticas de la clase minoritaria (adolescentes deprimidos) a partir de sus vecinos más cercanos. Esto se aplicará <strong>únicamente sobre el conjunto de entrenamiento</strong> para evitar filtración de datos (<em>data leakage</em>).</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se usará la función <code>step_smote()</code> del paquete <code>themis</code> (integrado en el ecosistema <code>tidymodels</code>).</li>
+</ul>
+</div>
+<div id="regresión-logística" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Regresión Logística<a href="marco-teórico-y-base-estadística.html#regresi%C3%B3n-log%C3%ADstica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Modelo estadístico interpretable que estima la probabilidad de que un adolescente esté deprimido mediante la función logística:
+<span class="math display">\[
+P(Y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \dots + \beta_k X_k)}}
+\]</span>
+Se usará como modelo de referencia (<em>baseline</em>) interpretable.</p>
+</div>
+<div id="random-forest" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Random Forest<a href="marco-teórico-y-base-estadística.html#random-forest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Algoritmo de <em>bagging</em> que entrena múltiples árboles de decisión con subconjuntos aleatorios de datos y variables. Captura relaciones no lineales e interacciones entre variables sin sobreajustarse fácilmente.</p>
+</div>
+<div id="xgboost-extreme-gradient-boosting" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> XGBoost (Extreme Gradient Boosting)<a href="marco-teórico-y-base-estadística.html#xgboost-extreme-gradient-boosting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Algoritmo de <em>boosting</em> que construye árboles de decisión de forma secuencial, donde cada nuevo árbol intenta corregir los errores del anterior. Es conocido por su alta precisión.</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se utilizará el paquete <code>tidymodels</code>. La Regresión Logística se ajustará con <code>logistic_reg()</code>, Random Forest con <code>rand_forest()</code> (motor <code>ranger</code>), y XGBoost con <code>boost_tree()</code> (motor <code>xgboost</code>). Los hiperparámetros se optimizarán con validación cruzada de 5 particiones (<code>vfold_cv</code>).</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="evaluación-de-los-modelos" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Evaluación de los modelos<a href="marco-teórico-y-base-estadística.html#evaluaci%C3%B3n-de-los-modelos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Con clases desbalanceadas, el <em>accuracy</em> es engañoso: un modelo que predice siempre la clase mayoritaria obtiene un 83.6% de exactitud sin detectar ningún caso positivo. Por ello, se priorizan las siguientes métricas:</p>
+<div id="matriz-de-confusión-y-métricas-básicas" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Matriz de confusión y métricas básicas<a href="marco-teórico-y-base-estadística.html#matriz-de-confusi%C3%B3n-y-m%C3%A9tricas-b%C3%A1sicas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cruza la clase real con la predicha: Verdaderos Positivos (<span class="math inline">\(VP\)</span>), Falsos Positivos (<span class="math inline">\(FP\)</span>), Falsos Negativos (<span class="math inline">\(FN\)</span>) y Verdaderos Negativos (<span class="math inline">\(VN\)</span>).
+* <strong>Accuracy:</strong> <span class="math inline">\(\frac{VP + VN}{n}\)</span>
+* <strong>Precisión:</strong> <span class="math inline">\(\frac{VP}{VP + FP}\)</span> (proporción de alertas correctas).
+* <strong>Recall (Sensibilidad):</strong> <span class="math inline">\(\frac{VP}{VP + FN}\)</span> (proporción de casos positivos detectados).
+* <strong>F1-Score:</strong> Media armónica entre precisión y recall: <span class="math inline">\(F_1 = 2 \frac{Precisión \cdot Recall}{Precisión + Recall}\)</span>.</p>
+</div>
+<div id="curvas-roc-y-precision-recall" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Curvas ROC y Precision-Recall<a href="marco-teórico-y-base-estadística.html#curvas-roc-y-precision-recall" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>AUC-ROC:</strong> Área bajo la curva ROC. Representa la probabilidad de que el modelo asigne una puntuación más alta a un caso positivo que a uno negativo elegidos al azar. Vale <span class="math inline">\(0.5\)</span> para un clasificador aleatorio.</p></li>
+<li><p><strong>AUC-PR (Precisión Promedio):</strong> Más informativa que ROC cuando la clase positiva es minoritaria. Para un clasificador aleatorio, la AP es igual a la prevalencia.</p></li>
+<li><p><strong>Implementación en R:</strong> Se utilizará el paquete <code>yardstick</code> para calcular <code>accuracy()</code>, <code>precision()</code>, <code>recall()</code>, <code>f_meas()</code>, <code>roc_auc()</code> y <code>pr_auc()</code>.</p></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="interpretabilidad-del-modelo-shap" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Interpretabilidad del modelo (SHAP)<a href="marco-teórico-y-base-estadística.html#interpretabilidad-del-modelo-shap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para identificar cuáles variables influyen en mayor medida en las predicciones de los modelos complejos (Random Forest y XGBoost), se utilizará <strong>SHAP (SHapley Additive exPlanations)</strong>. Esta técnica, basada en la teoría de juegos, calcula la contribución marginal de cada variable a la predicción individual del modelo, permitiendo responder si el tiempo de pantalla es realmente el protagonista o si la calidad del sueño tiene un mayor peso predictivo.</p>
+<ul>
+<li><strong>Implementación en R:</strong> Se utilizará el paquete <code>shapr</code> o <code>fastshap</code> para generar los gráficos de resumen (<em>summary plots</em>) y de dependencia (<em>dependence plots</em>), los cuales permiten visualizar el impacto de cada predictor.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="metodología-y-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="eda-análisis-exploratorio-de-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/03-method.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book-merged.pdf", "book-merged.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

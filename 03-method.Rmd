@@ -1,761 +1,135 @@
-#  EDA (Análisis Exploratorio De Datos)
-
-
-```{r setup-method, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.align = "center")
-
-col_principal <- "#2166AC"
-col_secundario <- "#B2182B"
-paleta_cat <- c("#2166AC", "#B2182B")
-```
-
-## Comprender el contexto
-
-Pregunta de investigación: **¿el tiempo en pantallas y los patrones de sueño afectan la salud
-mental de los adolescentes?**
-
-Variable objetivo: `bdi_total` / `depressed`. Las demás variables numéricas (tiempo de
-pantalla, sueño) se tratan como predictoras. Este documento sigue los pasos del EDA:
-importar, limpiar, describir (uni y bivariado) y documentar hallazgos. La selección de qué
-relaciones profundizar en la sección bivariada se hace calculando la correlación real con
-`bdi_total`, no a partir de una lectura visual de la matriz.
-
-## Carga de librerías
-
-```{r librerias}
-library(tidyverse)
-library(ggcorrplot)
-library(gridExtra)
-library(scales)
-library(plotly)
-library(kableExtra)
-library(nortest)
-library(cowplot)
-library(DT)
-```
-
-##  Importación de datos
-
-```{r carga-datos}
-datoshealth <- read.csv("screen_time_mental_health.csv")
-
-glimpse(datoshealth)
-
-```
-
-Aquí podemos tener una mejor observación de los datos, podemos escoger el valor de variables que queremos observar:
-
-```{r vista-datos}
-datatable(
-  head(datoshealth, 10),
-  options = list(scrollX = TRUE, pageLength = 5),
-  caption = "Primeras 10 observaciones del dataset"
-)
-```
-
-##  Limpieza, tratamiento y preparación
-
-###  Tipos de datos
-
-```{r tipos-datos}
-
-datoshealth <- datoshealth %>%
-  mutate(
-    sex = factor(sex),
-    depressed = factor(depressed, labels = c("No deprimido", "Deprimido"))
-  )
-
-# Crear tabla de tipos de datos
-tipo_datos <- datoshealth %>%
-  summarise(across(everything(), ~class(.x)[1])) %>%
-  pivot_longer(everything(), names_to = "Variable", values_to = "Tipo") %>%
-  mutate(
-    Tipo = case_when(
-      Tipo == "integer" ~ "Entero (int)",
-      Tipo == "numeric" ~ "Numérico (dbl)",
-      Tipo == "factor" ~ "Categórico (factor)",
-      Tipo == "character" ~ "Texto (chr)",
-      TRUE ~ Tipo
-    )
-  )
-
-kable(tipo_datos, 
-      caption = "Tipos de datos de las variables",
-      booktabs = TRUE,
-      align = c('l', 'c')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                full_width = FALSE,
-                position = "center")
-```
-Con esta información seremos capaces de ver si solos los datos númericos influyen en los cambios del `bdi_total` o tambien las variables categóricas van a ser de importancia.
-
-###  Valores faltantes y duplicados
-
-```{r valores-faltantes}
-# Tabla de valores faltantes
-faltantes <- tibble(
-  Variable = names(datoshealth),
-  `Valores faltantes` = colSums(is.na(datoshealth)),
-  `Porcentaje` = round(100 * colSums(is.na(datoshealth)) / nrow(datoshealth), 2)
-) %>%
-  filter(`Valores faltantes` > 0)
-
-if(nrow(faltantes) > 0) {
-  kable(faltantes, 
-        caption = "Variables con datos faltantes",
-        booktabs = TRUE,
-        align = c('l', 'c', 'c')) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                  full_width = FALSE,
-                  position = "center") %>%
-    column_spec(2, color = "#dc3545", bold = TRUE)
-} else {
-  cat("No hay valores faltantes en el dataset")
-}
-
-# Verificar duplicados
-duplicados <- sum(duplicated(datoshealth$subject_id))
-cat("\n\n**Registros duplicados por subject_id:**", duplicados)
-
-```
-
-Observamos que nuestro dataset es muy completo dandonos a entender que está listo para el procesamiento, de esta forma confirmamos que nuestro análisis será mas acertado cuando evaluemos nuestros datos.
-
-###  Resumen estadístico inicial
-```{r tabla-resumen-mejorado}
-library(kableExtra)
-
-tabla_num <- datoshealth %>%
-  summarise(
-    across(
-      where(is.numeric) & !any_of("subject_id"),
-      list(
-        N = ~sum(!is.na(.x)),
-        Media = ~mean(.x, na.rm = TRUE),
-        Mediana = ~median(.x, na.rm = TRUE),
-        SD = ~sd(.x, na.rm = TRUE),
-        Min = ~min(.x, na.rm = TRUE),
-        Q1 = ~quantile(.x, 0.25, na.rm = TRUE),
-        Q3 = ~quantile(.x, 0.75, na.rm = TRUE),
-        Max = ~max(.x, na.rm = TRUE)
-      )
-    )
-  ) %>%
-  pivot_longer(
-    everything(),
-    names_to = c("Variable", ".value"),
-    names_pattern = "(.+)_(N|Media|Mediana|SD|Min|Q1|Q3|Max)$"
-  ) %>%
-  mutate(across(where(is.numeric), ~round(.x, 2)))
-
-kable(tabla_num, 
-      caption = "Resumen estadístico de variables numéricas",
-      booktabs = TRUE,
-      align = c('l', rep('c', 8)),
-      digits = 2) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-                full_width = TRUE,
-                position = "center",
-                font_size = 12) %>%
-  # Resaltar filas de variables clave
-  row_spec(which(tabla_num$Variable %in% c("bdi_total", "avg_sleep_hours", "screen_time_index")), 
-           background = "#f8f9fa") %>%
-  
-  footnote(general = "BDI: Inventario de Depresión de Beck; SD: Desviación Estándar; Q1/Q3: Cuartiles",
-           general_title = "Nota:",
-           footnote_as_chunk = TRUE)
-```
-
-En la siguiente tabla se presenta un resumen descriptivo de las principales variables numéricas del conjunto de datos, incluyendo su media y el intervalo correspondiente al 50 % central de las observaciones.
-
-- `screen_time_index`: presenta una media de 3,22 horas estimadas de uso de pantallas. El 50 % central de los individuos presenta valores entre 2,33 y 4,00 horas, lo que indica una concentración de las observaciones dentro de este intervalo.
-- `est_leisure_screen_hours`: presenta una media de 3,96 horas estimadas de uso de pantallas durante el tiempo libre. El 50 % central de los individuos se encuentra entre 2,07 y 5,50 horas de uso.
-- `sleep_quality_index`: presenta una media de 1,90 puntos en el índice de calidad del sueño. El 50 % central de los individuos presenta valores entre 1,25 y 2,25 puntos. Al tratarse de un índice, estos valores representan una puntuación de calidad del sueño y no horas de sueño.
-- `avg_sleep_hours`: presenta una media de 7,69 horas de sueño promedio. El 50 % central de los individuos registra entre 7,05 y 8,54 horas de sueño, mostrando que la mayor concentración de observaciones se encuentra alrededor de este intervalo.
-- `midsleep_weekend_hours`: presenta una media de 5,57 horas correspondientes al punto medio del periodo de sueño durante los fines de semana. El 50 % central de los individuos presenta valores entre 4,54 y 6,50 horas.
-- `social_jetlag_hours`: presenta una media de 2,40 horas de desfase entre los horarios de sueño de los días habituales y los fines de semana. El 50 % central de los individuos presenta un desfase entre 1,58 y 3,12 horas.
-- `bdi_total`: presenta una media de 7,27 puntos en la escala de síntomas depresivos. El 50 % central de los individuos obtiene puntuaciones entre 2 y 10 puntos. Es importante señalar que esta variable representa una puntuación de síntomas depresivos y no una medida directa de "horas" o de diagnóstico de depresión.
-
-###  Detección de outliers (método IQR)
-En esta tabla podemos ver el número de outliers de cada variable y cual es el porcentaje usando IQR, este indicador permite evaluar qué tan frecuente es la presencia de valores extremos en cada variable.
-```{r outliers}
-outliers_iqr <- function(x) {
-  q1 <- quantile(x, 0.25, na.rm = TRUE)
-  q3 <- quantile(x, 0.75, na.rm = TRUE)
-  iqr <- q3 - q1
-  sum(x < (q1 - 1.5 * iqr) | x > (q3 + 1.5 * iqr), na.rm = TRUE)
-}
-
-tabla_outliers <- datoshealth %>%
-  select(where(is.numeric) & !any_of("subject_id")) %>%
-  summarise(across(everything(), outliers_iqr)) %>%
-  pivot_longer(everything(), names_to = "Variable", values_to = "N_outliers") %>%
-  mutate(
-    Pct_outliers = round(100 * N_outliers / nrow(datoshealth), 2),
-    `Relevancia` = case_when(
-      Pct_outliers > 5 ~ "Alta",
-      Pct_outliers > 2 ~ "Media",
-      TRUE ~ "Baja"
-    )
-  ) %>%
-  arrange(desc(N_outliers))
-
-kable(tabla_outliers, 
-      caption = "Outliers por variable (regla 1.5 × IQR)",
-      booktabs = TRUE,
-      align = c('l', 'c', 'c', 'c')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                full_width = FALSE,
-                position = "center") %>%
-  column_spec(3, 
-              color = ifelse(tabla_outliers$Pct_outliers > 5, "#dc3545",
-                             ifelse(tabla_outliers$Pct_outliers > 2, "#ffc107", "#28a745")),
-              bold = TRUE) %>%
-  column_spec(4,
-              color = ifelse(tabla_outliers$Relevancia == "Alta", "#dc3545",
-                             ifelse(tabla_outliers$Relevancia == "Media", "#ffc107", "#28a745")))
-```
-
-En la tabla vemos los datos correspondientes a outliers de cada variable, la varibale `bdi_total` es la que mas outliers presenta con 257 datos y 5.34% lo que nos indica una relevancia alta en cambio observamos que las variables `screen_time_index` y `est_leisure_screen_hours` no tienen outliers lo cual causaría una distinción al observar mas detalladamente los estadísticos de cada variables.
-
-```{r outliers-boxplot, fig.width=8, fig.height=5}
-
-datoshealth %>%
-  select(where(is.numeric) & !any_of("subject_id")) %>%
-  pivot_longer(everything(), names_to = "Variable", values_to = "Valor") %>%
-  ggplot(aes(x = Variable, y = Valor)) +
-  geom_boxplot(fill = col_principal, alpha = 0.6, outlier.color = col_secundario) +
-  facet_wrap(~Variable, scales = "free") +
-  theme_minimal() +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
-  labs(title = "Valores atípicos por variable", x = NULL, y = NULL)
-```
-
-A partir de los diagramas de caja se observa la presencia de valores atípicos principalmente en las variables relacionadas con el sueño y la salud mental. `bdi_total` presenta una cantidad considerable de observaciones extremas hacia valores altos, mientras que `avg_sleep_hours`, `sleep_quality_index`, `midsleep_weekend_hours` y `social_jetlag_hours` también presentan algunos valores alejados del comportamiento central de los datos. Por otro lado, `screen_time_index` y `est_leisure_screen_hours` muestran una menor presencia de valores atípicos. Estos valores extremos no necesariamente representan errores en los datos, sino que pueden corresponder a individuos con comportamientos o características diferentes al resto de la muestra, por lo que deben ser evaluados antes de decidir si serán eliminados o conservados en análisis posteriores.
-
-### Test de normalidad
-
-```{r shapiro-test}
-
-
-# Función para formatear p-valores
-format_p <- function(p) {
-  ifelse(p < 0.001, "< 0.001***",
-         ifelse(p < 0.01, paste0(round(p, 4), "**"),
-                ifelse(p < 0.05, paste0(round(p, 4), "*"),
-                       round(p, 4))))
-}
-
-# Realizar la prueba
-shapiro_results <- datoshealth %>%
-  select(where(is.numeric) & !any_of("subject_id")) %>%
-  imap_dfr(~{
-    test_result <- shapiro.test(.x)
-    tibble(
-      Variable = .y,
-      `Estadístico W` = round(test_result$statistic, 4),
-      `Valor p` = test_result$p.value,
-      `p-valor (formateado)` = format_p(test_result$p.value),
-      Normal = ifelse(test_result$p.value > 0.05, "Sí", "No")
-    )
-  })
-
-# Crear tabla con kable
-kable(shapiro_results, 
-      caption = "Prueba de normalidad Shapiro-Wilk (α = 0.05)",
-      booktabs = TRUE,
-      align = c('l', 'c', 'c', 'c', 'c')) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-    full_width = FALSE,
-    position = "center",
-    font_size = 14
-  ) %>%
-  # Colorear columna de valor p
-  column_spec(3, 
-              color = ifelse(shapiro_results$`Valor p` < 0.05, "#dc3545", "#28a745"),
-              bold = TRUE) %>%
-  # Colorear columna de normalidad
-  column_spec(5,
-              background = ifelse(shapiro_results$Normal == "Sí", 
-                                  "#d4edda", "#f8d7da"),
-              color = ifelse(shapiro_results$Normal == "Sí", 
-                             "#155724", "#721c24"),
-              bold = TRUE) %>%
-  # Añadir notas al pie
-  footnote(general = "*** p < 0.001, ** p < 0.01, * p < 0.05",
-           general_title = "Niveles de significancia:",
-           footnote_as_chunk = TRUE,
-           title_format = c("italic", "underline"))
-```
-
-Al realizar el análisis del estadístico de normalidad, observamos que la dsitribución de nuestra población de estudio no sigue una distribución normal, de esta forma confirmamo que no sería correcto hacer el estudio de nuestra muestra utilizando el coeficiento de correlación de pearson el cual se usa cuando la muestra sigue una distribución normal por lo tanto usaremos el coeficiente de correlación de spearman para mas adelante en nuestro estudio encontrar las variables que dan respuesta al fenómeno que estamos evaluando.
-
-### Intervalos de confianza del 95% para medias
-
-```{r ic-medias}
-
-ic_medias <- datoshealth %>%
-  select(where(is.numeric) & !any_of("subject_id")) %>%
-  summarise(across(everything(), list(
-    Media = ~mean(., na.rm = TRUE),
-    LI = ~mean(., na.rm = TRUE) - 1.96 * sd(., na.rm = TRUE)/sqrt(sum(!is.na(.))),
-    LS = ~mean(., na.rm = TRUE) + 1.96 * sd(., na.rm = TRUE)/sqrt(sum(!is.na(.)))
-  ))) %>%
-  pivot_longer(everything(), 
-               names_to = c("Variable", ".value"), 
-               names_pattern = "(.+)_(Media|LI|LS)") %>%
-  mutate(
-    across(c(Media, LI, LS), ~round(., 2)),
-    `IC 95%` = paste0(LI, " - ", LS)
-  ) %>%
-  select(Variable, Media, `IC 95%`)
-
-
-kable(ic_medias, 
-      caption = "Intervalos de confianza del 95% para medias",
-      booktabs = TRUE,
-      align = c('l', 'c', 'c')) %>%
-  kable_styling(
-    bootstrap_options = c("striped", "hover", "condensed"),
-    full_width = FALSE,
-    position = "center"
-  ) %>%
-  column_spec(2, bold = TRUE, color = "#2166AC") %>%
-  row_spec(which(ic_medias$Variable == "bdi_total"), 
-           background = "#FFF3CD", bold = TRUE)
-```
-
-El análisis de los intervalos de confianza del 95% revela estimaciones precisas y estables para todas las variables evaluadas. El tiempo promedio en pantalla se estima en 3.22 horas (IC 95%: 3.19 - 3.25), mientras que el tiempo de pantalla en ocio alcanza las 3.96 horas (IC 95%: 3.89 - 4.03). En cuanto a los patrones de sueño, la duración promedio es de 7.69 horas (IC 95%: 7.65 - 7.72), con una calidad de sueño media de 1.90 puntos (IC 95%: 1.88 - 1.93). El índice de depresión (BDI) presenta una media de 7.27 puntos (IC 95%: 7.05 - 7.49), mostrando el intervalo más amplio, lo que refleja una mayor variabilidad en los puntajes y es consistente con la distribución asimétrica observada previamente. La amplitud reducida de los intervalos en el resto de variables (±0.03 a ±0.06 unidades) confirma la solidez del tamaño muestral y la precisión de las estimaciones poblacionales.
-
-
-
-
-##  Análisis descriptivo univariado
-
-### Distribución de variables numéricas
-
-```{r histogramas, fig.width=8, fig.height=6}
-datoshealth %>%
-  select(where(is.numeric) & !any_of("subject_id")) %>%
-  pivot_longer(everything(), names_to = "Variable", values_to = "Valor") %>%
-  ggplot(aes(x = Valor)) +
-  geom_histogram(bins = 30, fill = col_principal, color = "white", na.rm = TRUE) +
-  facet_wrap(~Variable, scales = "free") +
-  theme_minimal() +
-  labs(title = "Distribución de variables numéricas", x = NULL, y = "Frecuencia")
-```
-
-El análisis exploratorio de las variables numéricas revela que los hábitos de sueño (`avg_sleep_hours`,`midsleep_weekend_hours`) y el `social_jetlag_hours` siguen una distribución aproximadamente normal, concentrando a la mayoría de la población en valores promedios centrales.
-
-En contraste, las métricas de salud mental y calidad de sueño (`bdi_total` y `sleep_quality_index`) presentan un marcado sesgo a la derecha, lo que indica que la gran mayoría de la muestra reporta niveles bajos de severidad, con solo un pequeño porcentaje de casos atípicos con puntuaciones elevadas. Esto concuerda con la variable depressed, donde la proporción de individuos diagnosticados (1) es significativamente menor en comparación con el grupo de control (0). Finalmente, el tiempo frente a pantalla evidencia comportamientos agrupados en intervalos específicos que convendría profundizar mediante análisis de correlación.
-
-###  Variable objetivo: depressed / bdi_total
-
-```{r target}
-tabla_balance <- datoshealth %>%
-  count(depressed) %>%
-  mutate(
-    Proporcion = scales::percent(n / sum(n)),
-    Etiqueta = paste0(depressed, " (", n, ", ", Proporcion, ")")
-  )
-
-kable(tabla_balance, 
-      caption = "Balance de clases de la variable 'depressed'",
-      booktabs = TRUE,
-      align = c('l', 'c', 'c')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                full_width = FALSE,
-                position = "center") %>%
-  column_spec(2, color = "#2166AC", bold = TRUE)
-
-# Gráfico de bdi_total con líneas de referencia
-ggplot(datoshealth, aes(x = bdi_total)) +
-  geom_histogram(bins = 30, fill = col_principal, color = "white") +
-  geom_vline(xintercept = median(datoshealth$bdi_total), color = col_secundario,
-             linetype = "dashed", size = 1) +
-  geom_vline(xintercept = 14, color = "#e74c3c", linetype = "dotted", size = 1) +
-  annotate("text", x = 14, y = 80, label = "Corte clínico (BDI ≥ 14)", 
-           color = "#e74c3c", angle = 90, vjust = -0.5) +
-  annotate("text", x = median(datoshealth$bdi_total), y = 90, 
-           label = paste("Mediana =", median(datoshealth$bdi_total)), 
-           color = col_secundario, angle = 90, vjust = -0.5) +
-  theme_minimal() +
-  labs(title = "Distribución de bdi_total con puntos de referencia", 
-       x = "Puntaje BDI total", y = "Frecuencia")
-```
-El análisis del puntaje total del BDI evidencia una distribución con asimetría positiva, donde la mediana se sitúa aproximadamente en 5 puntos. Esto refleja que al menos la mitad de la muestra presenta niveles mínimos o nulos de sintomatología depresiva. No obstante, la cola hacia la derecha muestra la presencia de un segmento minoritario de la población con puntuaciones elevadas (mayores a 20 puntos), lo cual justifica analizar a este subgrupo de forma independiente mediante pruebas no paramétricas debido a la falta de normalidad en la variable.
-
-###  Variable categórica: sex
-```{r grafico-sexo}
-datos_sexo <- datoshealth %>%
-  count(sex) %>%
-  mutate(
-    porcentaje = n / sum(n) * 100,
-    texto = paste0("Género: ", sex, 
-                   "<br>Frecuencia: ", n, 
-                   "<br>Porcentaje: ", round(porcentaje, 1), "%")
-  )
-
-# Gráfico de barras interactivo
-plot_ly(
-  data = datos_sexo,
-  x = ~sex,
-  y = ~n,
-  type = "bar",
-  color = ~sex,
-  colors = c("Boy" = "#6a658d", "Girl" = "#5f9ea0"),
-  text = ~texto,
-  hoverinfo = "text",
-  marker = list(
-    line = list(color = "white", width = 2)
-  )
-) %>%
-  layout(
-    title = "Distribución por sexo",
-    xaxis = list(title = "Género"),
-    yaxis = list(title = "Frecuencia"),
-    showlegend = FALSE,
-    plot_bgcolor = "rgba(255,255,255,0.8)",
-    paper_bgcolor = "rgba(255,255,255,0.8)"
-  )
-```
-Podemos observar del gráfico que en la poblcación hay mas cantidad de hombres que mujeres, en este caso los hombres son el 50.9% de la muestra (n=2446), en cambio las mujeres corresponden al 49.1% de la muestra (n=2364).
-
-##  Análisis descriptivo bivariado
-
-###  Matriz de correlación (Spearman)
-
-```{r correlacion, fig.width=7, fig.height=6}
-predictoras <- c("screen_time_index", "est_leisure_screen_hours",
-                  "sleep_quality_index", "avg_sleep_hours",
-                  "midsleep_weekend_hours", "social_jetlag_hours")
-
-datos_num <- datoshealth %>% select(all_of(predictoras), bdi_total)
-mat_cor <- cor(datos_num, use = "complete.obs", method = "spearman")
-
-ggcorrplot(
-  mat_cor,
-  type = "lower",
-  lab = TRUE,
-  lab_size = 3,
-  colors = c(col_secundario, "white", col_principal),
-  title = "Matriz de correlación de Spearman"
-)
-```
-El análisis de correlación de Spearman revela dos asociaciones lineales de gran magnitud: una fuerte redundancia entre las métricas de uso de pantalla (screen_time_index y est_leisure_screen_hours, $r = 0.95$) y una relación directa entre el horario medio de sueño en fines de semana y el jetlag social ($r = 0.84$).En cuanto a la salud mental (bdi_total), esta presenta su correlación más significativa con la calidad del sueño (sleep_quality_index, $r = 0.39$) y una relación inversa con la duración promedio del sueño (avg_sleep_hours, $r = -0.28$). Estos hallazgos sugieren que el deterioro en la calidad y duración del descanso está asociado a mayores niveles de sintomatología depresiva en la muestra.
-
-###  Selección de variables a partir de la correlación real
-
-```{r seleccion-variables}
-cor_con_bdi <- mat_cor[predictoras, "bdi_total"] %>%
-  sort(decreasing = TRUE) %>%
-  round(3)
-
-datatable(
-  tibble(Variable = names(cor_con_bdi), Correlacion_con_bdi = cor_con_bdi),
-  options = list(dom = "t"),
-  caption = "Correlación de cada predictora con bdi_total (Spearman)"
-)
-
-top3_predictoras <- names(cor_con_bdi)[order(-abs(cor_con_bdi))][1:3]
-
-
-mat_pred <- mat_cor[predictoras, predictoras]
-mat_pred[upper.tri(mat_pred, diag = TRUE)] <- NA
-
-pares_redundantes <- as.data.frame(as.table(mat_pred)) %>%
-  filter(!is.na(Freq), abs(Freq) > 0.8) %>%
-  rename(Variable_1 = Var1, Variable_2 = Var2, Correlacion = Freq)
-
-datatable(pares_redundantes, options = list(dom = "t"), caption = "Pares de predictoras redundantes (|r| > 0.8)")
-```
-El análisis de correlación expone dos pares de variables con un grado crítico de colinealidad: las métricas de pantalla (est_leisure_screen_hours y screen_time_index, $r \approx 0.95$) y los indicadores de sueño de fin de semana (social_jetlag_hours y midsleep_weekend_hours, $r \approx 0.84$).De cara a la construcción de un modelo predictivo para la variable objetivo bdi_total, la presencia de esta multicolinealidad atenta contra la estabilidad e interpretabilidad de los coeficientes de regresión. Por lo tanto, se concluye la necesidad de realizar una selección previa de variables (feature selection) eliminando un componente de cada par colineal antes del ajuste del modelo final.
-
-###  Predictoras más asociadas con bdi_total
-
-
-```{r top3-predictoras}
-
-cor_con_bdi <- datoshealth %>%
-  select(where(is.numeric) & !any_of("subject_id")) %>%
-  cor(method = "spearman", use = "complete.obs") %>%
-  as.data.frame() %>%
-  rownames_to_column("Variable") %>%
-  select(Variable, bdi_total) %>%
-  filter(Variable != "bdi_total") %>%
-  arrange(desc(abs(bdi_total)))
-
-
-kable(cor_con_bdi, 
-      caption = "Correlación de Spearman con bdi_total",
-      booktabs = TRUE,
-      digits = 3,
-      align = c('l', 'c')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-                full_width = FALSE,
-                position = "center") %>%
-  column_spec(2, 
-              color = ifelse(cor_con_bdi$bdi_total > 0, "#B2182B", "#2166AC"),
-              bold = TRUE)
-
-top3_predictoras <- cor_con_bdi$Variable[1:3]
-
-cat(" **Las 3 predictoras más asociadas con bdi_total son:**\n")
-cat("1", top3_predictoras[1], "(r =", round(cor_con_bdi$bdi_total[1], 3), ")\n")
-cat("2", top3_predictoras[2], "(r =", round(cor_con_bdi$bdi_total[2], 3), ")\n")
-cat("3", top3_predictoras[3], "(r =", round(cor_con_bdi$bdi_total[3], 3), ")\n")
-
-
-
-
-```
-```{r}
-datoshealth %>%
-  select(all_of(top3_predictoras), bdi_total) %>%
-  pivot_longer(all_of(top3_predictoras), names_to = "Variable", values_to = "Valor") %>%
-  ggplot(aes(x = Valor, y = bdi_total)) +
-  geom_point(color = col_principal, alpha = 0.3, size = 1) +
-  geom_smooth(method = "loess", se = TRUE, color = col_secundario, linewidth = 1) +
-  facet_wrap(~Variable, scales = "free_x") +
-  theme_minimal() +
-  labs(title = "Predictoras más asociadas con bdi_total (según Spearman)",
-       x = NULL, y = "Puntaje BDI total")
-```
-
-El análisis de dispersión y tendencias suavizadas confirma que las tres variables presentan una relación clara con el nivel de depresión (bdi_total). La calidad del sueño (sleep_quality_index) muestra un impacto ascendente constante en el rango de 1 a 4 puntos, mientras que la duración habitual del sueño (avg_sleep_hours) evidencia un comportamiento inversamente proporcional, donde dormir menos de 7 horas se asocia con un incremento pronunciado en el BDI.
-
-Por su parte, la hora media de sueño los fines de semana (midsleep_weekend_hours) sugiere que los horarios de descanso muy tardíos se relacionan con mayor sintomatología. Vale destacar que los cambios de tendencia observados en los extremos superiores de las tres variables se acompañan de un ensanchamiento significativo en los intervalos de confianza, lo cual refleja una baja densidad de observaciones en esos rangos y no necesariamente una inversión en la tendencia real.
-
-###  Interacción con sexo
-
-```{r interaccion-sexo, fig.width=9, fig.height=4}
-tabla_sexo_interactiva <- datoshealth %>%
-  count(sex, depressed) %>%
-  group_by(sex) %>%
-  mutate(
-    prop = n / sum(n),
-    prop_pct = percent(prop, accuracy = 0.1),
-    label_text = paste0("n = ", n, "\n", prop_pct),
-    # Crear categoría combinada para hover
-    categoria = paste0(sex, " - ", depressed)
-  ) %>%
-  ungroup()
-
-# 2. Gráfico 1: Barras apiladas interactivas
-p1_interactivo <- plot_ly(
-  data = tabla_sexo_interactiva,
-  x = ~sex,
-  y = ~n,
-  color = ~depressed,
-  type = "bar",
-  colors = c("No deprimido" = "#483d8b", "Deprimido" = "#5f9ea0"),
-  text = ~label_text,
-  textposition = "outside",
-  hovertemplate = paste(
-    "<b>%{x}</b><br>",
-    "Diagnóstico: %{color}<br>",
-    "Cantidad: %{y}<br>",
-    "Porcentaje: %{text}<br>",
-    "<extra></extra>"
-  ),
-  marker = list(
-    line = list(color = "white", width = 1.5)
-  )
-) %>%
-  layout(
-    title = list(
-      text = "Prevalencia de Depresión por Género",
-      font = list(size = 16, family = "bold", color = "#333333")
-    ),
-    xaxis = list(
-      title = "Género",
-      categoryorder = "array",
-      categoryarray = c("Boy", "Girl")
-    ),
-    yaxis = list(
-      title = "Cantidad de Adolescentes",
-      gridcolor = "#e6e6e6"
-    ),
-    barmode = "group",
-    bargap = 0.15,
-    bargroupgap = 0.1,
-    legend = list(
-      title = list(text = "Diagnóstico"),
-      orientation = "h",
-      y = 1.05,
-      x = 0.5,
-      xanchor = "center"
-    ),
-    plot_bgcolor = "rgba(255,255,255,0.9)",
-    paper_bgcolor = "rgba(255,255,255,0.9)",
-    hovermode = "x unified"
-  )
-
-# 3. Gráfico 2: Boxplot interactivo
-# Calcular estadísticos para el boxplot
-estadisticos_sexo <- datoshealth %>%
-  group_by(sex) %>%
-  summarise(
-    mediana = median(bdi_total, na.rm = TRUE),
-    q1 = quantile(bdi_total, 0.25, na.rm = TRUE),
-    q3 = quantile(bdi_total, 0.75, na.rm = TRUE),
-    min = min(bdi_total, na.rm = TRUE),
-    max = max(bdi_total, na.rm = TRUE),
-    n = n()
-  )
-
-p2_interactivo <- plot_ly() %>%
-  # Boxplot
-  add_trace(
-    data = datoshealth,
-    x = ~sex,
-    y = ~bdi_total,
-    type = "box",
-    color = ~sex,
-    colors = c("Boy" = "#6a658d", "Girl" = "#5f9ea0"),
-    boxmean = FALSE,
-    boxpoints = "suspectedoutliers",
-    pointpos = -0.5,
-    jitter = 0.1,
-    marker = list(opacity = 0.4, size = 4),
-    line = list(color = "#333333", width = 1.5),
-    hovertemplate = paste(
-      "<b>%{x}</b><br>",
-      "Mediana: %{median:.1f}<br>",
-      "Q1: %{q1:.1f}<br>",
-      "Q3: %{q3:.1f}<br>",
-      "Mín: %{min:.1f}<br>",
-      "Máx: %{max:.1f}<br>",
-      "N: %{n}<br>",
-      "<extra></extra>"
-    ),
-    name = "Boxplot"
-  ) %>%
-  # Línea de corte clínico
-  add_trace(
-    x = c("Boy", "Girl"),
-    y = c(14, 14),
-    type = "scatter",
-    mode = "lines",
-    line = list(color = "#e74c3c", dash = "dash", width = 1.5),
-    name = "Corte Clínico (BDI ≥ 14)",
-    hoverinfo = "skip"
-  ) %>%
-  # Etiquetas de mediana
-  add_trace(
-    data = estadisticos_sexo,
-    x = ~sex,
-    y = ~mediana,
-    type = "scatter",
-    mode = "text",
-    text = ~paste("Mediana:", round(mediana, 1)),
-    textfont = list(
-      family = "bold",
-      size = 11,
-      color = "black"
-    ),
-    textposition = "middle center",
-    hoverinfo = "skip",
-    showlegend = FALSE
-  ) %>%
-  # Cuadros de texto para estadísticos
-  add_annotations(
-    x = c("Boy", "Girl"),
-    y = estadisticos_sexo$mediana,
-    text = paste0("Mediana: ", round(estadisticos_sexo$mediana, 1)),
-    showarrow = FALSE,
-    font = list(size = 11, color = "black", family = "bold"),
-    bgcolor = "white",
-    borderpad = 4,
-    bordercolor = "#333333",
-    borderwidth = 1
-  ) %>%
-  # Anotación de la línea de corte
-  add_annotations(
-    x = 2.4,
-    y = 48,
-    text = "Corte Clínico (BDI-II ≥ 14)",
-    showarrow = FALSE,
-    font = list(size = 12, color = "#e74c3c"),
-    xanchor = "left"
-  ) %>%
-  layout(
-    title = list(
-      text = "Distribución del Puntaje BDI-II por Género",
-      font = list(size = 16, family = "bold", color = "#333333")
-    ),
-    xaxis = list(
-      title = "Género",
-      categoryorder = "array",
-      categoryarray = c("Boy", "Girl")
-    ),
-    yaxis = list(
-      title = "Puntaje Total BDI-II (0-63)",
-      gridcolor = "#e6e6e6",
-      range = c(0, 63)
-    ),
-    showlegend = TRUE,
-    legend = list(
-      orientation = "h",
-      y = 1.05,
-      x = 0.5,
-      xanchor = "center"
-    ),
-    plot_bgcolor = "rgba(255,255,255,0.9)",
-    paper_bgcolor = "rgba(255,255,255,0.9)",
-    hovermode = "y unified"
-  )
-
-# 4. Mostrar ambos gráficos en un layout interactivo
-subplot(
-  p1_interactivo, 
-  p2_interactivo,
-  nrows = 1,
-  margin = 0.05,
-  shareX = FALSE,
-  titleX = TRUE,
-  titleY = TRUE
-) %>%
-  layout(
-    title = list(
-      text = "Análisis de Depresión por Género",
-      font = list(size = 18, family = "bold")
-    ),
-    annotations = list(
-      list(
-        x = 0.25,
-        y = -0.15,
-        text = "A. Prevalencia de Depresión",
-        showarrow = FALSE,
-        xref = "paper",
-        yref = "paper",
-        font = list(size = 13, color = "#333333")
-      ),
-      list(
-        x = 0.75,
-        y = -0.15,
-        text = "B. Distribución del Puntaje BDI",
-        showarrow = FALSE,
-        xref = "paper",
-        yref = "paper",
-        font = list(size = 13, color = "#333333")
-      )
-    )
-  )
-
-```
-El análisis bivariado expone una brecha de género estadísticamente relevante en la salud mental de la muestra. En términos categóricos, las adolescentes presentan una prevalencia de depresión casi tres veces superior a la de sus pares masculinos (24.4% frente a 8.6%).Esta tendencia se ratifica al evaluar la variable en su escala continua: la mediana del puntaje BDI-II en chicas (7.0 puntos) duplica la de los chicos (3.0 puntos), mostrando una mayor dispersión hacia puntuaciones elevadas que sobrepasan el corte clínico ($\ge 14$). Estos resultados sugieren que el género es un factor determinante a considerar dentro del modelo predictivo para bdi_total.
-
-##  Documentación de hallazgos
-
-- El dataset no tiene duplicados por `subject_id`; los faltantes son mínimos o nulos.
-- La selección de predictoras para el análisis bivariado (sección 6.3) se hizo a partir de
-  la correlación de Spearman real con `bdi_total`, no de una lectura visual de la matriz.
-- Los pares de predictoras marcados como redundantes (tabla 6.2) no deberían usarse juntos
-  más adelante en un modelo, por colinealidad.
-- Los outliers de variables de sueño y de `bdi_total` no se eliminan: son los casos
-  clínicamente más relevantes, no errores.
-- El sexo se asocia con `depressed`/`bdi_total`: hay diferencia visible en proporción de
-  depresión y en la mediana de `bdi_total` entre grupos.
+# Marco Teórico y Base Estadística
 
+**Santiago Jiménez y Luis Cabarcas**  
+*Universidad del Norte*
+
+En esta sección se describen los procedimientos estadísticos y las técnicas de aprendizaje automático implementadas en el proyecto para analizar la relación entre el tiempo de pantalla, los patrones de sueño y la depresión en adolescentes. Se detallan las fórmulas matemáticas y las funciones específicas del lenguaje **R** que se utilizarán para cada procedimiento. En adelante, \(x_1, \dots, x_n\) denota los valores observados de una variable en \(n\) adolescentes.
+
+##  Estadística descriptiva y detección de valores atípicos
+
+###  Medidas de tendencia central y dispersión
+La media muestral resume el centro de la distribución:
+\[
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]
+La mediana es el valor que deja la mitad de las observaciones ordenadas a cada lado. Es menos sensible que la media a valores extremos, por lo que se reporta junto a ella en variables asimétricas como `bdi_total`. 
+
+La varianza muestral y la desviación estándar miden la dispersión alrededor de la media; se divide entre \(n-1\) para obtener un estimador insesgado:
+\[
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2, \quad s = \sqrt{s^2}
+\]
+El rango intercuartílico (IQR) mide la dispersión de la mitad central de los datos: \(IQR = Q_3 - Q_1\).
+
+* **Implementación en R:** Se utilizarán las funciones base `mean()`, `median()`, `sd()`, `var()` y `quantile()`, además de herramientas de `dplyr` como `summarise()` para agrupar por género.
+
+### 1.2. Detección de valores atípicos (Outliers)
+Se aplica la regla de Tukey: una observación se considera atípica cuando queda fuera de los límites:
+\[
+L_{inf} = Q_1 - 1.5 \cdot IQR, \quad L_{sup} = Q_3 + 1.5 \cdot IQR
+\]
+Dado que en salud mental los valores extremos (puntuaciones muy altas en el BDI-II) suelen ser los casos clínicamente más relevantes, no se eliminarán automáticamente, sino que se documentarán.
+
+* **Implementación en R:** Se utilizará `geom_boxplot()` de `ggplot2` para visualizar los atípicos y la función `boxplot.stats()` para extraer los valores exactos que caen fuera de los límites.
+
+---
+
+##  Medidas de asociación y correlación
+
+###  Coeficiente de correlación de Pearson
+Mide la fuerza de la asociación lineal entre dos variables continuas:
+\[
+r_{xy} = \frac{\sum_{i} (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i} (x_i - \bar{x})^2} \sqrt{\sum_{i} (y_i - \bar{y})^2}}
+\]
+
+###  Coeficiente de correlación de Spearman
+Dado que las variables del estudio no siguen una distribución normal (verificado mediante pruebas de normalidad), se utiliza el coeficiente de Spearman. Este es el coeficiente de Pearson aplicado a los rangos de las observaciones (con rango promedio en caso de empates). Mide asociación monótona y es robusto ante valores atípicos:
+\[
+\rho = 1 - \frac{6 \sum_{i} d_i^2}{n(n^2 - 1)}
+\]
+donde \(d_i\) es la diferencia entre los rangos de \(x_i\) y \(y_i\). Su significancia se contrasta con \(H_0: \rho = 0\) mediante \(t = \rho \sqrt{\frac{n-2}{1-\rho^2}} \sim t_{n-2}\). 
+
+Para interpretar la magnitud se usan los umbrales de Cohen: \(|\rho| < 0.1\) (despreciable), \(0.1 - 0.3\) (pequeña), \(0.3 - 0.5\) (moderada) y \(\ge 0.5\) (grande). Dos predictores con \(|\rho| \ge 0.7\) se consideran redundantes (multicolinealidad).
+
+* **Implementación en R:** Se utilizarán `cor(method = "pearson")` y `cor(method = "spearman")`. Para visualizar las matrices se usará la librería `ggcorrplot`.
+
+---
+
+##  Pruebas de hipótesis y decisión mediante valor p
+
+###  Lógica de la prueba y regla de decisión
+Toda prueba plantea una hipótesis nula \(H_0\) (no hay diferencia o asociación) y una alternativa \(H_1\). El valor p es la probabilidad de obtener un estadístico al menos tan extremo como el observado si \(H_0\) fuera cierta:
+\[
+p = P(|T| \ge |t_{obs}| \mid H_0)
+\]
+La regla de decisión fija \(\alpha = 0.05\): si \(p < \alpha\), se rechaza \(H_0\) y se considera significativo. Con \(n = 4.810\), diferencias muy pequeñas resultan significativas, por lo que cada prueba se acompaña de un tamaño del efecto.
+
+###  Prueba Chi-cuadrado de independencia
+Contrasta si dos variables categóricas son independientes (por ejemplo, `sex` y `depressed`). A partir de la tabla de contingencia, el estadístico es:
+\[
+\chi^2 = \sum_{i} \sum_{j} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+\]
+donde \(E_{ij} = \frac{(\text{total fila } i)(\text{total columna } j)}{n}\). El tamaño del efecto es la V de Cramér: \(V = \sqrt{\frac{\chi^2}{n \min(f-1, c-1)}}\).
+
+* **Implementación en R:** Se usará la función `chisq.test()`. Para calcular la V de Cramér y los odds ratios se usará el paquete `epitools` o `vcd`.
+
+###  Prueba U de Mann-Whitney
+Compara la distribución de una variable numérica entre dos grupos independientes sin suponer normalidad (ej. comparar `bdi_total` entre chicos y chicas). Se ordenan las observaciones, se suma el rango \(R_1\) del primer grupo y se calcula:
+\[
+U_1 = R_1 - \frac{n_1(n_1+1)}{2}, \quad U_2 = n_1 n_2 - U_1
+\]
+El tamaño del efecto es la correlación biserial de rangos: \(r = 1 - \frac{2U_1}{n_1 n_2}\).
+
+* **Implementación en R:** Se usará la función base `wilcox.test()` y el paquete `rstatix` (función `wilcox_effsize()`) para obtener los tamaños del efecto.
+
+---
+
+##  Modelado con Aprendizaje Automático (Machine Learning)
+
+Debido a que la variable objetivo `depressed` presenta un desbalance (aprox. 16.4% de casos positivos), se implementarán estrategias específicas para evitar sesgos en los modelos.
+
+###  Tratamiento del desbalance: SMOTE
+Se utilizará **SMOTE** (Synthetic Minority Over-sampling Technique) para generar instancias sintéticas de la clase minoritaria (adolescentes deprimidos) a partir de sus vecinos más cercanos. Esto se aplicará **únicamente sobre el conjunto de entrenamiento** para evitar filtración de datos (*data leakage*).
+
+* **Implementación en R:** Se usará la función `step_smote()` del paquete `themis` (integrado en el ecosistema `tidymodels`).
+
+###  Regresión Logística
+Modelo estadístico interpretable que estima la probabilidad de que un adolescente esté deprimido mediante la función logística:
+\[
+P(Y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \dots + \beta_k X_k)}}
+\]
+Se usará como modelo de referencia (*baseline*) interpretable.
+
+###  Random Forest
+Algoritmo de *bagging* que entrena múltiples árboles de decisión con subconjuntos aleatorios de datos y variables. Captura relaciones no lineales e interacciones entre variables sin sobreajustarse fácilmente.
+
+###  XGBoost (Extreme Gradient Boosting)
+Algoritmo de *boosting* que construye árboles de decisión de forma secuencial, donde cada nuevo árbol intenta corregir los errores del anterior. Es conocido por su alta precisión.
+
+* **Implementación en R:** Se utilizará el paquete `tidymodels`. La Regresión Logística se ajustará con `logistic_reg()`, Random Forest con `rand_forest()` (motor `ranger`), y XGBoost con `boost_tree()` (motor `xgboost`). Los hiperparámetros se optimizarán con validación cruzada de 5 particiones (`vfold_cv`).
+
+---
+
+##  Evaluación de los modelos
+
+Con clases desbalanceadas, el *accuracy* es engañoso: un modelo que predice siempre la clase mayoritaria obtiene un 83.6% de exactitud sin detectar ningún caso positivo. Por ello, se priorizan las siguientes métricas:
+
+###  Matriz de confusión y métricas básicas
+Cruza la clase real con la predicha: Verdaderos Positivos (\(VP\)), Falsos Positivos (\(FP\)), Falsos Negativos (\(FN\)) y Verdaderos Negativos (\(VN\)).
+* **Accuracy:** \(\frac{VP + VN}{n}\)
+* **Precisión:** \(\frac{VP}{VP + FP}\) (proporción de alertas correctas).
+* **Recall (Sensibilidad):** \(\frac{VP}{VP + FN}\) (proporción de casos positivos detectados).
+* **F1-Score:** Media armónica entre precisión y recall: \(F_1 = 2 \frac{Precisión \cdot Recall}{Precisión + Recall}\).
+
+###  Curvas ROC y Precision-Recall
+* **AUC-ROC:** Área bajo la curva ROC. Representa la probabilidad de que el modelo asigne una puntuación más alta a un caso positivo que a uno negativo elegidos al azar. Vale \(0.5\) para un clasificador aleatorio.
+* **AUC-PR (Precisión Promedio):** Más informativa que ROC cuando la clase positiva es minoritaria. Para un clasificador aleatorio, la AP es igual a la prevalencia.
+
+* **Implementación en R:** Se utilizará el paquete `yardstick` para calcular `accuracy()`, `precision()`, `recall()`, `f_meas()`, `roc_auc()` y `pr_auc()`.
+
+---
+
+## Interpretabilidad del modelo (SHAP)
+
+Para identificar cuáles variables influyen en mayor medida en las predicciones de los modelos complejos (Random Forest y XGBoost), se utilizará **SHAP (SHapley Additive exPlanations)**. Esta técnica, basada en la teoría de juegos, calcula la contribución marginal de cada variable a la predicción individual del modelo, permitiendo responder si el tiempo de pantalla es realmente el protagonista o si la calidad del sueño tiene un mayor peso predictivo.
+
+* **Implementación en R:** Se utilizará el paquete `shapr` o `fastshap` para generar los gráficos de resumen (*summary plots*) y de dependencia (*dependence plots*), los cuales permiten visualizar el impacto de cada predictor.
