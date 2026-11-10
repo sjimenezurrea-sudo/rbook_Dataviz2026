@@ -317,7 +317,7 @@ Se usará como modelo de referencia (<em>baseline</em>) interpretable.</p>
 </div>
 <div id="interpretabilidad-del-modelo-shap" class="section level2 hasAnchor" number="3.6">
 <h2><span class="header-section-number">3.6</span> Interpretabilidad del modelo (SHAP)<a href="marco-teórico-y-base-estadística.html#interpretabilidad-del-modelo-shap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para identificar cuáles variables influyen en mayor medida en las predicciones de los modelos complejos (Random Forest y XGBoost), se utilizará <strong>SHAP (SHapley Additive exPlanations)</strong>. Esta técnica, basada en la teoría de juegos, calcula la contribución marginal de cada variable a la predicción individual del modelo, permitiendo responder si el tiempo de pantalla es realmente el protagonista o si la calidad del sueño tiene un mayor peso predictivo.</p>
+<p>Para identificar cuáles variables influyen en mayor medida en las predicciones de los modelos complejos (Random Forest y XGBoost), se utilizará SHAP (SHapley Additive exPlanations). Esta técnica, basada en la teoría de juegos, calcula la contribución marginal de cada variable a la predicción individual del modelo, permitiendo responder si el tiempo de pantalla es realmente el protagonista o si la calidad del sueño tiene un mayor peso predictivo.</p>
 <ul>
 <li><strong>Implementación en R:</strong> Se utilizará el paquete <code>shapr</code> o <code>fastshap</code> para generar los gráficos de resumen (<em>summary plots</em>) y de dependencia (<em>dependence plots</em>), los cuales permiten visualizar el impacto de cada predictor.</li>
 </ul>

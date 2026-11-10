@@ -131,6 +131,6 @@ Cruza la clase real con la predicha: Verdaderos Positivos (\(VP\)), Falsos Posit
 
 ## Interpretabilidad del modelo (SHAP)
 
-Para identificar cuáles variables influyen en mayor medida en las predicciones de los modelos complejos (Random Forest y XGBoost), se utilizará **SHAP (SHapley Additive exPlanations)**. Esta técnica, basada en la teoría de juegos, calcula la contribución marginal de cada variable a la predicción individual del modelo, permitiendo responder si el tiempo de pantalla es realmente el protagonista o si la calidad del sueño tiene un mayor peso predictivo.
+Para identificar cuáles variables influyen en mayor medida en las predicciones de los modelos complejos (Random Forest y XGBoost), se utilizará SHAP (SHapley Additive exPlanations). Esta técnica, basada en la teoría de juegos, calcula la contribución marginal de cada variable a la predicción individual del modelo, permitiendo responder si el tiempo de pantalla es realmente el protagonista o si la calidad del sueño tiene un mayor peso predictivo.
 
 * **Implementación en R:** Se utilizará el paquete `shapr` o `fastshap` para generar los gráficos de resumen (*summary plots*) y de dependencia (*dependence plots*), los cuales permiten visualizar el impacto de cada predictor.

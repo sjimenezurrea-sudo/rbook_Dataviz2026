@@ -258,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="descripción-del-dataset" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Descripción del dataset<a href="metodología-y-datos.html#descripci%C3%B3n-del-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Se utilizará el dataset <code>screen_time_mental_health.csv</code>, obtenido desde Kaggle, compuesto por <strong>4.810 registros</strong>, sin valores faltantes y con <strong>10 variables</strong>.</p>
+<p>Se utilizará el dataset <code>screen_time_mental_health.csv</code>, obtenido desde Kaggle, compuesto por 4.810 registros, sin valores faltantes y con 10 variables.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="metodología-y-datos.html#cb1-1" tabindex="-1"></a>variables <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb1-2"><a href="metodología-y-datos.html#cb1-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">c</span>(</span>
 <span id="cb1-3"><a href="metodología-y-datos.html#cb1-3" tabindex="-1"></a>    <span class="st">&quot;subject_id&quot;</span>,</span>
@@ -444,29 +444,29 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 <div id="análisis-exploratorio-de-datos-eda" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Análisis Exploratorio de Datos (EDA)<a href="metodología-y-datos.html#an%C3%A1lisis-exploratorio-de-datos-eda" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Se realizará un análisis exploratorio de los datos con el objetivo de comprender las características principales del dataset antes de realizar el modelado.</p>
-<p>Se calcularán <strong>estadísticas descriptivas por variable y por género</strong>, con el propósito de identificar las características generales de la población estudiada y posibles diferencias entre hombres y mujeres.</p>
-<p>También se analizará la <strong>distribución de la variable objetivo <code>depressed</code></strong> y del puntaje total <code>bdi_total</code>, prestando especial atención a la proporción de participantes que superan el punto de corte clínico establecido para depresión.</p>
-<p>Además, se estudiarán las relaciones entre las variables relacionadas con el <strong>tiempo de pantalla, el sueño y el puntaje BDI-II</strong>, buscando identificar posibles asociaciones entre estos factores.</p>
+<p>Se calcularán estadísticas descriptivas por variable y por género, con el propósito de identificar las características generales de la población estudiada y posibles diferencias entre hombres y mujeres.</p>
+<p>También se analizará la distribución de la variable objetivo <code>depressed</code> y del puntaje total <code>bdi_total</code>, prestando especial atención a la proporción de participantes que superan el punto de corte clínico establecido para depresión.</p>
+<p>Además, se estudiarán las relaciones entre las variables relacionadas con el tiempo de pantalla, el sueño y el puntaje BDI-II, buscando identificar posibles asociaciones entre estos factores.</p>
 <p>Para complementar el análisis se utilizarán diferentes visualizaciones, entre ellas:</p>
 <ul>
-<li><strong>Histogramas</strong>, para analizar la distribución de las variables numéricas.</li>
-<li><strong>Boxplots</strong>, para identificar diferencias entre grupos y posibles valores atípicos.</li>
-<li><strong>Gráficos de distribución</strong>, para observar el comportamiento de las principales variables.</li>
-<li><strong>Matrices de correlación</strong>, para estudiar las relaciones entre las variables numéricas relacionadas con pantalla, sueño y <code>bdi_total</code>.</li>
+<li>Histogramas, para analizar la distribución de las variables numéricas.</li>
+<li>Boxplots, para identificar diferencias entre grupos y posibles valores atípicos.</li>
+<li>Gráficos de distribución, para observar el comportamiento de las principales variables.</li>
+<li>Matrices de correlación, para estudiar las relaciones entre las variables numéricas relacionadas con pantalla, sueño y <code>bdi_total</code>.</li>
 </ul>
-<p>Finalmente, se realizarán <strong>pruebas de diferencia por género</strong> con el propósito de identificar posibles diferencias estadísticamente significativas entre hombres y mujeres en las variables estudiadas.</p>
+<p>Finalmente, se realizarán pruebas de diferencia por género con el propósito de identificar posibles diferencias estadísticamente significativas entre hombres y mujeres en las variables estudiadas.</p>
 </div>
 <div id="preprocesamiento" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Preprocesamiento<a href="metodología-y-datos.html#preprocesamiento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Antes de realizar el entrenamiento de los modelos, se realizará una división del dataset en conjuntos de <strong>entrenamiento y prueba</strong>.</p>
-<p>Las variables continuas serán <strong>estandarizadas</strong> cuando el algoritmo utilizado lo requiera. La variable <code>subject_id</code> será excluida del proceso de modelado debido a que corresponde únicamente al identificador de cada participante y no contiene información predictiva relevante.</p>
+<p>Antes de realizar el entrenamiento de los modelos, se realizará una división del dataset en conjuntos de entrenamiento y prueba.</p>
+<p>Las variables continuas serán estandarizadas cuando el algoritmo utilizado lo requiera. La variable <code>subject_id</code> será excluida del proceso de modelado debido a que corresponde únicamente al identificador de cada participante y no contiene información predictiva relevante.</p>
 <p>La variable <code>sex</code>, al ser categórica binaria, será transformada a un formato adecuado para su utilización como predictor en los modelos que lo requieran.</p>
-<p>Debido al desbalance presente en la variable objetivo <code>depressed</code>, donde aproximadamente el <strong>16,4 % de los participantes corresponde a la clase positiva</strong>, se evaluarán estrategias para abordar este problema, como <strong>SMOTE</strong> o el uso de <code>class_weight = "balanced"</code>.</p>
-<p>Estas técnicas serán aplicadas <strong>únicamente sobre el conjunto de entrenamiento</strong>, con el objetivo de evitar filtración de información (<em>data leakage</em>) hacia el conjunto de prueba.</p>
+<p>Debido al desbalance presente en la variable objetivo <code>depressed</code>, donde aproximadamente el 16,4 % de los participantes corresponde a la clase positiva, se evaluarán estrategias para abordar este problema, como SMOTE** o el uso de <code>class_weight = "balanced"</code>.</p>
+<p>Estas técnicas serán aplicadas únicamente sobre el conjunto de entrenamiento, con el objetivo de evitar filtración de información (<em>data leakage</em>) hacia el conjunto de prueba.</p>
 </div>
 <div id="modelado" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Modelado<a href="metodología-y-datos.html#modelado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Se utilizarán diferentes algoritmos de <strong>aprendizaje automático supervisado</strong> para predecir la variable objetivo <code>depressed</code>.</p>
+<p>Se utilizarán diferentes algoritmos de aprendizaje automático supervisado para predecir la variable objetivo <code>depressed</code>.</p>
 <p>Los modelos considerados serán:</p>
 <ul>
 <li><strong>Regresión logística</strong>, como modelo de referencia e interpretable.</li>
@@ -480,12 +480,12 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 <li><p><strong>Modelo para chicas:</strong> se entrenará utilizando únicamente las participantes femeninas.</p></li>
 </ol>
 <p>Esta estrategia permitirá comparar el desempeño de los modelos y analizar si existen diferencias en los factores asociados con la depresión según el género.</p>
-<p>Para la selección de los mejores hiperparámetros se utilizarán métodos como <strong>GridSearchCV</strong> o <strong>RandomizedSearchCV</strong>, junto con una <strong>validación cruzada de 5 particiones (k = 5)</strong>.</p>
-<p>La métrica principal utilizada para la optimización será <strong>AUC-PR</strong>, debido al desbalance presente en la variable objetivo. Esta métrica permitirá evaluar de manera más adecuada la capacidad de los modelos para identificar los casos positivos.</p>
+<p>Para la selección de los mejores hiperparámetros se utilizarán métodos como GridSearchCV o RandomizedSearchCV, junto con una validación cruzada de 5 particiones (k = 5).</p>
+<p>La métrica principal utilizada para la optimización será AUC-PR, debido al desbalance presente en la variable objetivo. Esta métrica permitirá evaluar de manera más adecuada la capacidad de los modelos para identificar los casos positivos.</p>
 </div>
 <div id="evaluación" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Evaluación<a href="metodología-y-datos.html#evaluaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El desempeño de los modelos será evaluado mediante diferentes <strong>métricas de clasificación</strong>, con especial atención al comportamiento de la clase positiva.</p>
+<p>El desempeño de los modelos será evaluado mediante diferentes métricas de clasificación, con especial atención al comportamiento de la clase positiva.</p>
 <p>Las métricas utilizadas serán:</p>
 <ul>
 <li><strong>AUC-ROC</strong>, para evaluar la capacidad general del modelo para distinguir entre las clases.</li>
@@ -495,14 +495,14 @@ Variable objetivo. 1 = deprimido y 0 = no deprimido.
 <li><strong>Matriz de confusión</strong>, para visualizar los aciertos y errores de clasificación.</li>
 <li><strong>Curva Precision-Recall</strong>, especialmente relevante debido al desbalance presente en la variable objetivo.</li>
 </ul>
-<p>Además, los resultados obtenidos por los diferentes modelos serán comparados con un <strong>baseline basado en la clase mayoritaria</strong>. Esto permitirá determinar si los modelos desarrollados proporcionan una mejora real frente a una estrategia de clasificación trivial.</p>
+<p>Además, los resultados obtenidos por los diferentes modelos serán comparados con un baseline basado en la clase mayoritaria. Esto permitirá determinar si los modelos desarrollados proporcionan una mejora real frente a una estrategia de clasificación trivial.</p>
 <p>La comparación se realizará tanto entre los diferentes algoritmos como entre las distintas configuraciones por género.</p>
 </div>
 <div id="interpretabilidad" class="section level2 hasAnchor" number="2.7">
 <h2><span class="header-section-number">2.7</span> Interpretabilidad<a href="metodología-y-datos.html#interpretabilidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La interpretabilidad permitirá identificar cuáles variables tienen mayor influencia en las predicciones realizadas por los modelos.</p>
-<p>Para los modelos <strong>Random Forest</strong> y <strong>XGBoost</strong> se utilizarán medidas de <strong>importancia de variables</strong>, con el objetivo de establecer cuáles predictores contribuyen en mayor medida al desempeño de los modelos.</p>
-<p>Se prestará especial atención a la variable <code>sleep_quality_index</code>, con el propósito de determinar si la <strong>calidad del sueño</strong> constituye uno de los principales predictores de <code>depressed</code>.</p>
+<p>Para los modelos Random Forest y XGBoost se utilizarán medidas de importancia de variables, con el objetivo de establecer cuáles predictores contribuyen en mayor medida al desempeño de los modelos.</p>
+<p>Se prestará especial atención a la variable <code>sleep_quality_index</code>, con el propósito de determinar si la calidad del sueño constituye uno de los principales predictores de <code>depressed</code>.</p>
 <p>También se analizará la importancia relativa de las variables relacionadas con:</p>
 <ul>
 <li>Tiempo de pantalla.</li>
