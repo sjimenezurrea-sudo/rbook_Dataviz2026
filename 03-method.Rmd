@@ -112,9 +112,13 @@ Con clases desbalanceadas, el *accuracy* es engañoso: un modelo que predice sie
 
 ###  Matriz de confusión y métricas básicas
 Cruza la clase real con la predicha: Verdaderos Positivos (\(VP\)), Falsos Positivos (\(FP\)), Falsos Negativos (\(FN\)) y Verdaderos Negativos (\(VN\)).
+
 * **Accuracy:** \(\frac{VP + VN}{n}\)
+
 * **Precisión:** \(\frac{VP}{VP + FP}\) (proporción de alertas correctas).
+
 * **Recall (Sensibilidad):** \(\frac{VP}{VP + FN}\) (proporción de casos positivos detectados).
+
 * **F1-Score:** Media armónica entre precisión y recall: \(F_1 = 2 \frac{Precisión \cdot Recall}{Precisión + Recall}\).
 
 ###  Curvas ROC y Precision-Recall

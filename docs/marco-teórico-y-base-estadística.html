@@ -23,7 +23,7 @@
 <meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
 
 
-<meta name="date" content="2026-10-27" />
+<meta name="date" content="2026-11-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -298,11 +298,13 @@ Se usará como modelo de referencia (<em>baseline</em>) interpretable.</p>
 <p>Con clases desbalanceadas, el <em>accuracy</em> es engañoso: un modelo que predice siempre la clase mayoritaria obtiene un 83.6% de exactitud sin detectar ningún caso positivo. Por ello, se priorizan las siguientes métricas:</p>
 <div id="matriz-de-confusión-y-métricas-básicas" class="section level3 hasAnchor" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> Matriz de confusión y métricas básicas<a href="marco-teórico-y-base-estadística.html#matriz-de-confusi%C3%B3n-y-m%C3%A9tricas-b%C3%A1sicas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Cruza la clase real con la predicha: Verdaderos Positivos (<span class="math inline">\(VP\)</span>), Falsos Positivos (<span class="math inline">\(FP\)</span>), Falsos Negativos (<span class="math inline">\(FN\)</span>) y Verdaderos Negativos (<span class="math inline">\(VN\)</span>).
-* <strong>Accuracy:</strong> <span class="math inline">\(\frac{VP + VN}{n}\)</span>
-* <strong>Precisión:</strong> <span class="math inline">\(\frac{VP}{VP + FP}\)</span> (proporción de alertas correctas).
-* <strong>Recall (Sensibilidad):</strong> <span class="math inline">\(\frac{VP}{VP + FN}\)</span> (proporción de casos positivos detectados).
-* <strong>F1-Score:</strong> Media armónica entre precisión y recall: <span class="math inline">\(F_1 = 2 \frac{Precisión \cdot Recall}{Precisión + Recall}\)</span>.</p>
+<p>Cruza la clase real con la predicha: Verdaderos Positivos (<span class="math inline">\(VP\)</span>), Falsos Positivos (<span class="math inline">\(FP\)</span>), Falsos Negativos (<span class="math inline">\(FN\)</span>) y Verdaderos Negativos (<span class="math inline">\(VN\)</span>).</p>
+<ul>
+<li><p><strong>Accuracy:</strong> <span class="math inline">\(\frac{VP + VN}{n}\)</span></p></li>
+<li><p><strong>Precisión:</strong> <span class="math inline">\(\frac{VP}{VP + FP}\)</span> (proporción de alertas correctas).</p></li>
+<li><p><strong>Recall (Sensibilidad):</strong> <span class="math inline">\(\frac{VP}{VP + FN}\)</span> (proporción de casos positivos detectados).</p></li>
+<li><p><strong>F1-Score:</strong> Media armónica entre precisión y recall: <span class="math inline">\(F_1 = 2 \frac{Precisión \cdot Recall}{Precisión + Recall}\)</span>.</p></li>
+</ul>
 </div>
 <div id="curvas-roc-y-precision-recall" class="section level3 hasAnchor" number="3.5.2">
 <h3><span class="header-section-number">3.5.2</span> Curvas ROC y Precision-Recall<a href="marco-teórico-y-base-estadística.html#curvas-roc-y-precision-recall" class="anchor-section" aria-label="Anchor link to header"></a></h3>
