@@ -279,7 +279,7 @@ ggplot(shap_global_cb,
   theme_minimal(base_size = 12)
 ```
 
-### Distribuciones de SHAP (*beeswarm* simplificado)
+### Distribuciones de SHAP (beeswarm simplificado)
 
 El conjunto de puntos permite observar signo, magnitud y heterogeneidad. En estos gráficos se utiliza jitter para evitar el solapamiento; no es idéntico al algoritmo de colocación beeswarm de Python.
 
@@ -504,8 +504,14 @@ catboost::catboost.save_model(
 )
 ```
 
-##  Interpretación de resultados
+## Interpretacion resultados
 
-En el libro original, la calidad del sueño y el sexo aparecen entre los predictores más relevantes, seguidos de la duración del sueño. Los valores SHAP del clasificador CatBoost se expresan en log-odds, mientras que las contribuciones del ElasticNet se presentan en puntos BDI-II. El análisis describe asociaciones utilizadas por los modelos, sin inferir que alterar una variable produciría necesariamente el cambio predicho.
+La interpretación del modelo ElasticNet permite identificar qué variables contribuyen más a sus predicciones del puntaje BDI-II y en qué dirección se manifiestan esas contribuciones, manteniendo las demás variables constantes. Entre los coeficientes publicados, el indicador correspondiente a sexo femenino (`sex_Girl`) presenta un coeficiente de 3,181 puntos, mientras que `sleep_quality_index` registra un coeficiente de 2,158 puntos por desviación estándar. En la misma escala estandarizada, `avg_sleep_hours` muestra un coeficiente negativo de -0,754, y `screen_time_index` uno positivo de 0,505.
 
-Los resultados de esta adaptación deben comentarse después de ejecutar los bloques en R, porque la variabilidad en el split, la regularización y el entrenamiento puede cambiar las magnitudes y el orden de las variables. No se deben reutilizar literalmente como resultados de R los coeficientes o las importancias estimadas en Python.
+Estas estimaciones indican que, dentro del modelo ajustado, el sexo y el índice de calidad del sueño tienen asociaciones predictivas más marcadas con el puntaje que las variables de pantalla. En particular, el signo negativo de las horas promedio de sueño es compatible con una predicción menor de BDI-II para valores mayores de duración del sueño, después del ajuste por las demás variables. El signo positivo de `sleep_quality_index` debe interpretarse según la codificación concreta del índice: no se debe asumir que un valor más alto represente necesariamente mejor calidad del sueño sin comprobar la definición de la escala.
+
+La importancia por permutación, calculada mediante el aumento del RMSE al alterar cada predictor, respalda esa jerarquía. Las mayores variaciones correspondieron a `sleep_quality_index` (0,7913 puntos de RMSE), `sex` (0,3845) y `avg_sleep_hours` (0,1436). En contraste, `screen_time_index` (0,0359), `midsleep_weekend_hours` (0,0278) y especialmente `social_jetlag_hours` (0,0013) mostraron una contribución individual más pequeña al rendimiento predictivo de este ElasticNet. Esto no significa que esas variables carezcan de relevancia científica, sino que su alteración aislada afectó poco el error del modelo, dadas las demás variables y sus posibles correlaciones.
+
+El análisis SHAP lineal constituye una segunda forma de examinar estas predicciones. Su descomposición partió de un valor base de 7,2628 puntos BDI-II y reconstruyó las predicciones lineales con un error máximo de aditividad del orden de 3,553 × 10⁻¹⁵, prácticamente nulo a efectos numéricos. Este resultado comprueba la coherencia matemática de las contribuciones calculadas para ElasticNet, aunque no valida por sí mismo la precisión predictiva ni la causalidad de los efectos.
+
+En síntesis, los resultados efectivamente obtenidos en R apuntan a que el índice de calidad del sueño, el sexo y la duración del sueño tienen mayor peso predictivo que el índice global de pantallas en el ElasticNet analizado. Esta conclusión se refiere a las asociaciones aprendidas por ese modelo concreto y a la muestra estudiada. No permite establecer que modificar los hábitos de sueño o el uso de pantallas cause directamente una variación determinada del BDI-II. 

@@ -98,3 +98,7 @@ lime-frente-a-shap
 importancia-por-permutación-del-elasticnet
 guardado-y-reproducibilidad
 interpretación-de-resultados
+conclusiones-de-la-clasificación-y-la-regresión
+clasificación-del-estado-depresivo
+predicción-del-puntaje-bdi-ii
+interpretacion-resultados

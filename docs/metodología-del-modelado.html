@@ -243,6 +243,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#comparaci%C3%B3n-entre-regresi%C3%B3n-y-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>5.8</b> Comparación entre regresión y clasificación</a></li>
 <li class="chapter" data-level="5.9" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#persistencia-de-resultados"><i class="fa fa-check"></i><b>5.9</b> Persistencia de resultados</a></li>
+<li class="chapter" data-level="5.10" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#conclusiones-de-la-clasificaci%C3%B3n-y-la-regresi%C3%B3n"><i class="fa fa-check"></i><b>5.10</b> Conclusiones de la clasificación y la regresión</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#clasificaci%C3%B3n-del-estado-depresivo"><i class="fa fa-check"></i><b>5.10.1</b> Clasificación del estado depresivo</a></li>
+<li class="chapter" data-level="5.10.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#predicci%C3%B3n-del-puntaje-bdi-ii"><i class="fa fa-check"></i><b>5.10.2</b> Predicción del puntaje BDI-II</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html"><i class="fa fa-check"></i><b>6</b> Interpretabilidad de los modelos finales</a>
 <ul>
@@ -1228,7 +1233,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-9"><a href="metodología-del-modelado.html#cb31-9" tabindex="-1"></a>  ),</span>
 <span id="cb31-10"><a href="metodología-del-modelado.html#cb31-10" tabindex="-1"></a>  <span class="st">&quot;resultados/modelado_libro/ejemplos_modelado_R.rds&quot;</span></span>
 <span id="cb31-11"><a href="metodología-del-modelado.html#cb31-11" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="conclusiones-de-la-clasificación-y-la-regresión" class="section level2 hasAnchor" number="5.10">
+<h2><span class="header-section-number">5.10</span> Conclusiones de la clasificación y la regresión<a href="metodología-del-modelado.html#conclusiones-de-la-clasificaci%C3%B3n-y-la-regresi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="clasificación-del-estado-depresivo" class="section level3 hasAnchor" number="5.10.1">
+<h3><span class="header-section-number">5.10.1</span> Clasificación del estado depresivo<a href="metodología-del-modelado.html#clasificaci%C3%B3n-del-estado-depresivo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los resultados de la regresión logística utilizada como referencia muestran que las variables de sueño, el índice de uso de pantallas y el sexo contienen información útil para distinguir entre adolescentes clasificados con y sin síntomas depresivos según el punto de corte empleado en el estudio. En el conjunto de prueba, el modelo obtuvo una ROC-AUC de 0,788 y una precisión promedio (AP o PR-AUC, según la denominación utilizada en este capítulo) de 0,473. Esta última métrica resulta especialmente pertinente por el desbalance de la variable objetivo: en el conjunto de entrenamiento se registraron 632 casos positivos frente a 3.215 negativos, aproximadamente cinco negativos por cada positivo.</p>
+<p>Sin embargo, la capacidad de discriminación no debe confundirse con la capacidad de identificar todos los casos positivos cuando se utiliza un umbral específico. Con el punto de corte de probabilidad de 0,5, el modelo alcanzó una precisión de 0,737, pero un recall de 0,181 y un F1 de 0,290. En otras palabras, entre los casos que el modelo señaló como positivos, una proporción relativamente alta correspondió a positivos reales, pero dejó sin identificar a una parte considerable de quienes pertenecían a esa clase.</p>
+</div>
+<div id="predicción-del-puntaje-bdi-ii" class="section level3 hasAnchor" number="5.10.2">
+<h3><span class="header-section-number">5.10.2</span> Predicción del puntaje BDI-II<a href="metodología-del-modelado.html#predicci%C3%B3n-del-puntaje-bdi-ii" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En el problema de regresión, los resultados publicados indican que los seis predictores considerados explican solamente una parte de la variabilidad del puntaje BDI-II. El modelo lineal ordinario (OLS) presentó un RMSE de 6,908 puntos, un MAE de 4,878 puntos y un R² reportado de 0,247 en el conjunto de prueba. Esto sugiere que, aunque existe información predictiva en los patrones de sueño, pantallas y sexo, sigue habiendo variabilidad individual considerable que no queda recogida por esas variables.</p>
+<p>La regresión ElasticNet con parámetros ilustrativos produjo un RMSE de 6,910, un MAE de 4,879 y un R² de 0,247. Las diferencias frente a OLS fueron mínimas; con estos resultados no se observa una mejora práctica del error predictivo por el uso de regularización. No obstante, ElasticNet sigue siendo una alternativa de interés porque combina penalizaciones L1 y L2 y permite examinar la contribución de los predictores en un modelo regularizado. La elección definitiva de sus parámetros requiere validación cruzada, no valores seleccionados a partir del test.</p>
+<p>La exploración de transformaciones de la respuesta también evidenció que una corrección puede mejorar una métrica y empeorar otra. En el ejemplo con retransformación mediante smearing, el RMSE pasó de 7,252 sin corrección a 7,014 con corrección, mientras que el MAE aumentó de 4,654 a 4,901. Por ello, las decisiones de modelado deben considerar conjuntamente el error cuadrático y el absoluto, así como la estabilidad de las estimaciones entre particiones. En la validación cruzada publicada para el flujo ElasticNet se obtuvo un RMSE medio de 6,833 en cinco folds, valor que corresponde al entrenamiento y no debe confundirse con su resultado de prueba.</p>
 
+</div>
 </div>
 </div>
             </section>
