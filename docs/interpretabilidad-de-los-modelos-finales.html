@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 6 Interpretabilidad de los modelos finales | El uso excesivo del celular afecta en la salud mental de los jovenes?</title>
+  <meta name="description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 6 Interpretabilidad de los modelos finales | El uso excesivo del celular afecta en la salud mental de los jovenes?" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  <meta name="github-repo" content="sjimenezurrea-sudo/rbook_Dataviz2026" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 6 Interpretabilidad de los modelos finales | El uso excesivo del celular afecta en la salud mental de los jovenes?" />
+  
+  <meta name="twitter:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
+  
+
+<meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
+
+
+<meta name="date" content="2026-11-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="metodología-del-modelado.html"/>
+<link rel="next" href="referencias.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#antecedentes"><i class="fa fa-check"></i><b>1.1</b> Antecedentes</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.2</b> Objetivo</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.3</b> Objetivos específicos</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html"><i class="fa fa-check"></i><b>2</b> Metodología y Datos</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#marco-te%C3%B3rico"><i class="fa fa-check"></i><b>2.1</b> Marco Teórico</a></li>
+<li class="chapter" data-level="2.2" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#descripci%C3%B3n-del-dataset"><i class="fa fa-check"></i><b>2.2</b> Descripción del dataset</a></li>
+<li class="chapter" data-level="2.3" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#an%C3%A1lisis-exploratorio-de-datos-eda"><i class="fa fa-check"></i><b>2.3</b> Análisis Exploratorio de Datos (EDA)</a></li>
+<li class="chapter" data-level="2.4" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#preprocesamiento"><i class="fa fa-check"></i><b>2.4</b> Preprocesamiento</a></li>
+<li class="chapter" data-level="2.5" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#modelado"><i class="fa fa-check"></i><b>2.5</b> Modelado</a></li>
+<li class="chapter" data-level="2.6" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#evaluaci%C3%B3n"><i class="fa fa-check"></i><b>2.6</b> Evaluación</a></li>
+<li class="chapter" data-level="2.7" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#interpretabilidad"><i class="fa fa-check"></i><b>2.7</b> Interpretabilidad</a></li>
+<li class="chapter" data-level="2.8" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#herramientas"><i class="fa fa-check"></i><b>2.8</b> Herramientas</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html"><i class="fa fa-check"></i><b>3</b> Marco Teórico y Base Estadística</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#estad%C3%ADstica-descriptiva-y-detecci%C3%B3n-de-valores-at%C3%ADpicos"><i class="fa fa-check"></i><b>3.1</b> Estadística descriptiva y detección de valores atípicos</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#medidas-de-tendencia-central-y-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.1.1</b> Medidas de tendencia central y dispersión</a></li>
+<li class="chapter" data-level="3.1.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#detecci%C3%B3n-de-valores-at%C3%ADpicos-outliers"><i class="fa fa-check"></i><b>3.1.2</b> 1.2. Detección de valores atípicos (Outliers)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#medidas-de-asociaci%C3%B3n-y-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2</b> Medidas de asociación y correlación</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-pearson"><i class="fa fa-check"></i><b>3.2.1</b> Coeficiente de correlación de Pearson</a></li>
+<li class="chapter" data-level="3.2.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-spearman"><i class="fa fa-check"></i><b>3.2.2</b> Coeficiente de correlación de Spearman</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#pruebas-de-hip%C3%B3tesis-y-decisi%C3%B3n-mediante-valor-p"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis y decisión mediante valor p</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#l%C3%B3gica-de-la-prueba-y-regla-de-decisi%C3%B3n"><i class="fa fa-check"></i><b>3.3.1</b> Lógica de la prueba y regla de decisión</a></li>
+<li class="chapter" data-level="3.3.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#prueba-chi-cuadrado-de-independencia"><i class="fa fa-check"></i><b>3.3.2</b> Prueba Chi-cuadrado de independencia</a></li>
+<li class="chapter" data-level="3.3.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#prueba-u-de-mann-whitney"><i class="fa fa-check"></i><b>3.3.3</b> Prueba U de Mann-Whitney</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#modelado-con-aprendizaje-autom%C3%A1tico-machine-learning"><i class="fa fa-check"></i><b>3.4</b> Modelado con Aprendizaje Automático (Machine Learning)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#tratamiento-del-desbalance-smote"><i class="fa fa-check"></i><b>3.4.1</b> Tratamiento del desbalance: SMOTE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#regresi%C3%B3n-log%C3%ADstica"><i class="fa fa-check"></i><b>3.4.2</b> Regresión Logística</a></li>
+<li class="chapter" data-level="3.4.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#random-forest"><i class="fa fa-check"></i><b>3.4.3</b> Random Forest</a></li>
+<li class="chapter" data-level="3.4.4" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#xgboost-extreme-gradient-boosting"><i class="fa fa-check"></i><b>3.4.4</b> XGBoost (Extreme Gradient Boosting)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#evaluaci%C3%B3n-de-los-modelos"><i class="fa fa-check"></i><b>3.5</b> Evaluación de los modelos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#matriz-de-confusi%C3%B3n-y-m%C3%A9tricas-b%C3%A1sicas"><i class="fa fa-check"></i><b>3.5.1</b> Matriz de confusión y métricas básicas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#curvas-roc-y-precision-recall"><i class="fa fa-check"></i><b>3.5.2</b> Curvas ROC y Precision-Recall</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#interpretabilidad-del-modelo-shap"><i class="fa fa-check"></i><b>3.6</b> Interpretabilidad del modelo (SHAP)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>4</b> EDA (Análisis Exploratorio De Datos)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto"><i class="fa fa-check"></i><b>4.1</b> Comprender el contexto</a></li>
+<li class="chapter" data-level="4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas"><i class="fa fa-check"></i><b>4.2</b> Carga de librerías</a></li>
+<li class="chapter" data-level="4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>4.3</b> Importación de datos</a></li>
+<li class="chapter" data-level="4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n"><i class="fa fa-check"></i><b>4.4</b> Limpieza, tratamiento y preparación</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos"><i class="fa fa-check"></i><b>4.4.1</b> Tipos de datos</a></li>
+<li class="chapter" data-level="4.4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados"><i class="fa fa-check"></i><b>4.4.2</b> Valores faltantes y duplicados</a></li>
+<li class="chapter" data-level="4.4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#resumen-estad%C3%ADstico-inicial"><i class="fa fa-check"></i><b>4.4.3</b> Resumen estadístico inicial</a></li>
+<li class="chapter" data-level="4.4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr"><i class="fa fa-check"></i><b>4.4.4</b> Detección de outliers (método IQR)</a></li>
+<li class="chapter" data-level="4.4.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#test-de-normalidad"><i class="fa fa-check"></i><b>4.4.5</b> Test de normalidad</a></li>
+<li class="chapter" data-level="4.4.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#intervalos-de-confianza-del-95-para-medias"><i class="fa fa-check"></i><b>4.4.6</b> Intervalos de confianza del 95% para medias</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado"><i class="fa fa-check"></i><b>4.5</b> Análisis descriptivo univariado</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>4.5.1</b> Distribución de variables numéricas</a></li>
+<li class="chapter" data-level="4.5.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total"><i class="fa fa-check"></i><b>4.5.2</b> Variable objetivo: depressed / bdi_total</a></li>
+<li class="chapter" data-level="4.5.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex"><i class="fa fa-check"></i><b>4.5.3</b> Variable categórica: sex</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado"><i class="fa fa-check"></i><b>4.6</b> Análisis descriptivo bivariado</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman"><i class="fa fa-check"></i><b>4.6.1</b> Matriz de correlación (Spearman)</a></li>
+<li class="chapter" data-level="4.6.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real"><i class="fa fa-check"></i><b>4.6.2</b> Selección de variables a partir de la correlación real</a></li>
+<li class="chapter" data-level="4.6.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total"><i class="fa fa-check"></i><b>4.6.3</b> Predictoras más asociadas con bdi_total</a></li>
+<li class="chapter" data-level="4.6.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo"><i class="fa fa-check"></i><b>4.6.4</b> Interacción con sexo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>4.7</b> Documentación de hallazgos</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html"><i class="fa fa-check"></i><b>5</b> Metodología del modelado</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#configuraci%C3%B3n-y-lectura-de-datos"><i class="fa fa-check"></i><b>5.1</b> Configuración y lectura de datos</a></li>
+<li class="chapter" data-level="5.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#predictores-y-exclusiones"><i class="fa fa-check"></i><b>5.2</b> Predictores y exclusiones</a></li>
+<li class="chapter" data-level="5.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#divisi%C3%B3n-de-entrenamiento-y-prueba"><i class="fa fa-check"></i><b>5.3</b> División de entrenamiento y prueba</a></li>
+<li class="chapter" data-level="5.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#preprocesamiento-sin-fuga-de-informaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Preprocesamiento sin fuga de información</a></li>
+<li class="chapter" data-level="5.5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#organizaci%C3%B3n-del-an%C3%A1lisis"><i class="fa fa-check"></i><b>5.5</b> Organización del análisis</a></li>
+<li class="chapter" data-level="5.6" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#clasificaci%C3%B3n-predicci%C3%B3n-de-depressed"><i class="fa fa-check"></i><b>5.6</b> Clasificación: predicción de <code>depressed</code></a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#m%C3%A9tricas-principales"><i class="fa fa-check"></i><b>5.6.1</b> Métricas principales</a></li>
+<li class="chapter" data-level="5.6.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#manejo-del-desbalance"><i class="fa fa-check"></i><b>5.6.2</b> Manejo del desbalance</a></li>
+<li class="chapter" data-level="5.6.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#validaci%C3%B3n-cruzada-b%C3%BAsqueda-y-selecci%C3%B3n"><i class="fa fa-check"></i><b>5.6.3</b> Validación cruzada, búsqueda y selección</a></li>
+<li class="chapter" data-level="5.6.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#matriz-de-confusi%C3%B3n-y-curvas"><i class="fa fa-check"></i><b>5.6.4</b> Matriz de confusión y curvas</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#regresi%C3%B3n-predicci%C3%B3n-del-puntaje-bdi-ii"><i class="fa fa-check"></i><b>5.7</b> Regresión: predicción del puntaje BDI-II</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#m%C3%A9tricas-y-distribuci%C3%B3n-de-la-respuesta"><i class="fa fa-check"></i><b>5.7.1</b> Métricas y distribución de la respuesta</a></li>
+<li class="chapter" data-level="5.7.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#variantes-de-la-respuesta"><i class="fa fa-check"></i><b>5.7.2</b> Variantes de la respuesta</a></li>
+<li class="chapter" data-level="5.7.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#sesgo-de-retransformaci%C3%B3n-smearing"><i class="fa fa-check"></i><b>5.7.3</b> Sesgo de retransformación (smearing)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#elasticnet-en-r"><i class="fa fa-check"></i><b>5.7.4</b> ElasticNet en R</a></li>
+<li class="chapter" data-level="5.7.5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#validaci%C3%B3n-cruzada-y-regla-de-parsimonia"><i class="fa fa-check"></i><b>5.7.5</b> Validación cruzada y regla de parsimonia</a></li>
+<li class="chapter" data-level="5.7.6" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#interpretaci%C3%B3n-inferencial-de-modelos-tradicionales"><i class="fa fa-check"></i><b>5.7.6</b> Interpretación inferencial de modelos tradicionales</a></li>
+<li class="chapter" data-level="5.7.7" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#incertidumbre-en-test-mediante-bootstrap-pareado"><i class="fa fa-check"></i><b>5.7.7</b> Incertidumbre en test mediante bootstrap pareado</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#comparaci%C3%B3n-entre-regresi%C3%B3n-y-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>5.8</b> Comparación entre regresión y clasificación</a></li>
+<li class="chapter" data-level="5.9" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#persistencia-de-resultados"><i class="fa fa-check"></i><b>5.9</b> Persistencia de resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html"><i class="fa fa-check"></i><b>6</b> Interpretabilidad de los modelos finales</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#configuraci%C3%B3n-modelos-y-partici%C3%B3n"><i class="fa fa-check"></i><b>6.1</b> Configuración, modelos y partición</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#elasticnet-y-catboost-finales-para-el-ejemplo"><i class="fa fa-check"></i><b>6.1.1</b> ElasticNet y CatBoost finales para el ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#coeficientes-del-elasticnet"><i class="fa fa-check"></i><b>6.2</b> Coeficientes del ElasticNet</a></li>
+<li class="chapter" data-level="6.3" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#importancia-nativa-de-catboost"><i class="fa fa-check"></i><b>6.3</b> Importancia nativa de CatBoost</a></li>
+<li class="chapter" data-level="6.4" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-explicaci%C3%B3n-global-y-local"><i class="fa fa-check"></i><b>6.4</b> SHAP: explicación global y local</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-lineal-exacto-para-elasticnet"><i class="fa fa-check"></i><b>6.4.1</b> SHAP lineal exacto para ElasticNet</a></li>
+<li class="chapter" data-level="6.4.2" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-de-catboost-y-prueba-de-aditividad"><i class="fa fa-check"></i><b>6.4.2</b> SHAP de CatBoost y prueba de aditividad</a></li>
+<li class="chapter" data-level="6.4.3" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#distribuciones-de-shap-beeswarm-simplificado"><i class="fa fa-check"></i><b>6.4.3</b> Distribuciones de SHAP (<em>beeswarm</em> simplificado)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#explicaci%C3%B3n-individual-y-gr%C3%A1fico-de-contribuciones"><i class="fa fa-check"></i><b>6.4.4</b> Explicación individual y gráfico de contribuciones</a></li>
+<li class="chapter" data-level="6.4.5" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#dependencia-y-posibles-no-linealidades"><i class="fa fa-check"></i><b>6.4.5</b> Dependencia y posibles no linealidades</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#lime-explicaciones-locales"><i class="fa fa-check"></i><b>6.5</b> LIME: explicaciones locales</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#lime-frente-a-shap"><i class="fa fa-check"></i><b>6.5.1</b> LIME frente a SHAP</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#importancia-por-permutaci%C3%B3n-del-elasticnet"><i class="fa fa-check"></i><b>6.6</b> Importancia por permutación del ElasticNet</a></li>
+<li class="chapter" data-level="6.7" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#guardado-y-reproducibilidad"><i class="fa fa-check"></i><b>6.7</b> Guardado y reproducibilidad</a></li>
+<li class="chapter" data-level="6.8" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#interpretaci%C3%B3n-de-resultados"><i class="fa fa-check"></i><b>6.8</b> Interpretación de resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="./">Analisis exploratorio de datos</a></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">El uso excesivo del celular afecta en la salud mental de los jovenes?</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="interpretabilidad-de-los-modelos-finales" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Capítulo  6</span> Interpretabilidad de los modelos finales<a href="interpretabilidad-de-los-modelos-finales.html#interpretabilidad-de-los-modelos-finales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="configuración-modelos-y-partición" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Configuración, modelos y partición<a href="interpretabilidad-de-los-modelos-finales.html#configuraci%C3%B3n-modelos-y-partici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los análisis de explicabilidad se realizan después de seleccionar y entrenar los modelos finales. El conjunto de prueba se usa para medir cómo se comportan en observaciones no vistas; el entrenamiento define las medias, desviaciones y datos de referencia. Es imprescindible mantener el mismo corte para ambas respuestas.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb1-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(yardstick)</span>
+<span id="cb1-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-8" tabindex="-1"></a>semilla <span class="ot">&lt;-</span> <span class="dv">42</span></span>
+<span id="cb1-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-9" tabindex="-1"></a>ruta_datos <span class="ot">&lt;-</span> <span class="st">&quot;screen_time_mental_health.csv&quot;</span></span>
+<span id="cb1-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-10" tabindex="-1"></a>ruta_split <span class="ot">&lt;-</span> <span class="st">&quot;resultados/modelado_libro/split_indices_R.csv&quot;</span></span>
+<span id="cb1-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-12" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(ruta_datos)) <span class="fu">stop</span>(<span class="st">&quot;Falta el archivo de datos&quot;</span>)</span>
+<span id="cb1-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-13" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(ruta_split)) {</span>
+<span id="cb1-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-14" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">&quot;Primero ejecuta el capítulo 01, que genera split_indices_R.csv&quot;</span>)</span>
+<span id="cb1-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-15" tabindex="-1"></a>}</span>
+<span id="cb1-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-17" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(ruta_datos, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-18" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(ruta_split, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-19"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-19" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-20" tabindex="-1"></a>df<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>sex, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Boy&quot;</span>, <span class="st">&quot;Girl&quot;</span>))</span>
+<span id="cb1-21"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-21" tabindex="-1"></a>df<span class="sc">$</span>depressed <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(df<span class="sc">$</span>depressed))</span>
+<span id="cb1-22"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-23" tabindex="-1"></a>train <span class="ot">&lt;-</span> df[<span class="fu">match</span>(indices<span class="sc">$</span>subject_id[indices<span class="sc">$</span>conjunto <span class="sc">==</span> <span class="st">&quot;train&quot;</span>],</span>
+<span id="cb1-24"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-24" tabindex="-1"></a>                  df<span class="sc">$</span>subject_id), ]</span>
+<span id="cb1-25"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-25" tabindex="-1"></a>test <span class="ot">&lt;-</span> df[<span class="fu">match</span>(indices<span class="sc">$</span>subject_id[indices<span class="sc">$</span>conjunto <span class="sc">==</span> <span class="st">&quot;test&quot;</span>],</span>
+<span id="cb1-26"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-26" tabindex="-1"></a>                 df<span class="sc">$</span>subject_id), ]</span>
+<span id="cb1-27"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-27" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-28" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="sc">!</span><span class="fu">anyNA</span>(train<span class="sc">$</span>subject_id), <span class="sc">!</span><span class="fu">anyNA</span>(test<span class="sc">$</span>subject_id))</span>
+<span id="cb1-29"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-29" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-30" tabindex="-1"></a>numericas <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-31"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-31" tabindex="-1"></a>  <span class="st">&quot;sleep_quality_index&quot;</span>, <span class="st">&quot;avg_sleep_hours&quot;</span>,</span>
+<span id="cb1-32"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-32" tabindex="-1"></a>  <span class="st">&quot;midsleep_weekend_hours&quot;</span>, <span class="st">&quot;social_jetlag_hours&quot;</span>,</span>
+<span id="cb1-33"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-33" tabindex="-1"></a>  <span class="st">&quot;screen_time_index&quot;</span></span>
+<span id="cb1-34"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-34" tabindex="-1"></a>)</span>
+<span id="cb1-35"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-35" tabindex="-1"></a>predictores <span class="ot">&lt;-</span> <span class="fu">c</span>(numericas, <span class="st">&quot;sex&quot;</span>)</span>
+<span id="cb1-36"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-36" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-37" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-38" tabindex="-1"></a>medias_train <span class="ot">&lt;-</span> <span class="fu">vapply</span>(train[, numericas, <span class="at">drop =</span> <span class="cn">FALSE</span>], mean, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb1-39"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-39" tabindex="-1"></a>desvios_train <span class="ot">&lt;-</span> <span class="fu">vapply</span>(train[, numericas, <span class="at">drop =</span> <span class="cn">FALSE</span>], sd, <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb1-40"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-40" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">all</span>(desvios_train <span class="sc">&gt;</span> <span class="dv">0</span>))</span>
+<span id="cb1-41"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-41" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-42" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-43" tabindex="-1"></a>X_train_num <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">as.matrix</span>(train[, numericas, <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb1-44"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-44" tabindex="-1"></a>                     <span class="at">center =</span> medias_train, <span class="at">scale =</span> desvios_train)</span>
+<span id="cb1-45"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-45" tabindex="-1"></a>X_test_num <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">as.matrix</span>(test[, numericas, <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb1-46"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-46" tabindex="-1"></a>                    <span class="at">center =</span> medias_train, <span class="at">scale =</span> desvios_train)</span>
+<span id="cb1-47"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-47" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-48" tabindex="-1"></a>X_train <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X_train_num, <span class="at">sex_Girl =</span> <span class="fu">as.integer</span>(train<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;Girl&quot;</span>))</span>
+<span id="cb1-49"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-49" tabindex="-1"></a>X_test <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X_test_num, <span class="at">sex_Girl =</span> <span class="fu">as.integer</span>(test<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;Girl&quot;</span>))</span>
+<span id="cb1-50"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-50" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-51" tabindex="-1"></a><span class="fu">stopifnot</span>(<span class="fu">identical</span>(<span class="fu">colnames</span>(X_train), <span class="fu">colnames</span>(X_test)))</span>
+<span id="cb1-52"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-52" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-53" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Variable =</span> <span class="fu">colnames</span>(X_train),</span>
+<span id="cb1-54"><a href="interpretabilidad-de-los-modelos-finales.html#cb1-54" tabindex="-1"></a>                 <span class="at">Tipo =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Estandarizada&quot;</span>, <span class="dv">5</span>), <span class="st">&quot;Binaria: chica=1&quot;</span>)))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sleep_quality_index</td>
+<td align="left">Estandarizada</td>
+</tr>
+<tr class="even">
+<td align="left">avg_sleep_hours</td>
+<td align="left">Estandarizada</td>
+</tr>
+<tr class="odd">
+<td align="left">midsleep_weekend_hours</td>
+<td align="left">Estandarizada</td>
+</tr>
+<tr class="even">
+<td align="left">social_jetlag_hours</td>
+<td align="left">Estandarizada</td>
+</tr>
+<tr class="odd">
+<td align="left">screen_time_index</td>
+<td align="left">Estandarizada</td>
+</tr>
+<tr class="even">
+<td align="left">sex_Girl</td>
+<td align="left">Binaria: chica=1</td>
+</tr>
+</tbody>
+</table>
+<div id="elasticnet-y-catboost-finales-para-el-ejemplo" class="section level3 hasAnchor" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> ElasticNet y CatBoost finales para el ejemplo<a href="interpretabilidad-de-los-modelos-finales.html#elasticnet-y-catboost-finales-para-el-ejemplo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El ElasticNet se interpreta mediante sus coeficientes y SHAP lineal. En clasificación se utiliza CatBoost, que permite calcular importancia nativa y valores SHAP del ensamble. Los hiperparámetros de abajo son demostrativos: no se seleccionan aquí usando el test, y no equivalen automáticamente a los mejores parámetros obtenidos en Python.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-1" tabindex="-1"></a>alpha_final <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb2-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-2" tabindex="-1"></a>lambda_final <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb2-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-4" tabindex="-1"></a>elasticnet_final <span class="ot">&lt;-</span> glmnet<span class="sc">::</span><span class="fu">glmnet</span>(</span>
+<span id="cb2-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-5" tabindex="-1"></a>  <span class="at">x =</span> X_train,</span>
+<span id="cb2-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-6" tabindex="-1"></a>  <span class="at">y =</span> train<span class="sc">$</span>bdi_total,</span>
+<span id="cb2-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-7" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">&quot;gaussian&quot;</span>,</span>
+<span id="cb2-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-8" tabindex="-1"></a>  <span class="at">alpha =</span> alpha_final,</span>
+<span id="cb2-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-9" tabindex="-1"></a>  <span class="at">lambda =</span> lambda_final,</span>
+<span id="cb2-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-10" tabindex="-1"></a>  <span class="at">standardize =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-11" tabindex="-1"></a>)</span>
+<span id="cb2-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-13" tabindex="-1"></a>pred_elastic_sin_recorte <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(</span>
+<span id="cb2-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-14" tabindex="-1"></a>  <span class="fu">predict</span>(elasticnet_final, <span class="at">newx =</span> X_test, <span class="at">s =</span> lambda_final)</span>
+<span id="cb2-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-15" tabindex="-1"></a>)</span>
+<span id="cb2-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-16" tabindex="-1"></a>pred_elastic <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(<span class="dv">63</span>, pred_elastic_sin_recorte))</span>
+<span id="cb2-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-18" tabindex="-1"></a>coeficientes_en <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">coef</span>(elasticnet_final, <span class="at">s =</span> lambda_final))</span>
+<span id="cb2-19"><a href="interpretabilidad-de-los-modelos-finales.html#cb2-19" tabindex="-1"></a>coeficientes_en</span></code></pre></div>
+<pre><code>##                             s=0.01
+## (Intercept)             5.69679704
+## sleep_quality_index     2.15795193
+## avg_sleep_hours        -0.75375150
+## midsleep_weekend_hours  0.38064847
+## social_jetlag_hours     0.07436213
+## screen_time_index       0.50451658
+## sex_Girl                3.18079291</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-1" tabindex="-1"></a><span class="fu">set.seed</span>(semilla)</span>
+<span id="cb4-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-3" tabindex="-1"></a>pool_train <span class="ot">&lt;-</span> catboost<span class="sc">::</span><span class="fu">catboost.load_pool</span>(</span>
+<span id="cb4-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-4" tabindex="-1"></a>  <span class="at">data =</span> X_train, <span class="at">label =</span> train<span class="sc">$</span>depressed</span>
+<span id="cb4-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-5" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-6" tabindex="-1"></a>pool_test <span class="ot">&lt;-</span> catboost<span class="sc">::</span><span class="fu">catboost.load_pool</span>(</span>
+<span id="cb4-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-7" tabindex="-1"></a>  <span class="at">data =</span> X_test, <span class="at">label =</span> test<span class="sc">$</span>depressed</span>
+<span id="cb4-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-8" tabindex="-1"></a>)</span>
+<span id="cb4-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-10" tabindex="-1"></a>catboost_final <span class="ot">&lt;-</span> catboost<span class="sc">::</span><span class="fu">catboost.train</span>(</span>
+<span id="cb4-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-11" tabindex="-1"></a>  <span class="at">learn_pool =</span> pool_train,</span>
+<span id="cb4-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-12" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(</span>
+<span id="cb4-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-13" tabindex="-1"></a>    <span class="at">loss_function =</span> <span class="st">&quot;Logloss&quot;</span>,</span>
+<span id="cb4-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-14" tabindex="-1"></a>    <span class="at">iterations =</span> <span class="dv">500</span>,</span>
+<span id="cb4-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-15" tabindex="-1"></a>    <span class="at">depth =</span> <span class="dv">3</span>,</span>
+<span id="cb4-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-16" tabindex="-1"></a>    <span class="at">learning_rate =</span> <span class="fl">0.03</span>,</span>
+<span id="cb4-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-17" tabindex="-1"></a>    <span class="at">l2_leaf_reg =</span> <span class="dv">4</span>,</span>
+<span id="cb4-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-18" tabindex="-1"></a>    <span class="at">auto_class_weights =</span> <span class="st">&quot;Balanced&quot;</span>,</span>
+<span id="cb4-19"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-19" tabindex="-1"></a>    <span class="at">random_seed =</span> semilla,</span>
+<span id="cb4-20"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-20" tabindex="-1"></a>    <span class="at">thread_count =</span> <span class="dv">2</span>,</span>
+<span id="cb4-21"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-21" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb4-22"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-22" tabindex="-1"></a>  )</span>
+<span id="cb4-23"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-23" tabindex="-1"></a>)</span>
+<span id="cb4-24"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-24" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-25" tabindex="-1"></a>prob_catboost <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(catboost<span class="sc">::</span><span class="fu">catboost.predict</span>(</span>
+<span id="cb4-26"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-26" tabindex="-1"></a>  catboost_final, pool_test, <span class="at">prediction_type =</span> <span class="st">&quot;Probability&quot;</span></span>
+<span id="cb4-27"><a href="interpretabilidad-de-los-modelos-finales.html#cb4-27" tabindex="-1"></a>))</span></code></pre></div>
+</div>
+</div>
+<div id="coeficientes-del-elasticnet" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Coeficientes del ElasticNet<a href="interpretabilidad-de-los-modelos-finales.html#coeficientes-del-elasticnet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para variables estandarizadas, un coeficiente expresa el cambio estimado de BDI-II asociado a una desviación estándar del predictor, manteniendo constantes las demás variables. Para <code>sex_Girl</code>, expresa el contraste entre chicas y chicos. El efecto por unidad original se obtiene dividiendo el coeficiente numérico por la desviación del predictor en entrenamiento; la categoría binaria no se divide.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-1" tabindex="-1"></a>tabla_coeficientes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">rownames</span>(coeficientes_en)[<span class="sc">-</span><span class="dv">1</span>],</span>
+<span id="cb5-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-3" tabindex="-1"></a>  <span class="at">Coeficiente_por_DE =</span> <span class="fu">as.numeric</span>(coeficientes_en[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb5-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-4" tabindex="-1"></a>)</span>
+<span id="cb5-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-6" tabindex="-1"></a>tabla_coeficientes<span class="sc">$</span>Efecto_por_unidad <span class="ot">&lt;-</span> tabla_coeficientes<span class="sc">$</span>Coeficiente_por_DE</span>
+<span id="cb5-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-7" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> numericas) {</span>
+<span id="cb5-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-8" tabindex="-1"></a>  tabla_coeficientes<span class="sc">$</span>Efecto_por_unidad[</span>
+<span id="cb5-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-9" tabindex="-1"></a>    tabla_coeficientes<span class="sc">$</span>Variable <span class="sc">==</span> j</span>
+<span id="cb5-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-10" tabindex="-1"></a>  ] <span class="ot">&lt;-</span> tabla_coeficientes<span class="sc">$</span>Coeficiente_por_DE[</span>
+<span id="cb5-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-11" tabindex="-1"></a>    tabla_coeficientes<span class="sc">$</span>Variable <span class="sc">==</span> j</span>
+<span id="cb5-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-12" tabindex="-1"></a>  ] <span class="sc">/</span> desvios_train[j]</span>
+<span id="cb5-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-13" tabindex="-1"></a>}</span>
+<span id="cb5-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-15" tabindex="-1"></a>tabla_coeficientes<span class="sc">$</span>En_cero <span class="ot">&lt;-</span> <span class="fu">abs</span>(tabla_coeficientes<span class="sc">$</span>Coeficiente_por_DE) <span class="sc">&lt;</span> <span class="fl">1e-8</span></span>
+<span id="cb5-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb5-16" tabindex="-1"></a><span class="fu">kable</span>(tabla_coeficientes, <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="27%" />
+<col width="26%" />
+<col width="11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Coeficiente_por_DE</th>
+<th align="right">Efecto_por_unidad</th>
+<th align="left">En_cero</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sleep_quality_index</td>
+<td align="right">2.158</td>
+<td align="right">2.535</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">avg_sleep_hours</td>
+<td align="right">-0.754</td>
+<td align="right">-0.591</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">midsleep_weekend_hours</td>
+<td align="right">0.381</td>
+<td align="right">0.268</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">social_jetlag_hours</td>
+<td align="right">0.074</td>
+<td align="right">0.065</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">screen_time_index</td>
+<td align="right">0.505</td>
+<td align="right">0.490</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">sex_Girl</td>
+<td align="right">3.181</td>
+<td align="right">3.181</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_coeficientes,</span>
+<span id="cb6-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Coeficiente_por_DE),</span>
+<span id="cb6-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-3" tabindex="-1"></a>           <span class="at">y =</span> Coeficiente_por_DE,</span>
+<span id="cb6-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-4" tabindex="-1"></a>           <span class="at">fill =</span> Coeficiente_por_DE <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-5" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
+<span id="cb6-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-6" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb6-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-7" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linewidth =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-8" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#A3C3E5&quot;</span>, <span class="st">&quot;#EFAC91&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;ElasticNet: coeficientes estandarizados&quot;</span>,</span>
+<span id="cb6-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Cambio estimado en puntos BDI-II&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb6-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p><img src="book-merged_files/figure-html/interp-coeficientes-plot-1.png" alt="" width="768" /></p>
+<p>Un coeficiente igual a cero puede reflejar selección de variables por la componente L1. Su anulación o magnitud depende del <code>lambda</code> y <code>alpha</code> elegidos; no debe afirmarse que un predictor carece de asociación causal.</p>
+</div>
+<div id="importancia-nativa-de-catboost" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Importancia nativa de CatBoost<a href="interpretabilidad-de-los-modelos-finales.html#importancia-nativa-de-catboost" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se calculan dos medidas: <code>PredictionValuesChange</code>, asociada al cambio de la salida del modelo, y <code>LossFunctionChange</code>, que refleja cuánto se deteriora su función de pérdida al retirar información de la variable. Ninguna ofrece por sí sola la dirección de los efectos. Las variables correlacionadas pueden repartirse la importancia.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-1" tabindex="-1"></a>imp_pvc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(catboost<span class="sc">::</span><span class="fu">catboost.get_feature_importance</span>(</span>
+<span id="cb7-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-2" tabindex="-1"></a>  catboost_final, <span class="at">pool =</span> pool_test, <span class="at">type =</span> <span class="st">&quot;PredictionValuesChange&quot;</span></span>
+<span id="cb7-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-3" tabindex="-1"></a>))</span>
+<span id="cb7-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-5" tabindex="-1"></a>imp_lfc <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(catboost<span class="sc">::</span><span class="fu">catboost.get_feature_importance</span>(</span>
+<span id="cb7-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-6" tabindex="-1"></a>  catboost_final, <span class="at">pool =</span> pool_test, <span class="at">type =</span> <span class="st">&quot;LossFunctionChange&quot;</span></span>
+<span id="cb7-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-7" tabindex="-1"></a>))</span>
+<span id="cb7-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-9" tabindex="-1"></a>importancias_catboost <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-10" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">colnames</span>(X_test),</span>
+<span id="cb7-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-11" tabindex="-1"></a>  <span class="at">PredictionValuesChange =</span> imp_pvc,</span>
+<span id="cb7-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-12" tabindex="-1"></a>  <span class="at">LossFunctionChange =</span> imp_lfc</span>
+<span id="cb7-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-13" tabindex="-1"></a>)</span>
+<span id="cb7-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb7-14" tabindex="-1"></a><span class="fu">kable</span>(importancias_catboost, <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-1" tabindex="-1"></a>importancias_catboost <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Variable, <span class="at">names_to =</span> <span class="st">&quot;Metodo&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Importancia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Importancia), <span class="at">y =</span> Importancia)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-4" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#A3C3E5&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-5" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb8-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Metodo, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;CatBoost: medidas nativas de importancia&quot;</span>,</span>
+<span id="cb8-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Importancia&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb8-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+</div>
+<div id="shap-explicación-global-y-local" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> SHAP: explicación global y local<a href="interpretabilidad-de-los-modelos-finales.html#shap-explicaci%C3%B3n-global-y-local" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para cada observación, SHAP descompone la salida del modelo como suma de un valor base y contribuciones de las variables. En CatBoost binario, la descomposición habitual corresponde a la escala de log-odds; al aplicar la función logística se obtiene la probabilidad. En ElasticNet los aportes son en puntos BDI-II antes de recortar al rango [0, 63]. Por eso no deben compararse numéricamente las escalas de ambos modelos.</p>
+<p><span class="math display">\[
+f(x_i) = \phi_0 + \sum_{j=1}^{p} \phi_{ij}.
+\]</span></p>
+<div id="shap-lineal-exacto-para-elasticnet" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> SHAP lineal exacto para ElasticNet<a href="interpretabilidad-de-los-modelos-finales.html#shap-lineal-exacto-para-elasticnet" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En un modelo lineal con datos de referencia del train, la contribución de la variable <span class="math inline">\(j\)</span> es el coeficiente multiplicado por la diferencia entre la observación y la media de referencia:</p>
+<p><span class="math display">\[
+\phi_{ij}=\beta_j(x_{ij}-\overline{x}_{j,\mathrm{train}}).
+\]</span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-1" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(coeficientes_en[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb9-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-2" tabindex="-1"></a>intercepto <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(coeficientes_en[<span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb9-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-3" tabindex="-1"></a>medias_X <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(X_train)</span>
+<span id="cb9-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-5" tabindex="-1"></a>base_en <span class="ot">&lt;-</span> intercepto <span class="sc">+</span> <span class="fu">sum</span>(medias_X <span class="sc">*</span> betas)</span>
+<span id="cb9-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-7" tabindex="-1"></a>X_centrado <span class="ot">&lt;-</span> <span class="fu">sweep</span>(X_test, <span class="dv">2</span>, medias_X, <span class="st">&quot;-&quot;</span>)</span>
+<span id="cb9-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-8" tabindex="-1"></a>shap_en <span class="ot">&lt;-</span> <span class="fu">sweep</span>(X_centrado, <span class="dv">2</span>, betas, <span class="st">&quot;*&quot;</span>)</span>
+<span id="cb9-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-9" tabindex="-1"></a><span class="fu">colnames</span>(shap_en) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(X_test)</span>
+<span id="cb9-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-10" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-11" tabindex="-1"></a>reconstruido_en <span class="ot">&lt;-</span> base_en <span class="sc">+</span> <span class="fu">rowSums</span>(shap_en)</span>
+<span id="cb9-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-13" tabindex="-1"></a>error_aditividad_en <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">abs</span>(reconstruido_en <span class="sc">-</span> pred_elastic_sin_recorte))</span>
+<span id="cb9-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-14" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb9-15" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Base ElasticNet:&quot;</span>, <span class="fu">round</span>(base_en, <span class="dv">4</span>), <span class="st">&quot;puntos BDI</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Base ElasticNet: 7.2628 puntos BDI</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb11-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Error máximo de aditividad:&quot;</span>, <span class="fu">signif</span>(error_aditividad_en, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Error máximo de aditividad: 3.553e-15</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-1" tabindex="-1"></a>shap_global_en <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-2" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">colnames</span>(shap_en),</span>
+<span id="cb13-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-3" tabindex="-1"></a>  <span class="at">Media_abs_SHAP =</span> <span class="fu">colMeans</span>(<span class="fu">abs</span>(shap_en))</span>
+<span id="cb13-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-4" tabindex="-1"></a>)</span>
+<span id="cb13-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-6" tabindex="-1"></a><span class="fu">ggplot</span>(shap_global_en,</span>
+<span id="cb13-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-7" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Media_abs_SHAP), <span class="at">y =</span> Media_abs_SHAP)) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-8" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#D6A5C3&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-9" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb13-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;ElasticNet: importancia global SHAP&quot;</span>,</span>
+<span id="cb13-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Media del valor absoluto de SHAP (puntos BDI)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb13-12" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p><img src="book-merged_files/figure-html/interp-shap-global-en-1.png" alt="" width="768" /></p>
+</div>
+<div id="shap-de-catboost-y-prueba-de-aditividad" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> SHAP de CatBoost y prueba de aditividad<a href="interpretabilidad-de-los-modelos-finales.html#shap-de-catboost-y-prueba-de-aditividad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>CatBoost ofrece valores SHAP nativos. La última columna contiene el valor base. Su suma debe reconstruir la salida <code>RawFormulaVal</code>, no la probabilidad directamente.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-1" tabindex="-1"></a>shap_cb_completo <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(catboost<span class="sc">::</span><span class="fu">catboost.get_feature_importance</span>(</span>
+<span id="cb14-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-2" tabindex="-1"></a>  catboost_final, <span class="at">pool =</span> pool_test, <span class="at">type =</span> <span class="st">&quot;ShapValues&quot;</span></span>
+<span id="cb14-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-3" tabindex="-1"></a>))</span>
+<span id="cb14-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-5" tabindex="-1"></a>shap_cb <span class="ot">&lt;-</span> shap_cb_completo[, <span class="fu">seq_len</span>(<span class="fu">ncol</span>(X_test)), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb14-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-6" tabindex="-1"></a><span class="fu">colnames</span>(shap_cb) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(X_test)</span>
+<span id="cb14-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-7" tabindex="-1"></a>base_cb <span class="ot">&lt;-</span> shap_cb_completo[, <span class="fu">ncol</span>(shap_cb_completo)]</span>
+<span id="cb14-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-9" tabindex="-1"></a>raw_cb <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(catboost<span class="sc">::</span><span class="fu">catboost.predict</span>(</span>
+<span id="cb14-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-10" tabindex="-1"></a>  catboost_final, pool_test, <span class="at">prediction_type =</span> <span class="st">&quot;RawFormulaVal&quot;</span></span>
+<span id="cb14-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-11" tabindex="-1"></a>))</span>
+<span id="cb14-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-12" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-13" tabindex="-1"></a>error_aditividad_cb <span class="ot">&lt;-</span> <span class="fu">max</span>(<span class="fu">abs</span>(base_cb <span class="sc">+</span> <span class="fu">rowSums</span>(shap_cb) <span class="sc">-</span> raw_cb))</span>
+<span id="cb14-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-14" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Error máximo SHAP CatBoost:&quot;</span>, <span class="fu">signif</span>(error_aditividad_cb, <span class="dv">4</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb14-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-15" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-16" tabindex="-1"></a>shap_global_cb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-17" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">colnames</span>(shap_cb),</span>
+<span id="cb14-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-18" tabindex="-1"></a>  <span class="at">Media_abs_SHAP =</span> <span class="fu">colMeans</span>(<span class="fu">abs</span>(shap_cb))</span>
+<span id="cb14-19"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-19" tabindex="-1"></a>)</span>
+<span id="cb14-20"><a href="interpretabilidad-de-los-modelos-finales.html#cb14-20" tabindex="-1"></a><span class="fu">kable</span>(shap_global_cb, <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb15-1" tabindex="-1"></a><span class="fu">ggplot</span>(shap_global_cb,</span>
+<span id="cb15-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb15-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Media_abs_SHAP), <span class="at">y =</span> Media_abs_SHAP)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb15-3" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#EFAC91&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb15-4" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb15-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;CatBoost: importancia SHAP global&quot;</span>,</span>
+<span id="cb15-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb15-6" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Media |SHAP| (log-odds)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb15-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+</div>
+<div id="distribuciones-de-shap-beeswarm-simplificado" class="section level3 hasAnchor" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> Distribuciones de SHAP (<em>beeswarm</em> simplificado)<a href="interpretabilidad-de-los-modelos-finales.html#distribuciones-de-shap-beeswarm-simplificado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El conjunto de puntos permite observar signo, magnitud y heterogeneidad. En estos gráficos se utiliza jitter para evitar el solapamiento; no es idéntico al algoritmo de colocación beeswarm de Python.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-1" tabindex="-1"></a>shap_en_largo <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(shap_en) <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fila =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Fila, <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;SHAP&quot;</span>)</span>
+<span id="cb16-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-4" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-5" tabindex="-1"></a>valores_originales <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(X_test) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fila =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-7" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Fila, <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Valor&quot;</span>)</span>
+<span id="cb16-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-9" tabindex="-1"></a>shap_en_largo <span class="ot">&lt;-</span> <span class="fu">left_join</span>(shap_en_largo, valores_originales,</span>
+<span id="cb16-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-10" tabindex="-1"></a>                           <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Fila&quot;</span>, <span class="st">&quot;Variable&quot;</span>))</span>
+<span id="cb16-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-11" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-12" tabindex="-1"></a><span class="fu">ggplot</span>(shap_en_largo,</span>
+<span id="cb16-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-13" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> SHAP, <span class="at">y =</span> Variable, <span class="at">color =</span> Valor)) <span class="sc">+</span></span>
+<span id="cb16-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-14" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.18</span>, <span class="at">width =</span> <span class="dv">0</span>, <span class="at">alpha =</span> <span class="fl">0.45</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb16-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-15" tabindex="-1"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">&quot;#A3C3E5&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#EFAC91&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;ElasticNet: contribuciones SHAP individuales&quot;</span>,</span>
+<span id="cb16-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-17" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;SHAP (puntos BDI)&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="st">&quot;Valor</span><span class="sc">\n</span><span class="st">transformado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb16-18" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p><img src="book-merged_files/figure-html/interp-beeswarm-en-1.png" alt="" width="864" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-1" tabindex="-1"></a>shap_cb_largo <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(shap_cb) <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Fila =</span> <span class="fu">row_number</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>Fila, <span class="at">names_to =</span> <span class="st">&quot;Variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;SHAP&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-4" tabindex="-1"></a>  <span class="fu">left_join</span>(valores_originales, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Fila&quot;</span>, <span class="st">&quot;Variable&quot;</span>))</span>
+<span id="cb17-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-6" tabindex="-1"></a><span class="fu">ggplot</span>(shap_cb_largo, <span class="fu">aes</span>(<span class="at">x =</span> SHAP, <span class="at">y =</span> Variable, <span class="at">color =</span> Valor)) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-7" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">height =</span> <span class="fl">0.18</span>, <span class="at">width =</span> <span class="dv">0</span>, <span class="at">alpha =</span> <span class="fl">0.45</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-8" tabindex="-1"></a>  <span class="fu">scale_color_gradient</span>(<span class="at">low =</span> <span class="st">&quot;#A3C3E5&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#EFAC91&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;CatBoost: contribuciones SHAP individuales&quot;</span>,</span>
+<span id="cb17-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-10" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;SHAP (log-odds)&quot;</span>, <span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">color =</span> <span class="st">&quot;Valor</span><span class="sc">\n</span><span class="st">transformado&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb17-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+</div>
+<div id="explicación-individual-y-gráfico-de-contribuciones" class="section level3 hasAnchor" number="6.4.4">
+<h3><span class="header-section-number">6.4.4</span> Explicación individual y gráfico de contribuciones<a href="interpretabilidad-de-los-modelos-finales.html#explicaci%C3%B3n-individual-y-gr%C3%A1fico-de-contribuciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para ilustrar un caso del test, el modelo parte de su valor base y suma efectos positivos o negativos. Una contribución positiva aumenta el puntaje BDI del ElasticNet o los log-odds del CatBoost; no es una afirmación causal.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb18-1" tabindex="-1"></a>posicion <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb18-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb18-2" tabindex="-1"></a>explicacion_en <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb18-3" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">colnames</span>(shap_en),</span>
+<span id="cb18-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb18-4" tabindex="-1"></a>  <span class="at">Contribucion =</span> <span class="fu">as.numeric</span>(shap_en[posicion, ])</span>
+<span id="cb18-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb18-5" tabindex="-1"></a>)</span>
+<span id="cb18-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb18-7" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Sujeto:&quot;</span>, test<span class="sc">$</span>subject_id[posicion], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Sujeto: 6</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb20-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Base:&quot;</span>, <span class="fu">round</span>(base_en, <span class="dv">2</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Base: 7.26</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb22-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Predicción lineal:&quot;</span>, <span class="fu">round</span>(reconstruido_en[posicion], <span class="dv">2</span>), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Predicción lineal: 2.32</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-1" tabindex="-1"></a><span class="fu">ggplot</span>(explicacion_en,</span>
+<span id="cb24-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Contribucion), <span class="at">y =</span> Contribucion,</span>
+<span id="cb24-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-3" tabindex="-1"></a>           <span class="at">fill =</span> Contribucion <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-4" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb24-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-5" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#A3C3E5&quot;</span>, <span class="st">&quot;#EFAC91&quot;</span>), <span class="at">guide =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;ElasticNet: aportes SHAP de una observación&quot;</span>,</span>
+<span id="cb24-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-7" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Las barras suman la diferencia frente al valor base&quot;</span>,</span>
+<span id="cb24-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Contribución (puntos BDI)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb24-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p><img src="book-merged_files/figure-html/interp-caso-en-1.png" alt="" width="768" /></p>
+</div>
+<div id="dependencia-y-posibles-no-linealidades" class="section level3 hasAnchor" number="6.4.5">
+<h3><span class="header-section-number">6.4.5</span> Dependencia y posibles no linealidades<a href="interpretabilidad-de-los-modelos-finales.html#dependencia-y-posibles-no-linealidades" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En CatBoost, los gráficos de dependencia comparan el valor original de una variable con su contribución SHAP, coloreada por sexo. Sirven para investigar cambios de pendiente, umbrales e interacciones. No implican una relación causal.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-1" tabindex="-1"></a>variable_interes <span class="ot">&lt;-</span> <span class="st">&quot;sleep_quality_index&quot;</span></span>
+<span id="cb25-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-2" tabindex="-1"></a>dependencia_cb <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-3" tabindex="-1"></a>  <span class="at">Valor_original =</span> test[[variable_interes]],</span>
+<span id="cb25-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-4" tabindex="-1"></a>  <span class="at">SHAP =</span> shap_cb[, variable_interes],</span>
+<span id="cb25-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-5" tabindex="-1"></a>  <span class="at">Sexo =</span> test<span class="sc">$</span>sex</span>
+<span id="cb25-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-6" tabindex="-1"></a>)</span>
+<span id="cb25-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-7" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-8" tabindex="-1"></a><span class="fu">ggplot</span>(dependencia_cb,</span>
+<span id="cb25-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-9" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Valor_original, <span class="at">y =</span> SHAP, <span class="at">color =</span> Sexo)) <span class="sc">+</span></span>
+<span id="cb25-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-10" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.55</span>, <span class="at">size =</span> <span class="fl">1.6</span>) <span class="sc">+</span></span>
+<span id="cb25-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-11" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-12" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="at">Boy =</span> <span class="st">&quot;#9AC7BD&quot;</span>, <span class="at">Girl =</span> <span class="st">&quot;#D6A5C3&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb25-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;CatBoost: dependencia SHAP de calidad del sueño&quot;</span>,</span>
+<span id="cb25-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-14" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Índice de calidad del sueño&quot;</span>, <span class="at">y =</span> <span class="st">&quot;SHAP (log-odds)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb25-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb25-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="lime-explicaciones-locales" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> LIME: explicaciones locales<a href="interpretabilidad-de-los-modelos-finales.html#lime-explicaciones-locales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>LIME aproxima localmente las predicciones de un modelo con una regresión interpretable ajustada sobre observaciones perturbadas. En R el paquete <code>lime</code> necesita conocer cómo obtener la predicción de un objeto. Para <code>glmnet</code> y el modelo CatBoost mostrado aquí se requieren pequeños métodos de adaptación; por eso, a diferencia de las transformaciones estadísticas anteriores, este bloque sí declara métodos S3.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-1" tabindex="-1"></a><span class="fu">library</span>(lime)</span>
+<span id="cb26-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-2" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-3" tabindex="-1"></a>modelo_lime_en <span class="ot">&lt;-</span> <span class="fu">structure</span>(</span>
+<span id="cb26-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-4" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">modelo =</span> elasticnet_final, <span class="at">tipo =</span> <span class="st">&quot;regression&quot;</span>,</span>
+<span id="cb26-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-5" tabindex="-1"></a>       <span class="at">numericas =</span> numericas, <span class="at">medias =</span> medias_train,</span>
+<span id="cb26-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-6" tabindex="-1"></a>       <span class="at">desvios =</span> desvios_train, <span class="at">lambda =</span> lambda_final),</span>
+<span id="cb26-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-7" tabindex="-1"></a>  <span class="at">class =</span> <span class="st">&quot;modelo_lime_libro&quot;</span></span>
+<span id="cb26-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-8" tabindex="-1"></a>)</span>
+<span id="cb26-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-9" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-10" tabindex="-1"></a>model_type.modelo_lime_libro <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) x<span class="sc">$</span>tipo</span>
+<span id="cb26-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-11" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-12" tabindex="-1"></a>predict_model.modelo_lime_libro <span class="ot">&lt;-</span> <span class="cf">function</span>(x, newdata, type, ...) {</span>
+<span id="cb26-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-13" tabindex="-1"></a>  mat_num <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">as.matrix</span>(newdata[, x<span class="sc">$</span>numericas, <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb26-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-14" tabindex="-1"></a>                   <span class="at">center =</span> x<span class="sc">$</span>medias, <span class="at">scale =</span> x<span class="sc">$</span>desvios)</span>
+<span id="cb26-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-15" tabindex="-1"></a>  mat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(mat_num,</span>
+<span id="cb26-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-16" tabindex="-1"></a>               <span class="at">sex_Girl =</span> <span class="fu">as.integer</span>(<span class="fu">as.character</span>(newdata<span class="sc">$</span>sex) <span class="sc">==</span> <span class="st">&quot;Girl&quot;</span>))</span>
+<span id="cb26-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-17" tabindex="-1"></a>  yhat <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(x<span class="sc">$</span>model, <span class="at">newx =</span> mat, <span class="at">s =</span> x<span class="sc">$</span>lambda))</span>
+<span id="cb26-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-18" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">Response =</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(<span class="dv">63</span>, yhat)))</span>
+<span id="cb26-19"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-19" tabindex="-1"></a>}</span>
+<span id="cb26-20"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-20" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-21" tabindex="-1"></a><span class="fu">set.seed</span>(semilla)</span>
+<span id="cb26-22"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-22" tabindex="-1"></a>expl_lime_en <span class="ot">&lt;-</span> lime<span class="sc">::</span><span class="fu">lime</span>(train[, predictores], modelo_lime_en)</span>
+<span id="cb26-23"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-23" tabindex="-1"></a>casos_en <span class="ot">&lt;-</span> test[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), predictores]</span>
+<span id="cb26-24"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-24" tabindex="-1"></a>explicaciones_lime <span class="ot">&lt;-</span> lime<span class="sc">::</span><span class="fu">explain</span>(</span>
+<span id="cb26-25"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-25" tabindex="-1"></a>  casos_en, expl_lime_en, <span class="at">n_features =</span> <span class="dv">6</span>, <span class="at">n_permutations =</span> <span class="dv">5000</span></span>
+<span id="cb26-26"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-26" tabindex="-1"></a>)</span>
+<span id="cb26-27"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-27" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="interpretabilidad-de-los-modelos-finales.html#cb26-28" tabindex="-1"></a>lime<span class="sc">::</span><span class="fu">plot_features</span>(explicaciones_lime)</span></code></pre></div>
+<p>En el original se interpretan tres perfiles de clasificación (verdadero positivo, falso negativo y falso positivo) y tres de regresión (BDI bajo, cercano a 14 y alto). Para replicar esa selección, se debe calcular primero la predicción de todo el test y utilizar el umbral elegido con el train, no un umbral improvisado durante la interpretación.</p>
+<div id="lime-frente-a-shap" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> LIME frente a SHAP<a href="interpretabilidad-de-los-modelos-finales.html#lime-frente-a-shap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los métodos tienen objetivos distintos. SHAP distribuye la salida del modelo respecto de una referencia global; LIME aproxima el comportamiento del modelo cerca de un caso. Conviene contrastar el signo y el orden de las principales variables, pero no comparar directamente coeficientes en probabilidad con valores SHAP en log-odds.</p>
+</div>
+</div>
+<div id="importancia-por-permutación-del-elasticnet" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Importancia por permutación del ElasticNet<a href="interpretabilidad-de-los-modelos-finales.html#importancia-por-permutaci%C3%B3n-del-elasticnet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La importancia por permutación mide cuánto empeora el RMSE al desordenar una variable del test. Aquí se realizan 30 permutaciones para cada predictor, manteniendo el modelo fijo. Es una medida de dependencia predictiva, no de causalidad; la correlación entre variables puede reducir la importancia individual.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb27-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-2" tabindex="-1"></a>rmse_base <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((test<span class="sc">$</span>bdi_total <span class="sc">-</span> pred_elastic)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb27-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-3" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-4" tabindex="-1"></a>permutaciones <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb27-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-5" tabindex="-1"></a>  <span class="at">Variable =</span> predictores,</span>
+<span id="cb27-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-6" tabindex="-1"></a>  <span class="at">Aumento_RMSE =</span> <span class="cn">NA_real_</span>,</span>
+<span id="cb27-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-7" tabindex="-1"></a>  <span class="at">DE =</span> <span class="cn">NA_real_</span></span>
+<span id="cb27-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-8" tabindex="-1"></a>)</span>
+<span id="cb27-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-9" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-10" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_along</span>(predictores)) {</span>
+<span id="cb27-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-11" tabindex="-1"></a>  variable <span class="ot">&lt;-</span> predictores[j]</span>
+<span id="cb27-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-12" tabindex="-1"></a>  aumentos <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">30</span>)</span>
+<span id="cb27-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-13" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-14" tabindex="-1"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">30</span>) {</span>
+<span id="cb27-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-15" tabindex="-1"></a>    test_permutado <span class="ot">&lt;-</span> test</span>
+<span id="cb27-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-16" tabindex="-1"></a>    test_permutado[[variable]] <span class="ot">&lt;-</span> <span class="fu">sample</span>(test_permutado[[variable]])</span>
+<span id="cb27-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-17" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-18" tabindex="-1"></a>    num_perm <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">as.matrix</span>(test_permutado[, numericas, <span class="at">drop =</span> <span class="cn">FALSE</span>]),</span>
+<span id="cb27-19"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-19" tabindex="-1"></a>                      <span class="at">center =</span> medias_train, <span class="at">scale =</span> desvios_train)</span>
+<span id="cb27-20"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-20" tabindex="-1"></a>    X_perm <span class="ot">&lt;-</span> <span class="fu">cbind</span>(num_perm,</span>
+<span id="cb27-21"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-21" tabindex="-1"></a>                    <span class="at">sex_Girl =</span> <span class="fu">as.integer</span>(test_permutado<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;Girl&quot;</span>))</span>
+<span id="cb27-22"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-22" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-23" tabindex="-1"></a>    pred_perm <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">predict</span>(</span>
+<span id="cb27-24"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-24" tabindex="-1"></a>      elasticnet_final, <span class="at">newx =</span> X_perm, <span class="at">s =</span> lambda_final</span>
+<span id="cb27-25"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-25" tabindex="-1"></a>    ))</span>
+<span id="cb27-26"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-26" tabindex="-1"></a>    pred_perm <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(<span class="dv">63</span>, pred_perm))</span>
+<span id="cb27-27"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-27" tabindex="-1"></a></span>
+<span id="cb27-28"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-28" tabindex="-1"></a>    rmse_perm <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>((test<span class="sc">$</span>bdi_total <span class="sc">-</span> pred_perm)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb27-29"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-29" tabindex="-1"></a>    aumentos[b] <span class="ot">&lt;-</span> rmse_perm <span class="sc">-</span> rmse_base</span>
+<span id="cb27-30"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-30" tabindex="-1"></a>  }</span>
+<span id="cb27-31"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-31" tabindex="-1"></a></span>
+<span id="cb27-32"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-32" tabindex="-1"></a>  permutaciones<span class="sc">$</span>Aumento_RMSE[j] <span class="ot">&lt;-</span> <span class="fu">mean</span>(aumentos)</span>
+<span id="cb27-33"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-33" tabindex="-1"></a>  permutaciones<span class="sc">$</span>DE[j] <span class="ot">&lt;-</span> <span class="fu">sd</span>(aumentos)</span>
+<span id="cb27-34"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-34" tabindex="-1"></a>}</span>
+<span id="cb27-35"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-35" tabindex="-1"></a></span>
+<span id="cb27-36"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-36" tabindex="-1"></a>permutaciones <span class="ot">&lt;-</span> permutaciones <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(Aumento_RMSE))</span>
+<span id="cb27-37"><a href="interpretabilidad-de-los-modelos-finales.html#cb27-37" tabindex="-1"></a><span class="fu">kable</span>(permutaciones, <span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="right">Aumento_RMSE</th>
+<th align="right">DE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sleep_quality_index</td>
+<td align="right">0.7913</td>
+<td align="right">0.0638</td>
+</tr>
+<tr class="even">
+<td align="left">sex</td>
+<td align="right">0.3845</td>
+<td align="right">0.0497</td>
+</tr>
+<tr class="odd">
+<td align="left">avg_sleep_hours</td>
+<td align="right">0.1436</td>
+<td align="right">0.0235</td>
+</tr>
+<tr class="even">
+<td align="left">screen_time_index</td>
+<td align="right">0.0359</td>
+<td align="right">0.0130</td>
+</tr>
+<tr class="odd">
+<td align="left">midsleep_weekend_hours</td>
+<td align="right">0.0278</td>
+<td align="right">0.0118</td>
+</tr>
+<tr class="even">
+<td align="left">social_jetlag_hours</td>
+<td align="right">0.0013</td>
+<td align="right">0.0021</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-1" tabindex="-1"></a><span class="fu">ggplot</span>(permutaciones,</span>
+<span id="cb28-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Aumento_RMSE), <span class="at">y =</span> Aumento_RMSE)) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-3" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#A3C3E5&quot;</span>, <span class="at">width =</span> <span class="fl">0.65</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-4" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Aumento_RMSE <span class="sc">-</span> DE,</span>
+<span id="cb28-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-5" tabindex="-1"></a>                    <span class="at">ymax =</span> Aumento_RMSE <span class="sc">+</span> DE), <span class="at">width =</span> <span class="fl">0.15</span>) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-6" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb28-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;ElasticNet: importancia por permutación (30 repeticiones)&quot;</span>,</span>
+<span id="cb28-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;Aumento del RMSE (puntos BDI)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb28-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p><img src="book-merged_files/figure-html/interp-permutacion-plot-1.png" alt="" width="768" /></p>
+</div>
+<div id="guardado-y-reproducibilidad" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> Guardado y reproducibilidad<a href="interpretabilidad-de-los-modelos-finales.html#guardado-y-reproducibilidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para conservar los resultados de R se exportan coeficientes, SHAP global del ElasticNet e importancia por permutación. Si CatBoost está instalado, también pueden exportarse sus medidas; los valores no deben sustituirse por los publicados en Python.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-1" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">&quot;resultados/modelado_libro/interpretabilidad&quot;</span>,</span>
+<span id="cb29-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-2" tabindex="-1"></a>           <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-3" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-4" tabindex="-1"></a><span class="fu">write.csv</span>(tabla_coeficientes,</span>
+<span id="cb29-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-5" tabindex="-1"></a>          <span class="st">&quot;resultados/modelado_libro/interpretabilidad/coeficientes_elasticnet.csv&quot;</span>,</span>
+<span id="cb29-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-6" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-7" tabindex="-1"></a><span class="fu">write.csv</span>(shap_global_en,</span>
+<span id="cb29-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-8" tabindex="-1"></a>          <span class="st">&quot;resultados/modelado_libro/interpretabilidad/shap_global_elasticnet.csv&quot;</span>,</span>
+<span id="cb29-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-9" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-10" tabindex="-1"></a><span class="fu">write.csv</span>(permutaciones,</span>
+<span id="cb29-11"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-11" tabindex="-1"></a>          <span class="st">&quot;resultados/modelado_libro/interpretabilidad/permutacion_elasticnet.csv&quot;</span>,</span>
+<span id="cb29-12"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-12" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-13"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-13" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-14" tabindex="-1"></a><span class="fu">saveRDS</span>(</span>
+<span id="cb29-15"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-15" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">modelo_elasticnet =</span> elasticnet_final,</span>
+<span id="cb29-16"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-16" tabindex="-1"></a>       <span class="at">medias =</span> medias_train, <span class="at">desvios =</span> desvios_train,</span>
+<span id="cb29-17"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-17" tabindex="-1"></a>       <span class="at">variables =</span> <span class="fu">colnames</span>(X_train),</span>
+<span id="cb29-18"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-18" tabindex="-1"></a>       <span class="at">lambda =</span> lambda_final, <span class="at">alpha =</span> alpha_final),</span>
+<span id="cb29-19"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-19" tabindex="-1"></a>  <span class="st">&quot;resultados/modelado_libro/interpretabilidad/elasticnet_R.rds&quot;</span></span>
+<span id="cb29-20"><a href="interpretabilidad-de-los-modelos-finales.html#cb29-20" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-1" tabindex="-1"></a><span class="fu">write.csv</span>(importancias_catboost,</span>
+<span id="cb30-2"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-2" tabindex="-1"></a>          <span class="st">&quot;resultados/modelado_libro/interpretabilidad/importancia_catboost.csv&quot;</span>,</span>
+<span id="cb30-3"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-3" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-4"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-4" tabindex="-1"></a><span class="fu">write.csv</span>(shap_global_cb,</span>
+<span id="cb30-5"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-5" tabindex="-1"></a>          <span class="st">&quot;resultados/modelado_libro/interpretabilidad/shap_global_catboost.csv&quot;</span>,</span>
+<span id="cb30-6"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-6" tabindex="-1"></a>          <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb30-7"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-7" tabindex="-1"></a>catboost<span class="sc">::</span><span class="fu">catboost.save_model</span>(</span>
+<span id="cb30-8"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-8" tabindex="-1"></a>  catboost_final,</span>
+<span id="cb30-9"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-9" tabindex="-1"></a>  <span class="st">&quot;resultados/modelado_libro/interpretabilidad/catboost_R.cbm&quot;</span></span>
+<span id="cb30-10"><a href="interpretabilidad-de-los-modelos-finales.html#cb30-10" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="interpretación-de-resultados" class="section level2 hasAnchor" number="6.8">
+<h2><span class="header-section-number">6.8</span> Interpretación de resultados<a href="interpretabilidad-de-los-modelos-finales.html#interpretaci%C3%B3n-de-resultados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el libro original, la calidad del sueño y el sexo aparecen entre los predictores más relevantes, seguidos de la duración del sueño. Los valores SHAP del clasificador CatBoost se expresan en log-odds, mientras que las contribuciones del ElasticNet se presentan en puntos BDI-II. El análisis describe asociaciones utilizadas por los modelos, sin inferir que alterar una variable produciría necesariamente el cambio predicho.</p>
+<p>Los resultados de esta adaptación deben comentarse después de ejecutar los bloques en R, porque la variabilidad en el split, la regularización y el entrenamiento puede cambiar las magnitudes y el orden de las variables. No se deben reutilizar literalmente como resultados de R los coeficientes o las importancias estimadas en Python.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="metodología-del-modelado.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/07-modelofinal.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["book-merged.pdf", "book-merged.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

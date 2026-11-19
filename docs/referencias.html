@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Referencias | Visualización De Datos Y Toma de Desciciones</title>
+  <title>Referencias | El uso excesivo del celular afecta en la salud mental de los jovenes?</title>
   <meta name="description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Referencias | Visualización De Datos Y Toma de Desciciones" />
+  <meta property="og:title" content="Referencias | El uso excesivo del celular afecta en la salud mental de los jovenes?" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
   <meta name="github-repo" content="sjimenezurrea-sudo/rbook_Dataviz2026" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Referencias | Visualización De Datos Y Toma de Desciciones" />
+  <meta name="twitter:title" content="Referencias | El uso excesivo del celular afecta en la salud mental de los jovenes?" />
   
   <meta name="twitter:description" content="Este libro está hecho con el fin de demostrar que la visualización y inferencia de datos es muy fácil de entender gracias a herramientas interactivas y funciones de cálculo." />
   
@@ -23,14 +23,14 @@
 <meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
 
 
-<meta name="date" content="2026-08-28" />
+<meta name="date" content="2026-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="en-proceso-1.html"/>
+<link rel="prev" href="interpretabilidad-de-los-modelos-finales.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -65,6 +65,10 @@
 <script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -151,56 +155,139 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefacio</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#antecendentes"><i class="fa fa-check"></i><b>1.1</b> ANTECENDENTES</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#objetivo"><i class="fa fa-check"></i><b>1.2</b> OBJETIVO</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.3</b> OBJETIVOS ESPECÍFICOS</a></li>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#antecedentes"><i class="fa fa-check"></i><b>1.1</b> Antecedentes</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.2</b> Objetivo</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#objetivos-espec%C3%ADficos"><i class="fa fa-check"></i><b>1.3</b> Objetivos específicos</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>2</b> Metodología</a>
+<li class="chapter" data-level="2" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html"><i class="fa fa-check"></i><b>2</b> Metodología y Datos</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="metodología.html"><a href="metodología.html#descripci%C3%B3n-del-dataset"><i class="fa fa-check"></i><b>2.1</b> Descripción del dataset</a></li>
-<li class="chapter" data-level="2.2" data-path="metodología.html"><a href="metodología.html#an%C3%A1lisis-exploratorio-de-datos-eda"><i class="fa fa-check"></i><b>2.2</b> Análisis Exploratorio de Datos (EDA)</a></li>
-<li class="chapter" data-level="2.3" data-path="metodología.html"><a href="metodología.html#preprocesamiento"><i class="fa fa-check"></i><b>2.3</b> Preprocesamiento</a></li>
-<li class="chapter" data-level="2.4" data-path="metodología.html"><a href="metodología.html#modelado"><i class="fa fa-check"></i><b>2.4</b> Modelado</a></li>
-<li class="chapter" data-level="2.5" data-path="metodología.html"><a href="metodología.html#evaluaci%C3%B3n"><i class="fa fa-check"></i><b>2.5</b> Evaluación</a></li>
-<li class="chapter" data-level="2.6" data-path="metodología.html"><a href="metodología.html#interpretabilidad"><i class="fa fa-check"></i><b>2.6</b> Interpretabilidad</a></li>
-<li class="chapter" data-level="2.7" data-path="metodología.html"><a href="metodología.html#herramientas"><i class="fa fa-check"></i><b>2.7</b> Herramientas</a></li>
+<li class="chapter" data-level="2.1" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#marco-te%C3%B3rico"><i class="fa fa-check"></i><b>2.1</b> Marco Teórico</a></li>
+<li class="chapter" data-level="2.2" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#descripci%C3%B3n-del-dataset"><i class="fa fa-check"></i><b>2.2</b> Descripción del dataset</a></li>
+<li class="chapter" data-level="2.3" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#an%C3%A1lisis-exploratorio-de-datos-eda"><i class="fa fa-check"></i><b>2.3</b> Análisis Exploratorio de Datos (EDA)</a></li>
+<li class="chapter" data-level="2.4" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#preprocesamiento"><i class="fa fa-check"></i><b>2.4</b> Preprocesamiento</a></li>
+<li class="chapter" data-level="2.5" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#modelado"><i class="fa fa-check"></i><b>2.5</b> Modelado</a></li>
+<li class="chapter" data-level="2.6" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#evaluaci%C3%B3n"><i class="fa fa-check"></i><b>2.6</b> Evaluación</a></li>
+<li class="chapter" data-level="2.7" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#interpretabilidad"><i class="fa fa-check"></i><b>2.7</b> Interpretabilidad</a></li>
+<li class="chapter" data-level="2.8" data-path="metodología-y-datos.html"><a href="metodología-y-datos.html#herramientas"><i class="fa fa-check"></i><b>2.8</b> Herramientas</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>3</b> EDA (Análisis Exploratorio De Datos)</a>
+<li class="chapter" data-level="3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html"><i class="fa fa-check"></i><b>3</b> Marco Teórico y Base Estadística</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto"><i class="fa fa-check"></i><b>3.1</b> Comprender el contexto</a></li>
-<li class="chapter" data-level="3.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas"><i class="fa fa-check"></i><b>3.2</b> Carga de librerías</a></li>
-<li class="chapter" data-level="3.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>3.3</b> Importación de datos</a></li>
-<li class="chapter" data-level="3.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n"><i class="fa fa-check"></i><b>3.4</b> Limpieza, tratamiento y preparación</a>
+<li class="chapter" data-level="3.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#estad%C3%ADstica-descriptiva-y-detecci%C3%B3n-de-valores-at%C3%ADpicos"><i class="fa fa-check"></i><b>3.1</b> Estadística descriptiva y detección de valores atípicos</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos"><i class="fa fa-check"></i><b>3.4.1</b> Tipos de datos</a></li>
-<li class="chapter" data-level="3.4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados"><i class="fa fa-check"></i><b>3.4.2</b> Valores faltantes y duplicados</a></li>
-<li class="chapter" data-level="3.4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr"><i class="fa fa-check"></i><b>3.4.3</b> Detección de outliers (método IQR)</a></li>
+<li class="chapter" data-level="3.1.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#medidas-de-tendencia-central-y-dispersi%C3%B3n"><i class="fa fa-check"></i><b>3.1.1</b> Medidas de tendencia central y dispersión</a></li>
+<li class="chapter" data-level="3.1.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#detecci%C3%B3n-de-valores-at%C3%ADpicos-outliers"><i class="fa fa-check"></i><b>3.1.2</b> 1.2. Detección de valores atípicos (Outliers)</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado"><i class="fa fa-check"></i><b>3.5</b> Análisis descriptivo univariado</a>
+<li class="chapter" data-level="3.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#medidas-de-asociaci%C3%B3n-y-correlaci%C3%B3n"><i class="fa fa-check"></i><b>3.2</b> Medidas de asociación y correlación</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>3.5.1</b> Distribución de variables numéricas</a></li>
-<li class="chapter" data-level="3.5.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total"><i class="fa fa-check"></i><b>3.5.2</b> Variable objetivo: depressed / bdi_total</a></li>
-<li class="chapter" data-level="3.5.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex"><i class="fa fa-check"></i><b>3.5.3</b> Variable categórica: sex</a></li>
+<li class="chapter" data-level="3.2.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-pearson"><i class="fa fa-check"></i><b>3.2.1</b> Coeficiente de correlación de Pearson</a></li>
+<li class="chapter" data-level="3.2.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#coeficiente-de-correlaci%C3%B3n-de-spearman"><i class="fa fa-check"></i><b>3.2.2</b> Coeficiente de correlación de Spearman</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado"><i class="fa fa-check"></i><b>3.6</b> Análisis descriptivo bivariado</a>
+<li class="chapter" data-level="3.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#pruebas-de-hip%C3%B3tesis-y-decisi%C3%B3n-mediante-valor-p"><i class="fa fa-check"></i><b>3.3</b> Pruebas de hipótesis y decisión mediante valor p</a>
 <ul>
-<li class="chapter" data-level="3.6.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman"><i class="fa fa-check"></i><b>3.6.1</b> Matriz de correlación (Spearman)</a></li>
-<li class="chapter" data-level="3.6.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real"><i class="fa fa-check"></i><b>3.6.2</b> Selección de variables a partir de la correlación real</a></li>
-<li class="chapter" data-level="3.6.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total"><i class="fa fa-check"></i><b>3.6.3</b> Predictoras más asociadas con bdi_total</a></li>
-<li class="chapter" data-level="3.6.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo"><i class="fa fa-check"></i><b>3.6.4</b> Interacción con sexo</a></li>
+<li class="chapter" data-level="3.3.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#l%C3%B3gica-de-la-prueba-y-regla-de-decisi%C3%B3n"><i class="fa fa-check"></i><b>3.3.1</b> Lógica de la prueba y regla de decisión</a></li>
+<li class="chapter" data-level="3.3.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#prueba-chi-cuadrado-de-independencia"><i class="fa fa-check"></i><b>3.3.2</b> Prueba Chi-cuadrado de independencia</a></li>
+<li class="chapter" data-level="3.3.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#prueba-u-de-mann-whitney"><i class="fa fa-check"></i><b>3.3.3</b> Prueba U de Mann-Whitney</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>3.7</b> Documentación de hallazgos</a></li>
+<li class="chapter" data-level="3.4" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#modelado-con-aprendizaje-autom%C3%A1tico-machine-learning"><i class="fa fa-check"></i><b>3.4</b> Modelado con Aprendizaje Automático (Machine Learning)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#tratamiento-del-desbalance-smote"><i class="fa fa-check"></i><b>3.4.1</b> Tratamiento del desbalance: SMOTE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#regresi%C3%B3n-log%C3%ADstica"><i class="fa fa-check"></i><b>3.4.2</b> Regresión Logística</a></li>
+<li class="chapter" data-level="3.4.3" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#random-forest"><i class="fa fa-check"></i><b>3.4.3</b> Random Forest</a></li>
+<li class="chapter" data-level="3.4.4" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#xgboost-extreme-gradient-boosting"><i class="fa fa-check"></i><b>3.4.4</b> XGBoost (Extreme Gradient Boosting)</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="en-proceso.html"><a href="en-proceso.html"><i class="fa fa-check"></i><b>4</b> En proceso</a></li>
-<li class="chapter" data-level="5" data-path="en-proceso-1.html"><a href="en-proceso-1.html"><i class="fa fa-check"></i><b>5</b> En proceso</a></li>
+<li class="chapter" data-level="3.5" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#evaluaci%C3%B3n-de-los-modelos"><i class="fa fa-check"></i><b>3.5</b> Evaluación de los modelos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#matriz-de-confusi%C3%B3n-y-m%C3%A9tricas-b%C3%A1sicas"><i class="fa fa-check"></i><b>3.5.1</b> Matriz de confusión y métricas básicas</a></li>
+<li class="chapter" data-level="3.5.2" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#curvas-roc-y-precision-recall"><i class="fa fa-check"></i><b>3.5.2</b> Curvas ROC y Precision-Recall</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="marco-teórico-y-base-estadística.html"><a href="marco-teórico-y-base-estadística.html#interpretabilidad-del-modelo-shap"><i class="fa fa-check"></i><b>3.6</b> Interpretabilidad del modelo (SHAP)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html"><i class="fa fa-check"></i><b>4</b> EDA (Análisis Exploratorio De Datos)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#comprender-el-contexto"><i class="fa fa-check"></i><b>4.1</b> Comprender el contexto</a></li>
+<li class="chapter" data-level="4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#carga-de-librer%C3%ADas"><i class="fa fa-check"></i><b>4.2</b> Carga de librerías</a></li>
+<li class="chapter" data-level="4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#importaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>4.3</b> Importación de datos</a></li>
+<li class="chapter" data-level="4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#limpieza-tratamiento-y-preparaci%C3%B3n"><i class="fa fa-check"></i><b>4.4</b> Limpieza, tratamiento y preparación</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#tipos-de-datos"><i class="fa fa-check"></i><b>4.4.1</b> Tipos de datos</a></li>
+<li class="chapter" data-level="4.4.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#valores-faltantes-y-duplicados"><i class="fa fa-check"></i><b>4.4.2</b> Valores faltantes y duplicados</a></li>
+<li class="chapter" data-level="4.4.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#resumen-estad%C3%ADstico-inicial"><i class="fa fa-check"></i><b>4.4.3</b> Resumen estadístico inicial</a></li>
+<li class="chapter" data-level="4.4.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#detecci%C3%B3n-de-outliers-m%C3%A9todo-iqr"><i class="fa fa-check"></i><b>4.4.4</b> Detección de outliers (método IQR)</a></li>
+<li class="chapter" data-level="4.4.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#test-de-normalidad"><i class="fa fa-check"></i><b>4.4.5</b> Test de normalidad</a></li>
+<li class="chapter" data-level="4.4.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#intervalos-de-confianza-del-95-para-medias"><i class="fa fa-check"></i><b>4.4.6</b> Intervalos de confianza del 95% para medias</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-univariado"><i class="fa fa-check"></i><b>4.5</b> Análisis descriptivo univariado</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#distribuci%C3%B3n-de-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>4.5.1</b> Distribución de variables numéricas</a></li>
+<li class="chapter" data-level="4.5.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-objetivo-depressed-bdi_total"><i class="fa fa-check"></i><b>4.5.2</b> Variable objetivo: depressed / bdi_total</a></li>
+<li class="chapter" data-level="4.5.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#variable-categ%C3%B3rica-sex"><i class="fa fa-check"></i><b>4.5.3</b> Variable categórica: sex</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#an%C3%A1lisis-descriptivo-bivariado"><i class="fa fa-check"></i><b>4.6</b> Análisis descriptivo bivariado</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#matriz-de-correlaci%C3%B3n-spearman"><i class="fa fa-check"></i><b>4.6.1</b> Matriz de correlación (Spearman)</a></li>
+<li class="chapter" data-level="4.6.2" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#selecci%C3%B3n-de-variables-a-partir-de-la-correlaci%C3%B3n-real"><i class="fa fa-check"></i><b>4.6.2</b> Selección de variables a partir de la correlación real</a></li>
+<li class="chapter" data-level="4.6.3" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#predictoras-m%C3%A1s-asociadas-con-bdi_total"><i class="fa fa-check"></i><b>4.6.3</b> Predictoras más asociadas con bdi_total</a></li>
+<li class="chapter" data-level="4.6.4" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#interacci%C3%B3n-con-sexo"><i class="fa fa-check"></i><b>4.6.4</b> Interacción con sexo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>4.7</b> Documentación de hallazgos</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html"><i class="fa fa-check"></i><b>5</b> Metodología del modelado</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#configuraci%C3%B3n-y-lectura-de-datos"><i class="fa fa-check"></i><b>5.1</b> Configuración y lectura de datos</a></li>
+<li class="chapter" data-level="5.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#predictores-y-exclusiones"><i class="fa fa-check"></i><b>5.2</b> Predictores y exclusiones</a></li>
+<li class="chapter" data-level="5.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#divisi%C3%B3n-de-entrenamiento-y-prueba"><i class="fa fa-check"></i><b>5.3</b> División de entrenamiento y prueba</a></li>
+<li class="chapter" data-level="5.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#preprocesamiento-sin-fuga-de-informaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Preprocesamiento sin fuga de información</a></li>
+<li class="chapter" data-level="5.5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#organizaci%C3%B3n-del-an%C3%A1lisis"><i class="fa fa-check"></i><b>5.5</b> Organización del análisis</a></li>
+<li class="chapter" data-level="5.6" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#clasificaci%C3%B3n-predicci%C3%B3n-de-depressed"><i class="fa fa-check"></i><b>5.6</b> Clasificación: predicción de <code>depressed</code></a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#m%C3%A9tricas-principales"><i class="fa fa-check"></i><b>5.6.1</b> Métricas principales</a></li>
+<li class="chapter" data-level="5.6.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#manejo-del-desbalance"><i class="fa fa-check"></i><b>5.6.2</b> Manejo del desbalance</a></li>
+<li class="chapter" data-level="5.6.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#validaci%C3%B3n-cruzada-b%C3%BAsqueda-y-selecci%C3%B3n"><i class="fa fa-check"></i><b>5.6.3</b> Validación cruzada, búsqueda y selección</a></li>
+<li class="chapter" data-level="5.6.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#matriz-de-confusi%C3%B3n-y-curvas"><i class="fa fa-check"></i><b>5.6.4</b> Matriz de confusión y curvas</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#regresi%C3%B3n-predicci%C3%B3n-del-puntaje-bdi-ii"><i class="fa fa-check"></i><b>5.7</b> Regresión: predicción del puntaje BDI-II</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#m%C3%A9tricas-y-distribuci%C3%B3n-de-la-respuesta"><i class="fa fa-check"></i><b>5.7.1</b> Métricas y distribución de la respuesta</a></li>
+<li class="chapter" data-level="5.7.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#variantes-de-la-respuesta"><i class="fa fa-check"></i><b>5.7.2</b> Variantes de la respuesta</a></li>
+<li class="chapter" data-level="5.7.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#sesgo-de-retransformaci%C3%B3n-smearing"><i class="fa fa-check"></i><b>5.7.3</b> Sesgo de retransformación (<em>smearing</em>)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#elasticnet-en-r"><i class="fa fa-check"></i><b>5.7.4</b> ElasticNet en R</a></li>
+<li class="chapter" data-level="5.7.5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#validaci%C3%B3n-cruzada-y-regla-de-parsimonia"><i class="fa fa-check"></i><b>5.7.5</b> Validación cruzada y regla de parsimonia</a></li>
+<li class="chapter" data-level="5.7.6" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#interpretaci%C3%B3n-inferencial-de-modelos-tradicionales"><i class="fa fa-check"></i><b>5.7.6</b> Interpretación inferencial de modelos tradicionales</a></li>
+<li class="chapter" data-level="5.7.7" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#incertidumbre-en-test-mediante-bootstrap-pareado"><i class="fa fa-check"></i><b>5.7.7</b> Incertidumbre en test mediante bootstrap pareado</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#comparaci%C3%B3n-entre-regresi%C3%B3n-y-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>5.8</b> Comparación entre regresión y clasificación</a></li>
+<li class="chapter" data-level="5.9" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#persistencia-de-resultados"><i class="fa fa-check"></i><b>5.9</b> Persistencia de resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html"><i class="fa fa-check"></i><b>6</b> Interpretabilidad de los modelos finales</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#configuraci%C3%B3n-modelos-y-partici%C3%B3n"><i class="fa fa-check"></i><b>6.1</b> Configuración, modelos y partición</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#elasticnet-y-catboost-finales-para-el-ejemplo"><i class="fa fa-check"></i><b>6.1.1</b> ElasticNet y CatBoost finales para el ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#coeficientes-del-elasticnet"><i class="fa fa-check"></i><b>6.2</b> Coeficientes del ElasticNet</a></li>
+<li class="chapter" data-level="6.3" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#importancia-nativa-de-catboost"><i class="fa fa-check"></i><b>6.3</b> Importancia nativa de CatBoost</a></li>
+<li class="chapter" data-level="6.4" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-explicaci%C3%B3n-global-y-local"><i class="fa fa-check"></i><b>6.4</b> SHAP: explicación global y local</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-lineal-exacto-para-elasticnet"><i class="fa fa-check"></i><b>6.4.1</b> SHAP lineal exacto para ElasticNet</a></li>
+<li class="chapter" data-level="6.4.2" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-de-catboost-y-prueba-de-aditividad"><i class="fa fa-check"></i><b>6.4.2</b> SHAP de CatBoost y prueba de aditividad</a></li>
+<li class="chapter" data-level="6.4.3" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#distribuciones-de-shap-beeswarm-simplificado"><i class="fa fa-check"></i><b>6.4.3</b> Distribuciones de SHAP (<em>beeswarm</em> simplificado)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#explicaci%C3%B3n-individual-y-gr%C3%A1fico-de-contribuciones"><i class="fa fa-check"></i><b>6.4.4</b> Explicación individual y gráfico de contribuciones</a></li>
+<li class="chapter" data-level="6.4.5" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#dependencia-y-posibles-no-linealidades"><i class="fa fa-check"></i><b>6.4.5</b> Dependencia y posibles no linealidades</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#lime-explicaciones-locales"><i class="fa fa-check"></i><b>6.5</b> LIME: explicaciones locales</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#lime-frente-a-shap"><i class="fa fa-check"></i><b>6.5.1</b> LIME frente a SHAP</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#importancia-por-permutaci%C3%B3n-del-elasticnet"><i class="fa fa-check"></i><b>6.6</b> Importancia por permutación del ElasticNet</a></li>
+<li class="chapter" data-level="6.7" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#guardado-y-reproducibilidad"><i class="fa fa-check"></i><b>6.7</b> Guardado y reproducibilidad</a></li>
+<li class="chapter" data-level="6.8" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#interpretaci%C3%B3n-de-resultados"><i class="fa fa-check"></i><b>6.8</b> Interpretación de resultados</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 <li class="divider"></li>
+<li><a href="./">Analisis exploratorio de datos</a></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
 </ul>
@@ -212,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Visualización De Datos Y Toma de Desciciones</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">El uso excesivo del celular afecta en la salud mental de los jovenes?</a>
           </h1>
         </div>
 
@@ -222,11 +309,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="referencias" class="section level1 unnumbered hasAnchor">
 <h1>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Hökby, S., Westerlund, J., Alvarsson, J., Carli, V., &amp; Hadlaczky, G. (2023). Longitudinal Effects of Screen Time on Depressive Symptoms among Swedish Adolescents: The Moderating and Mediating Role of Coping Engagement Behavior. <em>International Journal of Environmental Research and Public Health</em>, 20(4), 3771. <a href="https://doi.org/10.3390/ijerph20043771" class="uri">https://doi.org/10.3390/ijerph20043771</a></p>
-<p>Lemke, T., Hökby, S., Wasserman, D., Carli, V., &amp; Hadlaczky, G. (2023). Associations between sleep habits, quality, chronotype and depression in a large cross-sectional sample of Swedish adolescents. <em>PLoS One</em>, 18(11), e0293580. <a href="https://doi.org/10.1371/journal.pone.0293580" class="uri">https://doi.org/10.1371/journal.pone.0293580</a></p>
-<p>Saleem, N., Young, P., &amp; Yousuf, S. (2024). Exploring the relationship between social media use and symptoms of depression and anxiety among children and adolescents: A systematic narrative review. <em>Cyberpsychology, Behavior, and Social Networking</em>, 27(11), 771–797.</p>
-<p>Hökby, S., Alvarsson, J., Westerlund, J., Carli, V., &amp; Hadlaczky, G. (2025). Adolescents’ screen time displaces multiple sleep pathways and elevates depressive symptoms over twelve months. <em>PLOS Global Public Health</em>, 5(4), e0004262. <a href="https://doi.org/10.1371/journal.pgph.0004262" class="uri">https://doi.org/10.1371/journal.pgph.0004262</a></p>
-<p>Chen, X., Yang, B., Han, L., Li, X., Jin, W., Xie, Z., Tao, M., Chen, Y., Gu, Y., Solomon, O. M., Li, L., &amp; Wei, Y. (2026). Predicting adolescent depression: an interpretable machine learning model. <em>BMC Medical Informatics and Decision Making</em>, 26, 218. <a href="https://doi.org/10.1186/s12911-026-03482-5" class="uri">https://doi.org/10.1186/s12911-026-03482-5</a></p>
+<ul>
+<li><p>Hökby, S., Westerlund, J., Alvarsson, J., Carli, V., &amp; Hadlaczky, G. (2023). Longitudinal Effects of Screen Time on Depressive Symptoms among Swedish Adolescents: The Moderating and Mediating Role of Coping Engagement Behavior. <em>International Journal of Environmental Research and Public Health</em>, 20(4), 3771. <a href="https://doi.org/10.3390/ijerph20043771" class="uri">https://doi.org/10.3390/ijerph20043771</a></p></li>
+<li><p>Lemke, T., Hökby, S., Wasserman, D., Carli, V., &amp; Hadlaczky, G. (2023). Associations between sleep habits, quality, chronotype and depression in a large cross-sectional sample of Swedish adolescents. <em>PLoS One</em>, 18(11), e0293580. <a href="https://doi.org/10.1371/journal.pone.0293580" class="uri">https://doi.org/10.1371/journal.pone.0293580</a></p></li>
+<li><p>Saleem, N., Young, P., &amp; Yousuf, S. (2024). Exploring the relationship between social media use and symptoms of depression and anxiety among children and adolescents: A systematic narrative review. <em>Cyberpsychology, Behavior, and Social Networking</em>, 27(11), 771–797.</p></li>
+<li><p>Hökby, S., Alvarsson, J., Westerlund, J., Carli, V., &amp; Hadlaczky, G. (2025). Adolescents’ screen time displaces multiple sleep pathways and elevates depressive symptoms over twelve months. <em>PLOS Global Public Health</em>, 5(4), e0004262. <a href="https://doi.org/10.1371/journal.pgph.0004262" class="uri">https://doi.org/10.1371/journal.pgph.0004262</a></p></li>
+<li><p>Chen, X., Yang, B., Han, L., Li, X., Jin, W., Xie, Z., Tao, M., Chen, Y., Gu, Y., Solomon, O. M., Li, L., &amp; Wei, Y. (2026). Predicting adolescent depression: an interpretable machine learning model. <em>BMC Medical Informatics and Decision Making</em>, 26, 218. <a href="https://doi.org/10.1186/s12911-026-03482-5" class="uri">https://doi.org/10.1186/s12911-026-03482-5</a></p></li>
+<li><p>Duan, N. (1983). <em>Smearing estimate: A nonparametric retransformation method</em>. Journal of the American
+Statistical Association, 78(383), 605–610. <a href="https://doi.org/10.1080/01621459.1983.10478017" class="uri">https://doi.org/10.1080/01621459.1983.10478017</a></p></li>
+<li><p>Documentación: <a href="https://rsample.tidymodels.org/">rsample</a>, <a href="https://yardstick.tidymodels.org/">yardstick</a>, <a href="https://themis.tidymodels.org/reference/step_smotenc.html">themis/SMOTENC</a>.</p></li>
+</ul>
 
 </div>
             </section>
@@ -234,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="en-proceso-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interpretabilidad-de-los-modelos-finales.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

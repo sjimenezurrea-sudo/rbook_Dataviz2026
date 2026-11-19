@@ -315,7 +315,7 @@ kable(shapiro_results,
            title_format = c("italic", "underline"))
 ```
 
-Al realizar el análisis del estadístico de normalidad, observamos que la dsitribución de nuestra población de estudio no sigue una distribución normal, de esta forma confirmamo que no sería correcto hacer el estudio de nuestra muestra utilizando el coeficiento de correlación de pearson el cual se usa cuando la muestra sigue una distribución normal por lo tanto usaremos el coeficiente de correlación de spearman para mas adelante en nuestro estudio encontrar las variables que dan respuesta al fenómeno que estamos evaluando.
+Al realizar el análisis del estadístico de normalidad, observamos que la dsitribución de nuestra población de estudio no sigue una distribución normal, de esta forma confirmamos que no sería correcto hacer el estudio de nuestra muestra utilizando el coeficiento de correlación de pearson el cual se usa cuando la muestra sigue una distribución normal por lo tanto usaremos el coeficiente de correlación de spearman para mas adelante en nuestro estudio encontrar las variables que dan respuesta al fenómeno que estamos evaluando.
 
 ### Intervalos de confianza del 95% para medias
 

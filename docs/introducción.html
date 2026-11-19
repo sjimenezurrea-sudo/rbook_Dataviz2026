@@ -23,7 +23,7 @@
 <meta name="author" content="Santiago Jimenez Urrea y Luis Cabarcas" />
 
 
-<meta name="date" content="2026-11-10" />
+<meta name="date" content="2026-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,8 +52,90 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
 
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -152,7 +234,57 @@
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="eda-análisis-exploratorio-de-datos.html"><a href="eda-análisis-exploratorio-de-datos.html#documentaci%C3%B3n-de-hallazgos"><i class="fa fa-check"></i><b>4.7</b> Documentación de hallazgos</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="en-proceso.html"><a href="en-proceso.html"><i class="fa fa-check"></i><b>5</b> En proceso</a></li>
+<li class="chapter" data-level="5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html"><i class="fa fa-check"></i><b>5</b> Metodología del modelado</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#configuraci%C3%B3n-y-lectura-de-datos"><i class="fa fa-check"></i><b>5.1</b> Configuración y lectura de datos</a></li>
+<li class="chapter" data-level="5.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#predictores-y-exclusiones"><i class="fa fa-check"></i><b>5.2</b> Predictores y exclusiones</a></li>
+<li class="chapter" data-level="5.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#divisi%C3%B3n-de-entrenamiento-y-prueba"><i class="fa fa-check"></i><b>5.3</b> División de entrenamiento y prueba</a></li>
+<li class="chapter" data-level="5.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#preprocesamiento-sin-fuga-de-informaci%C3%B3n"><i class="fa fa-check"></i><b>5.4</b> Preprocesamiento sin fuga de información</a></li>
+<li class="chapter" data-level="5.5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#organizaci%C3%B3n-del-an%C3%A1lisis"><i class="fa fa-check"></i><b>5.5</b> Organización del análisis</a></li>
+<li class="chapter" data-level="5.6" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#clasificaci%C3%B3n-predicci%C3%B3n-de-depressed"><i class="fa fa-check"></i><b>5.6</b> Clasificación: predicción de <code>depressed</code></a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#m%C3%A9tricas-principales"><i class="fa fa-check"></i><b>5.6.1</b> Métricas principales</a></li>
+<li class="chapter" data-level="5.6.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#manejo-del-desbalance"><i class="fa fa-check"></i><b>5.6.2</b> Manejo del desbalance</a></li>
+<li class="chapter" data-level="5.6.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#validaci%C3%B3n-cruzada-b%C3%BAsqueda-y-selecci%C3%B3n"><i class="fa fa-check"></i><b>5.6.3</b> Validación cruzada, búsqueda y selección</a></li>
+<li class="chapter" data-level="5.6.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#matriz-de-confusi%C3%B3n-y-curvas"><i class="fa fa-check"></i><b>5.6.4</b> Matriz de confusión y curvas</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#regresi%C3%B3n-predicci%C3%B3n-del-puntaje-bdi-ii"><i class="fa fa-check"></i><b>5.7</b> Regresión: predicción del puntaje BDI-II</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#m%C3%A9tricas-y-distribuci%C3%B3n-de-la-respuesta"><i class="fa fa-check"></i><b>5.7.1</b> Métricas y distribución de la respuesta</a></li>
+<li class="chapter" data-level="5.7.2" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#variantes-de-la-respuesta"><i class="fa fa-check"></i><b>5.7.2</b> Variantes de la respuesta</a></li>
+<li class="chapter" data-level="5.7.3" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#sesgo-de-retransformaci%C3%B3n-smearing"><i class="fa fa-check"></i><b>5.7.3</b> Sesgo de retransformación (<em>smearing</em>)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#elasticnet-en-r"><i class="fa fa-check"></i><b>5.7.4</b> ElasticNet en R</a></li>
+<li class="chapter" data-level="5.7.5" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#validaci%C3%B3n-cruzada-y-regla-de-parsimonia"><i class="fa fa-check"></i><b>5.7.5</b> Validación cruzada y regla de parsimonia</a></li>
+<li class="chapter" data-level="5.7.6" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#interpretaci%C3%B3n-inferencial-de-modelos-tradicionales"><i class="fa fa-check"></i><b>5.7.6</b> Interpretación inferencial de modelos tradicionales</a></li>
+<li class="chapter" data-level="5.7.7" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#incertidumbre-en-test-mediante-bootstrap-pareado"><i class="fa fa-check"></i><b>5.7.7</b> Incertidumbre en test mediante bootstrap pareado</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#comparaci%C3%B3n-entre-regresi%C3%B3n-y-clasificaci%C3%B3n"><i class="fa fa-check"></i><b>5.8</b> Comparación entre regresión y clasificación</a></li>
+<li class="chapter" data-level="5.9" data-path="metodología-del-modelado.html"><a href="metodología-del-modelado.html#persistencia-de-resultados"><i class="fa fa-check"></i><b>5.9</b> Persistencia de resultados</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html"><i class="fa fa-check"></i><b>6</b> Interpretabilidad de los modelos finales</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#configuraci%C3%B3n-modelos-y-partici%C3%B3n"><i class="fa fa-check"></i><b>6.1</b> Configuración, modelos y partición</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#elasticnet-y-catboost-finales-para-el-ejemplo"><i class="fa fa-check"></i><b>6.1.1</b> ElasticNet y CatBoost finales para el ejemplo</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#coeficientes-del-elasticnet"><i class="fa fa-check"></i><b>6.2</b> Coeficientes del ElasticNet</a></li>
+<li class="chapter" data-level="6.3" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#importancia-nativa-de-catboost"><i class="fa fa-check"></i><b>6.3</b> Importancia nativa de CatBoost</a></li>
+<li class="chapter" data-level="6.4" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-explicaci%C3%B3n-global-y-local"><i class="fa fa-check"></i><b>6.4</b> SHAP: explicación global y local</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-lineal-exacto-para-elasticnet"><i class="fa fa-check"></i><b>6.4.1</b> SHAP lineal exacto para ElasticNet</a></li>
+<li class="chapter" data-level="6.4.2" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#shap-de-catboost-y-prueba-de-aditividad"><i class="fa fa-check"></i><b>6.4.2</b> SHAP de CatBoost y prueba de aditividad</a></li>
+<li class="chapter" data-level="6.4.3" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#distribuciones-de-shap-beeswarm-simplificado"><i class="fa fa-check"></i><b>6.4.3</b> Distribuciones de SHAP (<em>beeswarm</em> simplificado)</a></li>
+<li class="chapter" data-level="6.4.4" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#explicaci%C3%B3n-individual-y-gr%C3%A1fico-de-contribuciones"><i class="fa fa-check"></i><b>6.4.4</b> Explicación individual y gráfico de contribuciones</a></li>
+<li class="chapter" data-level="6.4.5" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#dependencia-y-posibles-no-linealidades"><i class="fa fa-check"></i><b>6.4.5</b> Dependencia y posibles no linealidades</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#lime-explicaciones-locales"><i class="fa fa-check"></i><b>6.5</b> LIME: explicaciones locales</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#lime-frente-a-shap"><i class="fa fa-check"></i><b>6.5.1</b> LIME frente a SHAP</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#importancia-por-permutaci%C3%B3n-del-elasticnet"><i class="fa fa-check"></i><b>6.6</b> Importancia por permutación del ElasticNet</a></li>
+<li class="chapter" data-level="6.7" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#guardado-y-reproducibilidad"><i class="fa fa-check"></i><b>6.7</b> Guardado y reproducibilidad</a></li>
+<li class="chapter" data-level="6.8" data-path="interpretabilidad-de-los-modelos-finales.html"><a href="interpretabilidad-de-los-modelos-finales.html#interpretaci%C3%B3n-de-resultados"><i class="fa fa-check"></i><b>6.8</b> Interpretación de resultados</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 <li class="divider"></li>
 <li><a href="./">Analisis exploratorio de datos</a></li>
@@ -198,7 +330,7 @@
 <div id="objetivos-específicos" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Objetivos específicos<a href="introducción.html#objetivos-espec%C3%ADficos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li>Explorar los datos a fondo para entender cómo se distribuyen el tiempo de pantalla, los cuatro dominios del sueño (SQI, WASD, cronotipo y jet lag social), y el puntaje BDI-II. Queremos saber, por ejemplo, cuántos adolescentes superan el punto de corte clínico de depresión leve (más de 13 puntos) y si hay patrones claros que se repitan en la muestra.</li>
+<li>Explorar los datos a fondo para entender cómo se distribuyen el tiempo de pantalla, los cuatro dominios del sueño (SQI, WASO, cronotipo y jet lag social), y el puntaje BDI-II. Queremos saber, por ejemplo, cuántos adolescentes superan el punto de corte clínico de depresión leve (más de 13 puntos) y si hay patrones claros que se repitan en la muestra.</li>
 <li>Analizar la relación entre el tiempo de pantalla y cada dominio del sueño por separado, porque tratar el sueño como una única variable es simplificar demasiado una realidad compleja. El estudio base ya nos mostró que cada dominio tiene un tamaño de efecto distinto, y queremos ver si eso se mantiene al aplicar nuestros propios métodos.</li>
 <li>Explorar las diferencias de género, replicando uno de los hallazgos más interesantes del estudio original: que las chicas reportan puntajes de depresión más altos, y que la mediación del sueño solo fue significativa en el subgrupo femenino. Nos preguntamos si estas diferencias se mantienen al usar modelos distintos y al incorporar más variables.</li>
 <li>Entrenar y comparar modelos de machine learning como regresión logística, random forest y XGBoost para predecir el riesgo depresivo (usando el target definido en el dataset) a partir de variables de pantalla, sueño y demográficas. También planteamos entrenar modelos separados por género, para contrastar con el enfoque multigrupo del estudio original y ver si el rendimiento predictivo mejora al hacer esta distinción.</li>
@@ -267,6 +399,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
